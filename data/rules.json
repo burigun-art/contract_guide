@@ -1,0 +1,31 @@
+{
+  "_설명": "수의계약 근거 규칙. 금액 단위는 만원(minAmount 초과, maxAmount 이하). org: nat/loc. types: construction/goods/service/other. sub(공사 종류), partner(상대방)는 생략하면 모두 해당. law는 articles.json의 ID. reasons는 금액과 무관한 사유(special 선택값과 연결).",
+  "baseDate": "2026-11-02",
+  "rules": [
+    { "id": "N-CON-GEN", "org": "nat", "types": ["construction"], "sub": "general", "maxAmount": 40000, "law": "NAT-ENF-26", "ref": "제26조제1항제5호가목1)", "text": "건설공사(전문공사 제외) 추정가격 4억원 이하" },
+    { "id": "N-CON-SPE", "org": "nat", "types": ["construction"], "sub": "special", "maxAmount": 20000, "law": "NAT-ENF-26", "ref": "제26조제1항제5호가목1)", "text": "전문공사 추정가격 2억원 이하" },
+    { "id": "N-CON-OTH", "org": "nat", "types": ["construction"], "sub": "other", "maxAmount": 16000, "law": "NAT-ENF-26", "ref": "제26조제1항제5호가목1)", "text": "그 밖의 공사 관련 법령에 따른 공사 추정가격 1억6천만원 이하" },
+    { "id": "N-GS-20", "org": "nat", "types": ["goods", "service"], "maxAmount": 2000, "law": "NAT-ENF-26", "ref": "제26조제1항제5호가목2)", "text": "물품 제조·구매·임차 또는 용역 추정가격 2천만원 이하" },
+    { "id": "N-GS-SMALL", "org": "nat", "types": ["goods", "service"], "partner": "smallbiz", "minAmount": 2000, "maxAmount": 10000, "law": "NAT-ENF-26", "ref": "제26조제1항제5호가목3)", "text": "추정가격 2천만원 초과 1억원 이하, 소기업·소상공인과 체결" },
+    { "id": "N-GS-TECH", "org": "nat", "types": ["goods", "service"], "partner": "special_tech", "minAmount": 2000, "maxAmount": 10000, "law": "NAT-ENF-26", "ref": "제26조제1항제5호가목4)", "text": "추정가격 2천만원 초과 1억원 이하, 학술연구·원가계산·건설기술 등 특수 지식·기술·자격 요구" },
+    { "id": "N-GS-VULN", "org": "nat", "types": ["goods", "service"], "partner": "vulnerable", "minAmount": 2000, "maxAmount": 10000, "law": "NAT-ENF-26", "ref": "제26조제1항제5호가목5)", "text": "추정가격 2천만원 초과 1억원 이하, 여성기업·장애인기업·사회적기업 등과 체결 (사회적기업 등은 재정경제부장관 요건 충족 필요)" },
+    { "id": "N-GS-YOUTH", "org": "nat", "types": ["goods", "service"], "partner": "youth", "maxAmount": 5000, "law": "NAT-ENF-26", "ref": "제26조제1항제5호가목7)", "text": "추정가격 5천만원 이하, 청년창업기업과 체결" },
+    { "id": "N-OTHER", "org": "nat", "types": ["other"], "maxAmount": 5000, "law": "NAT-ENF-26", "ref": "제26조제1항제5호가목6)", "text": "임대차 등 공사·물품·용역이 아닌 계약, 추정가격 5천만원 이하 (연액 또는 총액 기준)" },
+
+    { "id": "L-CON-GEN", "org": "loc", "types": ["construction"], "sub": "general", "maxAmount": 40000, "law": "LOC-ENF-25", "ref": "제25조제1항제5호가목", "text": "건설공사(전문공사 제외) 추정가격 4억원 이하" },
+    { "id": "L-CON-SPE", "org": "loc", "types": ["construction"], "sub": "special", "maxAmount": 20000, "law": "LOC-ENF-25", "ref": "제25조제1항제5호가목", "text": "전문공사 추정가격 2억원 이하" },
+    { "id": "L-CON-OTH", "org": "loc", "types": ["construction"], "sub": "other", "maxAmount": 16000, "law": "LOC-ENF-25", "ref": "제25조제1항제5호가목", "text": "그 밖의 공사 관련 법령에 따른 공사 추정가격 1억6천만원 이하" },
+    { "id": "L-GS-20", "org": "loc", "types": ["goods", "service"], "maxAmount": 2000, "law": "LOC-ENF-25", "ref": "제25조제1항제5호나목", "text": "물품 제조·구매 또는 용역 추정가격 2천만원 이하" },
+    { "id": "L-GS-YOUTH", "org": "loc", "types": ["goods", "service"], "partner": "youth", "minAmount": 2000, "maxAmount": 5000, "law": "LOC-ENF-25", "ref": "제25조제1항제5호다목", "text": "추정가격 2천만원 초과 5천만원 이하, 청년창업기업과 체결" },
+    { "id": "L-GS-SMALL", "org": "loc", "types": ["goods", "service"], "partner": "smallbiz", "minAmount": 2000, "maxAmount": 10000, "law": "LOC-ENF-25", "ref": "제25조제1항제5호라목", "text": "추정가격 2천만원 초과 1억원 이하, 소기업·소상공인과 체결" },
+    { "id": "L-GS-TECH", "org": "loc", "types": ["goods", "service"], "partner": "special_tech", "minAmount": 2000, "maxAmount": 10000, "law": "LOC-ENF-25", "ref": "제25조제1항제5호마목", "text": "추정가격 2천만원 초과 1억원 이하, 학술연구·원가계산·건설기술 등 특수 지식·기술·자격 요구" },
+    { "id": "L-GS-VULN", "org": "loc", "types": ["goods", "service"], "partner": "vulnerable", "minAmount": 2000, "maxAmount": 10000, "law": "LOC-ENF-25", "ref": "제25조제1항제5호바목", "text": "추정가격 2천만원 초과 1억원 이하, 여성기업·장애인기업·사회적기업 등과 체결 (3)~6) 해당 기업은 행정안전부장관 고시 취약계층 고용비율 충족 필요)" },
+    { "id": "L-OTHER", "org": "loc", "types": ["other"], "maxAmount": 5000, "law": "LOC-ENF-25", "ref": "제25조제1항제5호사목", "text": "임대차 등 공사·물품·용역이 아닌 계약, 추정가격 5천만원 이하 (연액 또는 총액 기준)" }
+  ],
+  "reasons": [
+    { "id": "N-R-URGENT", "org": "nat", "special": "urgent", "law": "NAT-ENF-26", "ref": "제26조제1항제1호가목", "text": "경쟁에 부칠 여유가 없는 경우: 천재지변, 감염병 예방·확산 방지, 긴급한 행사, 긴급복구가 필요한 비상재해, 원자재 가격급등 등 (요건은 원문 확인)" },
+    { "id": "N-R-SINGLE", "org": "nat", "special": "single", "law": "NAT-ENF-26", "ref": "제26조제1항제2호", "text": "특정인의 기술이 필요하거나 해당 물품의 생산자가 1인뿐인 등 경쟁이 성립될 수 없는 경우 (특허물품 구매 등 각 목 해당 여부 확인)", "note": "제26조제5항: 제1항제2호에 따라 수의계약을 체결한 때에는 그 내용을 소속 중앙관서의 장에게 보고해야 하며, 같은 항 제2호에 따른 계약은 감사원에 통지됩니다." },
+    { "id": "L-R-URGENT", "org": "loc", "special": "urgent", "law": "LOC-ENF-25", "ref": "제25조제1항제1호·제2호", "text": "천재지변, 감염병, 긴급한 행사, 원자재 가격급등 등 입찰에 부칠 여유가 없는 경우, 또는 긴급복구가 필요한 재난 등 (요건은 원문 확인)" },
+    { "id": "L-R-SINGLE", "org": "loc", "special": "single", "law": "LOC-ENF-25", "ref": "제25조제1항제4호", "text": "특정인의 기술·용역 또는 특정한 위치·구조·품질·성능·효율 등으로 인해 경쟁할 수 없는 경우 (특허물품 구매 등 각 목 해당 여부 확인)" }
+  ]
+}

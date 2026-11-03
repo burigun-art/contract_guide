@@ -1,0 +1,38 @@
+{
+  "org": [
+    { "value": "nat", "label": "국가기관 (국가계약법)" },
+    { "value": "loc", "label": "지방자치단체 (지방계약법)" },
+    { "value": "pub", "label": "공공기관 (공기업·준정부기관 등) - 준비 중" }
+  ],
+  "type": [
+    { "value": "goods", "label": "물품 (제조·구매)" },
+    { "value": "service", "label": "용역" },
+    { "value": "construction", "label": "공사" },
+    { "value": "other", "label": "임대차 등 (공사·물품·용역 외)" }
+  ],
+  "sub": [
+    { "value": "general", "label": "건설산업기본법상 건설공사 (전문공사 제외)" },
+    { "value": "special", "label": "건설산업기본법상 전문공사" },
+    { "value": "other", "label": "그 밖의 공사 관련 법령에 따른 공사" }
+  ],
+  "partner": [
+    { "value": "none", "label": "해당 없음 / 아직 모름" },
+    { "value": "smallbiz", "label": "소기업·소상공인" },
+    { "value": "special_tech", "label": "학술연구·원가계산·건설기술 등 특수 지식·기술 요구" },
+    { "value": "vulnerable", "label": "여성기업·장애인기업·사회적기업 등" },
+    { "value": "youth", "label": "청년창업기업" }
+  ],
+  "method": [
+    { "value": "unknown", "label": "잘 모르겠음 (가능한 방법 안내)" },
+    { "value": "open", "label": "일반경쟁" },
+    { "value": "limited", "label": "제한경쟁" },
+    { "value": "designated", "label": "지명경쟁" },
+    { "value": "private", "label": "수의계약" }
+  ],
+  "special": [
+    { "value": "none", "label": "없음" },
+    { "value": "urgent", "label": "천재지변·긴급한 필요" },
+    { "value": "single", "label": "특허·특정인만 가능 (경쟁 불가)" },
+    { "value": "etc", "label": "기타 시행령상 사유 (잘 모르겠음)" }
+  ]
+}

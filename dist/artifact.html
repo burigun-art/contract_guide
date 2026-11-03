@@ -1,0 +1,1197 @@
+<title>계약가이드</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+  <style>
+:root {
+  --navy: #1f3a5f; --blue: #2e5c8a; --bg: #f3f5f9; --line: #d9e0ec; --text: #1c2430; --muted: #66707f;
+  --ok: #2e7d32; --ok-bg: #edf7ed; --warn: #a56200; --warn-bg: #fff5e0; --bad: #b3261e; --bad-bg: #fdeceb; --info: #2e5c8a; --info-bg: #eaf1fa;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: "Pretendard", "Malgun Gothic", "맑은 고딕", sans-serif; line-height: 1.65; }
+a { color: var(--blue); }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.top { background: var(--navy); color: #fff; padding: 20px 0; }
+.top h1 { margin: 0; font-size: 22px; }
+.top p { margin: 4px 0 0; font-size: 14px; opacity: .85; }
+.tag { font-size: 11px; background: #ffffff30; padding: 1px 8px; border-radius: 10px; vertical-align: middle; margin-left: 6px; }
+.notice { background: #fff8e1; border-bottom: 1px solid #f0e2b0; font-size: 13px; padding: 8px 0; color: #6a5300; }
+
+.layout { display: grid; grid-template-columns: 320px 1fr; gap: 18px; padding-top: 18px; padding-bottom: 30px; align-items: start; }
+.conditions { position: sticky; top: 12px; }
+@media (max-width: 880px) { .layout { grid-template-columns: 1fr; } .conditions { position: static; } }
+
+.panel { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; margin-bottom: 16px; }
+.panel h2 { margin: 0 0 12px; font-size: 17px; color: var(--navy); }
+.panel h3 { margin: 18px 0 8px; font-size: 15px; color: var(--navy); }
+.empty p { margin: 6px 0; }
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+.row { display: flex; gap: 8px; align-items: center; }
+.row.between { justify-content: space-between; }
+
+form label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 12px; }
+select, input[type=text], input[type=number] { display: block; width: 100%; margin-top: 4px; padding: 9px 10px; font: inherit; font-weight: 400; border: 1px solid #b9c3d6; border-radius: 8px; background: #fff; }
+select:focus, input:focus { outline: 2px solid #9db9dc; border-color: var(--blue); }
+.hint { display: block; font-weight: 400; color: var(--muted); margin-top: 3px; }
+.btn { font: inherit; cursor: pointer; border: 1px solid var(--blue); color: var(--blue); background: #fff; padding: 8px 14px; border-radius: 8px; }
+.btn:hover { background: #eaf1fa; }
+.btn.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+.btn.primary:hover { background: var(--navy); }
+.btn.small { padding: 4px 10px; font-size: 12px; }
+#form > .btn.primary { width: 100%; padding: 11px; font-size: 15px; margin-top: 4px; }
+.row .btn { flex: none; white-space: nowrap; }
+#chatForm input, #fbForm input { margin-top: 0; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 14px; }
+.chip { background: #e8eef7; color: var(--navy); border-radius: 12px; padding: 2px 11px; font-size: 12px; }
+
+.verdict { border-left: 5px solid var(--info); background: var(--info-bg); padding: 12px 16px; border-radius: 8px; margin-bottom: 14px; }
+.verdict.ok { border-color: var(--ok); background: var(--ok-bg); }
+.verdict.warn { border-color: var(--warn); background: var(--warn-bg); }
+.verdict.bad { border-color: var(--bad); background: var(--bad-bg); }
+.verdict b { display: block; margin-bottom: 4px; }
+.verdict ul { margin: 4px 0 0; padding-left: 18px; font-size: 13.5px; }
+
+.tabs { display: flex; gap: 6px; margin-bottom: 4px; }
+.tab { font: inherit; border: 1px solid var(--line); background: #f7f9fc; padding: 7px 14px; border-radius: 8px 8px 0 0; cursor: pointer; color: var(--muted); }
+.tab[aria-selected="true"] { background: #fff; color: var(--navy); font-weight: 700; border-bottom-color: #fff; }
+
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: s; }
+.steps li { position: relative; padding: 0 0 18px 46px; }
+.steps li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--blue); color: #fff; text-align: center; line-height: 30px; font-weight: 700; font-size: 14px; }
+.steps li::after { content: ""; position: absolute; left: 14px; top: 34px; bottom: 4px; width: 2px; background: var(--line); }
+.steps li:last-child::after { display: none; }
+.steps .t { font-weight: 700; }
+.steps .d { white-space: pre-wrap; font-size: 14px; margin-top: 2px; }
+.badge { display: inline-block; font-size: 11px; padding: 1px 8px; border-radius: 10px; margin-left: 6px; font-weight: 600; vertical-align: middle; }
+.badge.ok { background: #dff0e0; color: var(--ok); }
+.badge.gen { background: #ffe9c7; color: var(--warn); }
+.refs { margin-top: 4px; font-size: 12px; }
+.refs a { margin-right: 8px; }
+
+.checklist { list-style: none; padding: 0; margin: 0; }
+.checklist li { padding: 4px 0; }
+.checklist label { font-weight: 400; margin: 0; display: flex; gap: 8px; align-items: flex-start; cursor: pointer; }
+.checklist input { margin-top: 5px; }
+.checklist input:checked + span { color: var(--muted); text-decoration: line-through; }
+
+details.law { border: 1px solid var(--line); border-radius: 8px; margin-bottom: 8px; background: #fbfcfe; }
+details.law summary { cursor: pointer; padding: 10px 14px; font-weight: 600; font-size: 14px; }
+details.law .body { padding: 0 14px 12px; }
+details.law .applied { background: #eef6ff; border-radius: 6px; padding: 8px 12px; margin: 4px 0 8px; font-size: 13px; }
+details.law .applied ul { margin: 0; padding-left: 18px; }
+details.law pre { white-space: pre-wrap; font: inherit; font-size: 13px; margin: 0; max-height: 360px; overflow: auto; background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; }
+.meta { font-weight: 400; font-size: 12px; color: var(--muted); display: block; }
+
+.quick { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.quick button { font: inherit; font-size: 13px; cursor: pointer; background: #fff; color: var(--blue); border: 1px solid var(--blue); border-radius: 16px; padding: 4px 12px; }
+.quick button:hover { background: #eaf1fa; }
+.log { display: flex; flex-direction: column; gap: 10px; max-height: 520px; overflow-y: auto; margin-bottom: 10px; }
+.msg { max-width: 92%; padding: 10px 14px; border-radius: 12px; font-size: 14px; }
+.msg .a { white-space: pre-wrap; }
+.msg.user { align-self: flex-end; background: var(--blue); color: #fff; }
+.msg.bot { align-self: flex-start; background: #eef2f8; }
+.src { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; margin-top: 8px; font-size: 13px; }
+.src .h { font-weight: 700; }
+.src .x { margin-top: 4px; color: #333; white-space: pre-wrap; }
+.via { font-size: 11px; color: var(--muted); margin-top: 6px; }
+.rate { margin-top: 6px; font-size: 12px; }
+.rate button { font: inherit; font-size: 12px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 1px 10px; cursor: pointer; margin-right: 4px; }
+.rate button:disabled { opacity: .5; cursor: default; }
+details.dev { margin-top: 8px; font-size: 12px; }
+details.dev pre { background: #1e2633; color: #d6e2f5; padding: 8px 10px; border-radius: 6px; overflow: auto; margin: 4px 0 0; white-space: pre-wrap; }
+.foot { padding-bottom: 30px; }
+ul#notes { padding-left: 20px; font-size: 14px; }
+.error { background: var(--bad-bg); border-left: 5px solid var(--bad); padding: 10px 14px; border-radius: 8px; }
+.tips { margin-top: 8px; padding: 8px 12px; background: #f1f6ff; border-left: 3px solid var(--blue); border-radius: 4px; font-size: 13px; }
+.tips .tipt { font-weight: 700; color: var(--blue); margin-bottom: 2px; }
+.tips ul { margin: 0; padding-left: 18px; }
+.tips li { margin: 4px 0; }
+.tips .pg { display: block; color: #667; font-size: 12px; }
+.cond { margin-top: 10px; padding: 10px 12px; background: #fff; border: 1px dashed var(--blue); border-radius: 6px; font-size: 14px; }
+.cond b { color: var(--blue); }
+.cond ul { margin: 4px 0; padding-left: 18px; }
+.cond small { color: var(--muted); }
+
+/* 메신저 팝업 */
+.fab { position: fixed; right: max(18px, env(safe-area-inset-right, 0px)); bottom: max(18px, env(safe-area-inset-bottom, 0px)); width: 58px; height: 58px; border-radius: 50%; border: 0; background: var(--navy); color: #fff; cursor: pointer; box-shadow: 0 4px 14px #0004; display: grid; place-items: center; z-index: 30; }
+.fab:hover, .fab.on { background: var(--blue); }
+.fab.dot::after { content: ""; position: absolute; top: 8px; right: 8px; width: 12px; height: 12px; border-radius: 50%; background: #e5484d; border: 2px solid #fff; }
+.pop { position: fixed; right: max(18px, env(safe-area-inset-right, 0px)); bottom: calc(max(18px, env(safe-area-inset-bottom, 0px)) + 70px); width: min(400px, calc(100vw - 32px)); height: min(600px, calc(100vh - 120px)); display: flex; flex-direction: column; background: #fff; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 10px 34px #0004; z-index: 30; overflow: hidden; }
+.pop-h { display: flex; align-items: center; gap: 8px; padding: 12px 14px; background: var(--navy); color: #fff; }
+.pop-h span { flex: 1; min-width: 0; font-size: 12px; opacity: .85; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pop-h button { background: none; border: 0; color: #fff; font-size: 24px; line-height: 1; cursor: pointer; }
+.pop .log { flex: 1; min-height: 0; max-height: none; margin: 0; padding: 12px; background: #f7f9fc; }
+.pop .quick { flex-direction: column; gap: 6px; margin: 0; padding: 10px 12px; border-top: 1px solid var(--line); }
+.pop .quick button { width: 100%; text-align: left; border-radius: 10px; padding: 8px 12px; }
+.pop #chatForm { padding: 10px 12px; border-top: 1px solid var(--line); margin: 0; }
+.pop .msg { max-width: 94%; }
+
+/* 카드뉴스 보드 */
+.bnav { display: flex; align-items: center; gap: 8px; }
+.deck { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 2px 12px; }
+.card { flex: 0 0 min(260px, 78%); min-height: 300px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 8px; padding: 18px 16px; border-radius: 14px; background: linear-gradient(160deg, var(--navy), var(--blue)); color: #fff; }
+.card .cno { font-size: 40px; font-weight: 800; line-height: 1; }
+.card .cno small { font-size: 14px; font-weight: 400; opacity: .7; }
+.card h4 { margin: 0; font-size: 18px; text-wrap: balance; }
+.card .brief { margin: 0; font-size: 14px; opacity: .92; }
+.card .facts { list-style: none; margin: auto 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.card .facts li { background: #ffffff22; border-radius: 8px; padding: 6px 10px; font-size: 13px; font-weight: 600; }
+.card .cfoot { margin-top: 4px; }
+.card .cfoot .badge { margin-left: 0; }
+.card .cfoot { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.card .go { color: #fff; font-size: 13px; font-weight: 700; text-decoration: underline; }
+.steps li.flash { animation: flash 1.6s ease-out; }
+@keyframes flash { 0%, 40% { background: #fff3c4; } 100% { background: transparent; } }
+@media (prefers-reduced-motion: reduce) { .steps li.flash { animation: none; } }
+
+/* 출처 팝업 */
+.modal { position: fixed; inset: 0; background: #0007; display: grid; place-items: center; padding: 16px; z-index: 50; }
+.mbox { width: min(680px, 100%); max-height: calc(100vh - 32px); display: flex; flex-direction: column; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 12px 40px #0006; }
+.mbox .pop-h b { flex: 1; min-width: 0; }
+.mbody { padding: 14px 18px 18px; overflow-y: auto; }
+.mbody pre { white-space: pre-wrap; word-break: break-word; font: inherit; font-size: 14px; background: #f7f9fc; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+.mbody .tipbody { white-space: pre-wrap; font-size: 15px; }
+.tips .pg { display: block; border: 0; background: none; padding: 0; font: inherit; font-size: 12px; color: var(--blue); text-decoration: underline; cursor: pointer; text-align: left; }
+.card .facts li { padding: 0; }
+.card .facts .fact { width: 100%; text-align: left; border: 0; background: transparent; color: #fff; font: inherit; font-size: 13px; font-weight: 600; padding: 6px 10px; cursor: pointer; border-radius: 8px; }
+.card .facts .fact::after { content: " \203A"; opacity: .8; }
+.card .facts .fact:hover { background: #ffffff22; }
+.steps .back { margin-top: 8px; display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px 5px 9px; font: inherit; font-size: 12px; font-weight: 600; color: var(--blue); background: var(--info-bg); border: 1px solid #c3d6ea; border-radius: 999px; cursor: pointer; }
+.steps .back:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+.steps .back:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+
+/* 관련 법령 뷰어 탭 */
+.vtabs { display: flex; gap: 4px; background: #eef2f8; padding: 3px; border-radius: 999px; }
+.vtabs button { border: 0; background: none; font: inherit; font-size: 13px; padding: 4px 12px; border-radius: 999px; color: var(--muted); cursor: pointer; }
+.vtabs button.on { background: var(--blue); color: #fff; font-weight: 600; }
+#manual .mg { margin: 14px 0 6px; font-size: 14px; color: var(--navy); }
+#manual .tipbody { white-space: pre-wrap; font-size: 14px; margin: 4px 0 0; }
+#manual details.law .meta { display: block; font-weight: 400; font-size: 12px; color: var(--muted); }
+.btn.pdf { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; margin-top: 8px; }
+.modal.wide .mbox { width: min(900px, 100%); }
+.pdfbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.pdfstage { overflow: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; max-height: calc(100vh - 190px); }
+.pdfstage img { display: block; width: 100%; height: auto; }
+.mlinks { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 4px; }
+.mlinks .btn.pdf { margin-top: 0; }
+a.btn.pdf { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
+.checklist li { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.checklist li label { flex: 1; min-width: 0; }
+.checklist .formlink { flex: none; font-size: 12px; font-weight: 600; text-decoration: none; padding: 2px 10px; border: 1px solid var(--blue); border-radius: 999px; color: var(--blue); background: #fff; white-space: nowrap; }
+.checklist .formlink:hover { background: var(--blue); color: #fff; }
+.checklist li.formnote { display: block; padding-top: 8px; }
+
+/* 감사 지적사례 */
+details.audit { margin-top: 8px; border: 1px solid #f0c98a; background: var(--warn-bg); border-radius: 8px; font-size: 13px; }
+details.audit summary { cursor: pointer; padding: 8px 12px; font-weight: 700; color: var(--warn); }
+.acase { padding: 8px 12px 10px; border-top: 1px dashed #f0c98a; }
+.acase b { display: block; }
+.acase p { margin: 4px 0; }
+.acase em { font-style: normal; font-weight: 700; color: var(--warn); margin-right: 6px; }
+.acase .alesson { background: #fff; border-radius: 6px; padding: 6px 8px; }
+.acase .btn.pdf { margin-top: 4px; }
+.card .achip { background: #ffd9a0; color: #5a3300; font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 999px; text-decoration: none; }
+
+</style>
+
+
+  <header class="top">
+    <div class="wrap">
+      <h1>계약가이드 <span class="tag">MVP</span></h1>
+      <p>조건을 선택하면 계약 절차와 관련 법령을 바로 안내하고, 추가 질문에도 근거 조문으로 답합니다.</p>
+    </div>
+  </header>
+
+  <div class="notice">
+    <div class="wrap">참고용 안내입니다. 공적 견해표명이나 유권해석이 아니며, 실제 계약은 법령 원문과 소속 기관 계약 담당자의 검토가 필요합니다. 질문에 개인정보를 입력하지 마세요.</div>
+  </div>
+
+  <main class="wrap layout">
+    <aside class="panel conditions" id="conditions">
+      <h2>1. 계약 조건</h2>
+      <form id="form" autocomplete="off">
+        <label>기관 구분<select name="org" id="org"></select></label>
+        <label>계약 유형<select name="type" id="type"></select></label>
+        <label id="subWrap" hidden>공사 종류<select name="sub" id="sub"></select></label>
+        <label>추정가격 (만원)
+          <input type="number" name="amount" id="amount" min="0" step="1" value="3000" required>
+          <small id="amountHint" class="hint"></small>
+        </label>
+        <label>계약 상대방 / 성격<select name="partner" id="partner"></select></label>
+        <label>희망 계약 방법<select name="method" id="method"></select></label>
+        <label>긴급·특수 사유<select name="special" id="special"></select></label>
+        <button type="submit" class="btn primary">계약가이드 보기</button>
+      </form>
+      <p class="small muted" id="baseInfo"></p>
+    </aside>
+
+    <section class="main">
+      <div id="empty" class="panel empty">
+        <h2>시작하기</h2>
+        <p>왼쪽에서 조건을 선택하고 <b>계약가이드 보기</b>를 누르세요.</p>
+        <p class="muted">예: 지방자치단체가 3천만원 물품을 소기업과 수의계약하려는 경우</p>
+        <button type="button" class="btn" id="example">예시로 해보기</button>
+      </div>
+
+      <div id="result" hidden>
+        <div class="panel board" id="boardPanel">
+          <div class="row between">
+            <h2>계약가이드 요약</h2>
+            <div class="bnav"><button type="button" class="btn small" id="bPrev" aria-label="이전 카드">&lsaquo;</button><span class="small muted" id="bPos"></span><button type="button" class="btn small" id="bNext" aria-label="다음 카드">&rsaquo;</button></div>
+          </div>
+          <p class="small muted">단계별 핵심만 모았습니다. 옆으로 넘겨 보세요. 자세한 근거는 아래 계약가이드 결과를 확인하세요.</p>
+          <div class="deck" id="deck" tabindex="0" aria-label="계약 절차 카드"></div>
+        </div>
+        <div class="panel">
+          <div class="row between">
+            <h2>2. 계약가이드 결과</h2>
+            <button type="button" class="btn small" id="share">링크 복사</button>
+          </div>
+          <div class="chips" id="chips"></div>
+          <div id="verdict"></div>
+          <div class="tabs" id="tabs"></div>
+          <h3>계약 절차</h3>
+          <ol class="steps" id="steps"></ol>
+          <h3>필요 서류 체크리스트 <span class="muted small">(일반 안내)</span></h3>
+          <ul class="checklist" id="docs"></ul>
+        </div>
+        <div class="panel">
+          <div class="row between">
+            <h3>관련 법령 (원문)</h3>
+            <div class="vtabs" role="tablist">
+              <button type="button" role="tab" id="vtLaw" class="on" aria-selected="true">법령 원문 <span id="vcLaw"></span></button>
+              <button type="button" role="tab" id="vtMan" aria-selected="false">실무 매뉴얼 <span id="vcMan"></span></button>
+            </div>
+          </div>
+          <div id="laws"></div>
+          <div id="manual" hidden></div>
+          <h3>주의사항</h3>
+          <ul id="notes"></ul>
+        </div>
+        <div class="panel">
+          <h3>이 서비스에 대한 의견</h3>
+          <form id="fbForm" class="row">
+            <input type="text" id="fbText" placeholder="불편한 점, 틀린 내용, 추가했으면 하는 기능을 알려 주세요" maxlength="500">
+            <button class="btn" type="submit">보내기</button>
+          </form>
+          <p class="small muted" id="fbMsg"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap small muted foot">계약가이드 MVP · 법령 확인 기준일은 결과 화면과 조문별 표시를 참고하세요. · 이 버전은 서버 없이 이 파일만으로 동작하며, 의견과 질문 기록은 이 브라우저에만 저장됩니다.</footer>
+  <div class="modal" id="modal" hidden>
+    <div class="mbox" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+      <header class="pop-h"><b id="mTitle"></b><button type="button" id="mClose" aria-label="닫기">&times;</button></header>
+      <div class="mbody" id="mBody"></div>
+    </div>
+  </div>
+  <button type="button" class="fab" id="chatFab" aria-label="추가 질문 열기" aria-expanded="false" aria-controls="chatPop">
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9 11h6M9 14h4"/></svg>
+  </button>
+  <section class="pop" id="chatPop" role="dialog" aria-label="계약 질문 메신저" hidden>
+    <header class="pop-h"><b>계약 질문</b><span class="small" id="chatCtx">조건을 선택하지 않아도 질문할 수 있습니다</span><button type="button" id="chatClose" aria-label="닫기">&times;</button></header>
+    <div class="log" id="log" aria-live="polite"></div>
+    <div class="quick" id="quick"></div>
+    <form id="chatForm" class="row">
+      <input type="text" id="q" placeholder="궁금한 내용을 입력하세요 (예: 입찰공고 기간은?)" maxlength="300" autocomplete="off">
+      <button class="btn primary" type="submit">전송</button>
+    </form>
+  </section>
+  <script>
+
+const __DATA = {"options":{"org":[{"value":"nat","label":"국가기관 (국가계약법)"},{"value":"loc","label":"지방자치단체 (지방계약법)"},{"value":"pub","label":"공공기관 (공기업·준정부기관 등) - 준비 중"}],"type":[{"value":"goods","label":"물품 (제조·구매)"},{"value":"service","label":"용역"},{"value":"construction","label":"공사"},{"value":"other","label":"임대차 등 (공사·물품·용역 외)"}],"sub":[{"value":"general","label":"건설산업기본법상 건설공사 (전문공사 제외)"},{"value":"special","label":"건설산업기본법상 전문공사"},{"value":"other","label":"그 밖의 공사 관련 법령에 따른 공사"}],"partner":[{"value":"none","label":"해당 없음 / 아직 모름"},{"value":"smallbiz","label":"소기업·소상공인"},{"value":"special_tech","label":"학술연구·원가계산·건설기술 등 특수 지식·기술 요구"},{"value":"vulnerable","label":"여성기업·장애인기업·사회적기업 등"},{"value":"youth","label":"청년창업기업"}],"method":[{"value":"unknown","label":"잘 모르겠음 (가능한 방법 안내)"},{"value":"open","label":"일반경쟁"},{"value":"limited","label":"제한경쟁"},{"value":"designated","label":"지명경쟁"},{"value":"private","label":"수의계약"}],"special":[{"value":"none","label":"없음"},{"value":"urgent","label":"천재지변·긴급한 필요"},{"value":"single","label":"특허·특정인만 가능 (경쟁 불가)"},{"value":"etc","label":"기타 시행령상 사유 (잘 모르겠음)"}]},"rules":{"_설명":"수의계약 근거 규칙. 금액 단위는 만원(minAmount 초과, maxAmount 이하). org: nat/loc. types: construction/goods/service/other. sub(공사 종류), partner(상대방)는 생략하면 모두 해당. law는 articles.json의 ID. reasons는 금액과 무관한 사유(special 선택값과 연결).","baseDate":"2026-11-02","rules":[{"id":"N-CON-GEN","org":"nat","types":["construction"],"sub":"general","maxAmount":40000,"law":"NAT-ENF-26","ref":"제26조제1항제5호가목1)","text":"건설공사(전문공사 제외) 추정가격 4억원 이하"},{"id":"N-CON-SPE","org":"nat","types":["construction"],"sub":"special","maxAmount":20000,"law":"NAT-ENF-26","ref":"제26조제1항제5호가목1)","text":"전문공사 추정가격 2억원 이하"},{"id":"N-CON-OTH","org":"nat","types":["construction"],"sub":"other","maxAmount":16000,"law":"NAT-ENF-26","ref":"제26조제1항제5호가목1)","text":"그 밖의 공사 관련 법령에 따른 공사 추정가격 1억6천만원 이하"},{"id":"N-GS-20","org":"nat","types":["goods","service"],"maxAmount":2000,"law":"NAT-ENF-26","ref":"제26조제1항제5호가목2)","text":"물품 제조·구매·임차 또는 용역 추정가격 2천만원 이하"},{"id":"N-GS-SMALL","org":"nat","types":["goods","service"],"partner":"smallbiz","minAmount":2000,"maxAmount":10000,"law":"NAT-ENF-26","ref":"제26조제1항제5호가목3)","text":"추정가격 2천만원 초과 1억원 이하, 소기업·소상공인과 체결"},{"id":"N-GS-TECH","org":"nat","types":["goods","service"],"partner":"special_tech","minAmount":2000,"maxAmount":10000,"law":"NAT-ENF-26","ref":"제26조제1항제5호가목4)","text":"추정가격 2천만원 초과 1억원 이하, 학술연구·원가계산·건설기술 등 특수 지식·기술·자격 요구"},{"id":"N-GS-VULN","org":"nat","types":["goods","service"],"partner":"vulnerable","minAmount":2000,"maxAmount":10000,"law":"NAT-ENF-26","ref":"제26조제1항제5호가목5)","text":"추정가격 2천만원 초과 1억원 이하, 여성기업·장애인기업·사회적기업 등과 체결 (사회적기업 등은 재정경제부장관 요건 충족 필요)"},{"id":"N-GS-YOUTH","org":"nat","types":["goods","service"],"partner":"youth","maxAmount":5000,"law":"NAT-ENF-26","ref":"제26조제1항제5호가목7)","text":"추정가격 5천만원 이하, 청년창업기업과 체결"},{"id":"N-OTHER","org":"nat","types":["other"],"maxAmount":5000,"law":"NAT-ENF-26","ref":"제26조제1항제5호가목6)","text":"임대차 등 공사·물품·용역이 아닌 계약, 추정가격 5천만원 이하 (연액 또는 총액 기준)"},{"id":"L-CON-GEN","org":"loc","types":["construction"],"sub":"general","maxAmount":40000,"law":"LOC-ENF-25","ref":"제25조제1항제5호가목","text":"건설공사(전문공사 제외) 추정가격 4억원 이하"},{"id":"L-CON-SPE","org":"loc","types":["construction"],"sub":"special","maxAmount":20000,"law":"LOC-ENF-25","ref":"제25조제1항제5호가목","text":"전문공사 추정가격 2억원 이하"},{"id":"L-CON-OTH","org":"loc","types":["construction"],"sub":"other","maxAmount":16000,"law":"LOC-ENF-25","ref":"제25조제1항제5호가목","text":"그 밖의 공사 관련 법령에 따른 공사 추정가격 1억6천만원 이하"},{"id":"L-GS-20","org":"loc","types":["goods","service"],"maxAmount":2000,"law":"LOC-ENF-25","ref":"제25조제1항제5호나목","text":"물품 제조·구매 또는 용역 추정가격 2천만원 이하"},{"id":"L-GS-YOUTH","org":"loc","types":["goods","service"],"partner":"youth","minAmount":2000,"maxAmount":5000,"law":"LOC-ENF-25","ref":"제25조제1항제5호다목","text":"추정가격 2천만원 초과 5천만원 이하, 청년창업기업과 체결"},{"id":"L-GS-SMALL","org":"loc","types":["goods","service"],"partner":"smallbiz","minAmount":2000,"maxAmount":10000,"law":"LOC-ENF-25","ref":"제25조제1항제5호라목","text":"추정가격 2천만원 초과 1억원 이하, 소기업·소상공인과 체결"},{"id":"L-GS-TECH","org":"loc","types":["goods","service"],"partner":"special_tech","minAmount":2000,"maxAmount":10000,"law":"LOC-ENF-25","ref":"제25조제1항제5호마목","text":"추정가격 2천만원 초과 1억원 이하, 학술연구·원가계산·건설기술 등 특수 지식·기술·자격 요구"},{"id":"L-GS-VULN","org":"loc","types":["goods","service"],"partner":"vulnerable","minAmount":2000,"maxAmount":10000,"law":"LOC-ENF-25","ref":"제25조제1항제5호바목","text":"추정가격 2천만원 초과 1억원 이하, 여성기업·장애인기업·사회적기업 등과 체결 (3)~6) 해당 기업은 행정안전부장관 고시 취약계층 고용비율 충족 필요)"},{"id":"L-OTHER","org":"loc","types":["other"],"maxAmount":5000,"law":"LOC-ENF-25","ref":"제25조제1항제5호사목","text":"임대차 등 공사·물품·용역이 아닌 계약, 추정가격 5천만원 이하 (연액 또는 총액 기준)"}],"reasons":[{"id":"N-R-URGENT","org":"nat","special":"urgent","law":"NAT-ENF-26","ref":"제26조제1항제1호가목","text":"경쟁에 부칠 여유가 없는 경우: 천재지변, 감염병 예방·확산 방지, 긴급한 행사, 긴급복구가 필요한 비상재해, 원자재 가격급등 등 (요건은 원문 확인)"},{"id":"N-R-SINGLE","org":"nat","special":"single","law":"NAT-ENF-26","ref":"제26조제1항제2호","text":"특정인의 기술이 필요하거나 해당 물품의 생산자가 1인뿐인 등 경쟁이 성립될 수 없는 경우 (특허물품 구매 등 각 목 해당 여부 확인)","note":"제26조제5항: 제1항제2호에 따라 수의계약을 체결한 때에는 그 내용을 소속 중앙관서의 장에게 보고해야 하며, 같은 항 제2호에 따른 계약은 감사원에 통지됩니다."},{"id":"L-R-URGENT","org":"loc","special":"urgent","law":"LOC-ENF-25","ref":"제25조제1항제1호·제2호","text":"천재지변, 감염병, 긴급한 행사, 원자재 가격급등 등 입찰에 부칠 여유가 없는 경우, 또는 긴급복구가 필요한 재난 등 (요건은 원문 확인)"},{"id":"L-R-SINGLE","org":"loc","special":"single","law":"LOC-ENF-25","ref":"제25조제1항제4호","text":"특정인의 기술·용역 또는 특정한 위치·구조·품질·성능·효율 등으로 인해 경쟁할 수 없는 경우 (특허물품 구매 등 각 목 해당 여부 확인)"}]},"articles":[{"id":"NAT-LAW-7","org":"nat","law":"국가계약법","title":"제7조(계약의 방법)","effective":"2026.6.11","verified":"2026-11-02","url":"https://www.law.go.kr/법령/국가를당사자로하는계약에관한법률/제7조","keywords":["일반경쟁","제한경쟁","지명경쟁","수의계약","계약의","방법","원칙","사전심사","입찰","참가자격"],"text":"제7조(계약의 방법) ① 각 중앙관서의 장 또는 계약담당공무원은 계약을 체결하려면 일반경쟁에 부쳐야 한다. 다만, 계약의 목적, 성질, 규모 등을 고려하여 필요하다고 인정되면 대통령령으로 정하는 바에 따라 참가자의 자격을 제한하거나 참가자를 지명(指名)하여 경쟁에 부치거나 수의계약(隨意契約)을 할 수 있다.\n\n② 제1항 본문에 따라 경쟁입찰에 부치는 경우 계약이행의 난이도, 이행실적, 기술능력, 재무상태, 사회적 신인도 및 계약이행의 성실도 등 계약수행능력평가에 필요한 사전심사기준, 사전심사절차, 그 밖에 대통령령으로 정하는 바에 따라 입찰 참가자격을 사전심사하고 적격자만을 입찰에 참가하게 할 수 있다.\n\n③ 제1항에 따라 계약을 체결하는 과정에서 다른 법률에 따른 우선구매 대상이 경합하는 경우에는 계약의 목적이나 규모, 사회적 약자에 대한 배려 수준 등을 고려하여 계약상대자를 결정하여야 한다."},{"id":"NAT-ENF-21","org":"nat","law":"국가계약법 시행령","title":"제21조(제한경쟁입찰에 의할 계약과 제한사항등)","effective":"2026.6.3","verified":"2026-11-02","url":"https://www.law.go.kr/법령/국가를당사자로하는계약에관한법률시행령/제21조","keywords":["제한경쟁","제한입찰","자격","제한","제한사항","실적","시공능력"],"text":"제21조(제한경쟁입찰에 의할 계약과 제한사항등) ①법 제7조제1항 단서에 따라 경쟁참가자의 자격을 제한할 수 있는 경우와 그 제한사항은 다음 각 호와 같다. 이 경우 제1호부터 제6호까지 및 제9호의 제한사항에 대한 구체적인 제한기준은 재정경제부령으로 정한다.  \n\n1. 재정경제부령이 정하는 금액의 공사계약의 경우에는 시공능력 또는 당해 공사와 같은 종류의 공사실적\n\n2. 특수한 기술 또는 공법이 요구되는 공사계약의 경우에는 당해 공사수행에 필요한 기술의 보유상황 또는 당해 공사와 같은 종류의 공사실적\n\n3. 특수한 설비 또는 기술이 요구되는 물품제조계약의 경우에는 당해 물품제조에 필요한 설비 및 기술의 보유상황 또는 당해 물품과 같은 종류의 물품제조실적\n\n4. 특수한 성능 또는 품질이 요구되어 다음 각 목의 품질 인증 등을 받은 물품을 제조하게 하거나 구매하는 경우에는 그 품질 인증 등을 받은 물품인지 여부\n\n가. 「산업표준화법」 제15조에 따른 인증을 받은 제품 또는 같은 법 제25조에 따른 우수한 단체표준제품\n\n나. 삭제\n\n다. 「환경기술 및 환경산업 지원법」 제17조에 따라 환경표지의 인증을 받은 물품\n\n라. 「자원의 절약과 재활용촉진에 관한 법률」 제33조에 따른 기준에 적합하고 「산업기술혁신 촉진법 시행령」 제17조제1항제3호에 따른 품질 인증을 받은 재활용제품\n\n마. 「환경기술 및 환경산업 지원법」 제18조에 따라 환경성적표지의 인증을 받은 제품 중 「녹색제품 구매촉진에 관한 법률」 제2조의2제1호의2에 따른 기준에 적합한 제품\n\n5. 특수한 기술이 요구되는 용역계약의 경우에는 당해 용역수행에 필요한 기술의 보유상황 또는 당해 용역과 같은 종류의 용역수행실적\n\n6. 추정가격이 재정경제부령으로 정하는 금액 미만인 계약의 경우에는 법인등기부상 본점소재지(개인사업자인 경우에는 사업자등록증 또는 관련 법령에 따른 허가ㆍ인가ㆍ면허ㆍ등록ㆍ신고 등에 관련된 서류에 기재된 사업장의 소재지를 말한다. 이하 같다)\n\n7. 제22조의 규정에 의한 제한방법에 의하여 공사계약을 하는 경우에는 그 제한기준\n\n8. 「중소기업제품 구매촉진 및 판로지원에 관한 법률 시행령」 제6조에 따라 중소벤처기업부장관이 지정ㆍ공고한 물품을 제조ㆍ구매하는 경우에는 「중소기업기본법」 제2조에 따른 중소기업자\n\n8의2. 「중소기업제품 구매촉진 및 판로지원에 관한 법률」 제7조의2제2항제1호에 따른 제한경쟁입찰 방법에 따라 물품 제조ㆍ구매 계약 또는 용역 계약을 체결하는 경우에는 같은 호에 따른 공동사업에 참여한 소기업 또는 소상공인\n\n9. 각 중앙관서의 장 또는 계약담당공무원이 계약이행의 부실화를 방지하기 위하여 필요하다고 판단하여 특별히 인정하는 경우에는 경쟁참가자의 재무상태\n\n10. 추정가격이 고시금액 미만인 물품의 제조ㆍ구매 또는 용역(「엔지니어링산업 진흥법」 제2조제3호에 따른 엔지니어링사업 및 「건설기술 진흥법」 제2조제3호에 따른 건설엔지니어링을 제외한다)의 경우에는 다음 각 목의 구분에 따른 자\n\n가. 추정가격이 1억원 미만인 물품의 제조ㆍ구매 또는 용역의 경우에는 「중소기업기본법」 제2조제2항에 따른 소기업, 「소상공인기본법」 제2조에 따른 소상공인, 「벤처기업육성에 관한 특별법」 제2조제1항에 따른 벤처기업 또는 「중소기업창업 지원법」에 따른 창업기업\n\n나. 추정가격이 1억원 이상인 물품의 제조ㆍ구매 또는 용역의 경우에는 「중소기업기본법」 제2조에 따른 중소기업자\n\n11. 특정지역에 소재하는 자가 생산한 물품을 구매하려는 경우에는 다음 각 목의 어느 하나에 해당하는 자인지 여부\n\n가. 「지역중소기업 육성 및 혁신촉진에 관한 법률」에 따른 중소기업특별지원지역에 입주(같은 조 제2항에 따른 지정기간만 해당한다)한 자\n\n나. 「농어촌정비법」에 따른 농공단지에 입주한 자\n\n12. 특수한 안전기준이 요구되는 공사ㆍ물품 또는 용역 계약의 경우에는 그 계약을 이행하는 데 필요한 안전분야의 인증, 전문인력 또는 기술의 보유상황\n\n②각 중앙관서의 장 또는 계약담당공무원은 제1항의 규정에 의하여 경쟁참가자의 자격을 제한하고자 할 때에는 입찰공고에 그 제한사항과 제한기준을 명시하여야 한다.\n\n③각 중앙관서의 장 또는 계약담당공무원은 공사입찰로서 제1항제6호의 규정에 의하여 경쟁참가자의 자격을 제한하는 경우에 필요하다고 인정할 때에는 재정경제부령이 정하는 바에 의하여 당해 입찰참가적격자에게 제36조 각호의 사항을 통지함으로써 제2항의 규정에 의한 입찰공고에 갈음할 수 있다."},{"id":"NAT-ENF-23","org":"nat","law":"국가계약법 시행령","title":"제23조(지명경쟁입찰에 의할 계약)","effective":"2026.6.3","verified":"2026-11-02","url":"https://www.law.go.kr/법령/국가를당사자로하는계약에관한법률시행령/제23조","keywords":["지명경쟁","지명입찰","지명","입찰대상자","10인"],"text":"제23조(지명경쟁입찰에 의할 계약) ①법 제7조제1항 단서에 따라 지명경쟁입찰에 부칠 수 있는 경우는 다음 각 호와 같다.  \n\n1. 계약의 성질 또는 목적에 비추어 특수한 설비ㆍ기술ㆍ자재ㆍ물품 또는 실적이 있는 자가 아니면 계약의 목적을 달성하기 곤란한 경우로서 입찰대상자가 10인이내인 경우\n\n2. 「건설산업기본법」에 따른 건설공사로서 추정가격이 4억원 이하인 공사(같은 법에 따른 전문공사의 경우에는 추정가격이 2억원 이하인 공사) 또는 그 밖의 공사 관련 법령에 따른 공사로서 추정가격이 1억 6천만원 이하인 공사를 하거나 추정가격이 1억원 이하인 물품을 제조할 경우\n\n3. 추정가격이 5천만원 이하인 재산을 매각 또는 매입할 경우\n\n4. 예정임대ㆍ임차료의 총액이 5천만원 이하인 물건을 임대ㆍ임차할 경우\n\n5. 공사나 제조의 도급, 재산의 매각 또는 물건의 임대ㆍ임차외의 계약으로서 추정가격이 5천만원 이하인 경우\n\n6. 「산업표준화법」 제15조에 따른 인증을 받은 제품 또는 같은 법 제25조에 따른 우수한 단체표준제품\n\n7. 삭제  \n\n8. 법 제7조 단서 및 이 영 제26조의 규정에 의하여 수의계약에 의할 수 있는 경우\n\n9. 다음 각 목의 어느 하나에 해당하는 제품을 제조하게 하거나 구매하는 경우\n\n가. 「자원의 절약과 재활용촉진에 관한 법률」 제33조에 따른 기준에 적합하고 「산업기술혁신 촉진법 시행령」 제17조제1항제3호에 따른 품질인증을 받은 재활용제품\n\n나. 「환경기술 및 환경산업 지원법」 제17조에 따라 환경표지의 인증을 받은 제품\n\n다. 「환경기술 및 환경산업 지원법」 제18조에 따라 환경성적표지의 인증을 받은 제품 중 「녹색제품 구매촉진에 관한 법률」 제2조의2제1호의2에 따른 기준에 적합한 제품\n\n10. 「중소기업제품 구매촉진 및 판로지원에 관한 법률 시행령」 제6조에 따라 중소벤처기업부장관이 지정ㆍ공고한 물품을 「중소기업기본법」제2조에 따른 중소기업자로부터 제조ㆍ구매할 경우\n\n11. 「중소기업제품 구매촉진 및 판로지원에 관한 법률」 제7조의2제2항제2호에 따라 각 중앙관서의 장의 요청으로 「중소기업협동조합법」 제3조제1항에 따른 중소기업협동조합이 추천하는 소기업 또는 소상공인(해당 물품 등을 납품할 수 있는 소기업 또는 소상공인을 말한다)으로 하여금 물품을 제조하게 하거나 용역을 수행하게 하는 경우\n\n②각 중앙관서의 장의 위임을 받은 공무원은 제1항제1호의 규정에 의하여 지명경쟁입찰에 의하여 계약을 체결한 때에는 그 내용을 소속중앙관서의 장에게 보고하여야 하며, 각 중앙관서의 장은 이를 감사원에 통지하여야 한다."},{"id":"NAT-ENF-26","org":"nat","law":"국가계약법 시행령","title":"제26조(수의계약에 의할 수 있는 경우)","effective":"2026.6.3","verified":"2026-11-02","url":"https://www.law.go.kr/법령/국가를당사자로하는계약에관한법률시행령/제26조","keywords":["수의계약","사유","한도","금액","소기업","소상공인","청년창업기업","여성기업","장애인기업","사회적기업","공사","물품","용역","2천만원","1억원","임대차","긴급","특허"],"text":"제26조(수의계약에 의할 수 있는 경우) ① 법 제7조제1항 단서에 따라 수의계약을 할 수 있는 경우는 다음 각 호와 같다.  \n\n1. 경쟁에 부칠 여유가 없거나 경쟁에 부쳐서는 계약의 목적을 달성하기 곤란하다고 판단되는 경우로서 다음 각 목의 경우\n\n가. 천재지변, 감염병 예방 및 확산 방지, 작전상의 병력 이동, 긴급한 행사, 긴급복구가 필요한 수해 등 비상재해, 원자재의 가격급등, 사고방지 등을 위한 긴급한 안전진단ㆍ시설물 개선, 그 밖에 이에 준하는 경우\n\n나. 국가안전보장, 국가의 방위계획 및 정보활동, 군시설물의 관리, 외교관계, 그 밖에 이에 준하는 경우로서 보안상 필요가 있거나, 국가기관의 행위를 비밀리에 할 필요가 있는 경우\n\n다. 방위사업청장이 군용규격물자를 연구개발한 업체 또는 「비상대비자원 관리법」에 따른 중점관리대상업체로부터 군용규격물자(중점관리대상업체의 경우에는 방위사업청장이 지정하는 품목에 한정한다)를 제조ㆍ구매하는 경우\n\n라. 비상재해가 발생한 경우에 국가가 소유하는 복구용 자재를 재해를 당한 자에게 매각하는 경우\n\n2. 특정인의 기술이 필요하거나 해당 물품의 생산자가 1인뿐인 경우 등 경쟁이 성립될 수 없는 경우로서 다음 각 목의 경우\n\n가. 공사와 관련하여 장래 시설물의 하자에 대한 책임 구분이 곤란한 경우로서 직전 또는 현재의 시공자와 계약을 하는 경우\n\n나. 작업상 혼란이 초래될 우려가 있는 등 동일 현장에서 2인 이상의 시공자가 공사를 할 수 없는 경우로서 현재의 시공자와 계약을 하는 경우\n\n다. 마감공사와 관련하여 직전 또는 현재의 시공자와 계약을 하는 경우\n\n라. 접적지역 등 특수지역에서 시행하는 공사로서 사실상 경쟁이 불가능한 경우\n\n마. 특허공법을 적용하는 공사 또는 「건설기술 진흥법」 제14조에 따라 지정ㆍ고시된 신기술, 「환경기술 및 환경산업 지원법」 제7조에 따라 인증받은 신기술이나 검증받은 기술, 종전의 「전력기술관리법」(법률 제13741호로 개정되기 전의 것을 말한다) 제6조의2에 따라 지정ㆍ고시된 새로운 전력기술 또는 「재난안전산업 진흥법」 제14조에 따라 지정된 재난안전신기술(각 해당 법률에 따라 지정된 보호기간 또는 유효기간 내의 경우로 한정한다)을 적용하는 공사로서 사실상 경쟁이 불가능한 경우\n\n바. 해당 물품을 제조ㆍ공급한 자가 직접 그 물품을 설치ㆍ조립 또는 정비하는 경우\n\n사. 이미 조달된 물품의 부품교환 또는 설비확충 등을 위하여 조달하는 경우로서 해당 물품을 제조ㆍ공급한 자 외의 자로부터 제조ㆍ공급을 받게 되면 호환성이 없게 되는 경우\n\n아. 특허를 받았거나 실용신안등록 또는 디자인등록이 된 물품을 제조하게 하거나 구매 또는 임차하는 경우로서 적절한 대용품이나 대체품이 없는 경우\n\n자. 해당 물품의 생산자 또는 소지자가 1인뿐인 경우로서 다른 물품을 제조하게 하거나 구매 또는 임차해서는 사업목적을 달성할 수 없는 경우\n\n차. 특정인의 기술ㆍ품질이나 경험ㆍ자격을 필요로 하는 조사ㆍ설계ㆍ감리ㆍ특수측량ㆍ훈련 계약, 특정인과의 학술연구 등을 위한 용역 계약, 관련 법령에 따라 디자인공모에 당선된 자와 체결하는 설계용역 계약의 경우\n\n카. 특정인의 토지ㆍ건물 등 부동산을 매입하거나 재산을 임차 또는 특정인에게 임대하는 경우\n\n타. 「매장유산 보호 및 조사에 관한 법률」 제11조에 따른 매장유산 발굴 용역으로서 같은 법 시행령 제7조제1항제4호에 따른 시굴(試掘)조사 후 정밀발굴조사로 전환되는 경우\n\n3. 「중소기업진흥에 관한 법률」 제2조제1호에 따른 중소기업자가 직접 생산하는 다음 각 목의 제품을 해당 중소기업자에게 제조하게 하거나 해당 중소기업자로부터 구매 또는 임차하는 경우\n\n가. 「중소기업제품 구매촉진 및 판로지원에 관한 법률」 제15조에 따라 성능인증을 받은 제품\n\n나. 「소프트웨어 진흥법」 제20조에 따라 품질인증을 받은 제품\n\n다. 「중소기업 기술혁신 촉진법」 제9조제1항제3호에 따른 지원을 받아 개발이 완료된 제품으로서 당초의 수요와 연계된 자가 구매를 협약한 제품\n\n라. 「산업기술혁신 촉진법」 제16조에 따라 신제품으로 지정받은 제품\n\n마. 다음 법률의 규정에 따라 인증되거나 지정된 신기술을 이용하여 제조한 제품 또는 지정된 신기술 제품으로서 주무부장관이 상용화 단계에서 성능을 확인한 제품\n\n1) 「건설기술 진흥법」 제14조\n\n2) 「국가통합교통체계효율화법」 제102조\n\n3) 「농림식품과학기술 육성법」 제12조의2\n\n4) 「농업기계화 촉진법」 제7조\n\n5) 「목재의 지속가능한 이용에 관한 법률」 제18조\n\n6) 「물류정책기본법」 제57조\n\n7) 「보건의료기술 진흥법」 제8조\n\n8) 「산업기술혁신 촉진법」 제15조의2\n\n9) 「재난안전산업 진흥법」 제14조\n\n10) 「해양수산과학기술 육성법」 제17조\n\n11) 「환경기술 및 환경산업 지원법」 제7조\n\n바. 「조달사업에 관한 법률 시행령」 제30조에 따라 우수조달물품으로 지정ㆍ고시된 제품\n\n사. 「조달사업에 관한 법률 시행령」 제31조에 따라 지정ㆍ고시된 우수조달 공동상표의 물품(재정경제부장관이 고시한 금액 미만의 물품을 제조하게 하거나 구매하는 경우에 한정한다)\n\n아. 삭제\n\n자. 과학기술정보통신부장관이 「지능정보화 기본법」 제58조에 따른 정보보호시스템의 성능과 신뢰도에 관한 기준에 합치된 것으로 확인한 제품으로서 「전자정부법 시행령」 제69조에 따라 국가정보원장이 정한 정보보호시스템 유형별 도입요건을 준수한 제품\n\n차. 「재난안전산업 진흥법」 제16조제1항에 따른 적합성 인증을 받은 재난안전제품\n\n4. 국가유공자 또는 장애인 등에게 일자리나 보훈ㆍ복지서비스 등을 제공하기 위한 목적으로 설립된 다음 각 목의 어느 하나에 해당하는 단체 등과 물품의 제조ㆍ구매ㆍ임차계약 또는 용역 계약(해당 단체가 직접 생산하는 물품 및 직접 수행하는 용역에 한정한다)을 체결하거나, 그 단체 등에 직접 물건을 매각ㆍ임대하는 경우\n\n가. 국가보훈부장관이 지정하는 국가유공자 자활집단촌의 복지공장\n\n나. 「국가유공자 등 단체설립에 관한 법률」에 따라 설립된 단체 중 상이를 입은 자들로 구성된 단체\n\n다. 「중증장애인생산품 우선구매 특별법」 제9조제1항에 따라 지정받은 중증장애인생산품 생산시설\n\n라. 「사회복지사업법」 제16조에 따라 설립된 사회복지법인\n\n마. 「장애인고용촉진 및 직업재활법」 제22조의5제1항에 따라 인증받은 장애인 표준사업장\n\n5. 제1호부터 제4호까지의 경우 외에 계약의 목적ㆍ성질 등에 비추어 경쟁에 따라 계약을 체결하는 것이 비효율적이라고 판단되는 경우로서 다음 각 목의 경우\n\n가. 다음의 어느 하나에 해당하는 계약\n\n1) 「건설산업기본법」에 따른 건설공사(같은 법에 따른 전문공사는 제외한다)로서 추정가격이 4억원 이하인 공사, 같은 법에 따른 전문공사로서 추정가격이 2억원 이하인 공사 및 그 밖의 공사 관련 법령에 따른 공사로서 추정가격이 1억6천만원 이하인 공사에 대한 계약\n\n2) 추정가격이 2천만원 이하인 물품의 제조ㆍ구매ㆍ임차계약 또는 용역계약\n\n3) 추정가격이 2천만원 초과 1억원 이하인 계약으로서 「중소기업기본법」 제2조제2항에 따른 소기업 또는 「소상공인기본법」 제2조에 따른 소상공인과 체결하는 물품의 제조ㆍ구매ㆍ임차계약 또는 용역계약. 다만, 제30조제1항제3호 및 같은 조 제2항 단서에 해당하는 경우에는 소기업 또는 소상공인외의 자와 체결하는 물품의 제조ㆍ구매ㆍ임차계약 또는 용역계약을 포함한다.\n\n4) 추정가격이 2천만원 초과 1억원 이하인 계약 중 학술연구ㆍ원가계산ㆍ건설기술 등과 관련된 계약으로서 특수한 지식ㆍ기술 또는 자격을 요구하는 물품의 제조ㆍ구매ㆍ임차계약 또는 용역계약\n\n5) 추정가격이 2천만원 초과 1억원 이하인 계약으로서 다음의 어느 하나에 해당하는 자와 체결하는 물품의 제조ㆍ구매ㆍ임차계약 또는 용역계약\n\n가) 「여성기업지원에 관한 법률」 제2조제1호에 따른 여성기업\n\n나) 「장애인기업활동 촉진법」 제2조제2호에 따른 장애인기업\n\n다) 「사회적기업 육성법」 제2조제1호에 따른 사회적기업, 「협동조합 기본법」 제2조제3호에 따른 사회적협동조합, 「국민기초생활 보장법」 제18조에 따른 자활기업 또는 「도시재생 활성화 및 지원에 관한 특별법」 제2조제1항제9호에 따른 마을기업 중 재정경제부장관이 정하는 요건을 충족하는 자\n\n6) 추정가격이 5천만원 이하인 임대차 계약(연액 또는 총액을 기준으로 추정가격을 산정한다) 등으로서 공사계약 또는 물품의 제조ㆍ구매ㆍ임차계약이나 용역계약이 아닌 계약\n\n7) 추정가격이 5천만원 이하인 계약으로서 「중소기업창업 지원법」 제2조제11호에 따른 청년창업기업과 체결하는 물품의 제조ㆍ구매ㆍ임차계약 또는 용역계약\n\n나. 재외공관에서 사용하는 물품을 현지에서 제조하게 하거나 구매 또는 임차하는 경우\n\n다. 물품을 가공ㆍ하역ㆍ운송 또는 보관할 때 경쟁에 부치는 것이 불리하다고 인정되는 경우\n\n라. 「방위사업법」에 따른 방산물자를 방위산업체로부터 제조ㆍ구매하는 경우\n\n마. 다른 법령에 따라 국가사업을 위탁 또는 대행할 수 있는 자와 해당 사업에 대한 계약을 하는 경우\n\n바. 다른 국가기관 또는 지방자치단체와 계약을 하는 경우\n\n사. 「조달사업에 관한 법률」 제27조제1항에 따른 혁신제품을 제조하게 하거나 구매 또는 임차하는 경우\n\n아. 「클라우드컴퓨팅 발전 및 이용자 보호에 관한 법률」 제20조제3항에 따라 선정된 디지털서비스에 관한 계약을 하는 경우\n\n자. 「과학기술기본법 시행령」 제24조의2제2항에 따른 혁신도전형 연구개발사업군에 속하는 국가연구개발사업의 추진에 필요한 연구시설ㆍ장비로서 과학기술정보통신부장관이 정하여 고시하는 기준에 적합한 연구시설ㆍ장비를 제조하게 하거나 구매 또는 임차하는 경우\n\n② 각 중앙관서의 장 또는 계약담당공무원은 제1항제3호 각 목의 제품을 제조하게 하거나 구매 또는 임차하는 경우에는 주무부장관(주무부장관으로부터 위임받은 자를 포함한다)의 해당 물품에 대한 인증 또는 지정 등이 유효한 기간(유효한 기간이 연장된 경우에는 연장된 기간까지 포함한다. 이하 이 항에서 같다)의 범위에서 수의계약을 체결할 수 있다. 다만, 해당 물품에 대한 인증 또는 지정 등이 유효한 기간이 6년을 넘는 경우에는 6년까지만 수의계약을 체결할 수 있다.  \n\n③각 중앙관서의 장 또는 계약담당공무원은 제1항제4호에 따라 수의계약에 의하는 경우에는 다음 각 호의 사항을 확인해야 한다.  \n\n1. 수의계약 대상자의 자격요건\n\n2. 수의계약의 대상물품의 직접생산여부\n\n④각 중앙관서의 장 또는 계약담당공무원은 수의계약 대상자를 감독하는 주무부처의 장에게 제3항 각 호의 사항의 확인에 필요한 협조를 요청할 수 있다.  \n\n⑤계약담당공무원은 제1항제1호다목ㆍ라목, 같은 항 제2호, 제4호나목ㆍ다목 및 제5호다목ㆍ마목에 따라 수의계약을 체결한 때에는 그 내용을 소속중앙관서의 장에게 보고해야 하며, 각 중앙관서의 장은 보고받은 사항 중 제1항제2호에 따른 계약에 대해서는 이를 감사원에 통지해야 한다.  \n\n⑥ 삭제"},{"id":"NAT-ENF-30","org":"nat","law":"국가계약법 시행령","title":"제30조(견적에 의한 가격결정 등)","effective":"2026.6.3","verified":"2026-11-02","url":"https://www.law.go.kr/법령/국가를당사자로하는계약에관한법률시행령/제30조","keywords":["견적서","견적","1인","2인","전자조달시스템","수의계약","절차","재견적","계약상대자","결정","나라장터"],"text":"제30조(견적에 의한 가격결정 등) ①각 중앙관서의 장 또는 계약담당공무원은 수의계약을 체결하려는 경우에는 2인 이상으로부터 견적서를 받아야 한다. 다만, 다음 각 호의 어느 하나에 해당하는 경우에는 1인으로부터 받은 견적서에 의할 수 있다.  \n\n1. 제26조제1항제1호가목ㆍ나목, 같은 항 제2호, 같은 항 제5호가목7), 같은 호 마목ㆍ사목ㆍ아목, 제27조 및 제28조에 따른 계약의 경우\n\n2. 추정가격이 2천만원 이하인 경우. 다만, 제26조제1항제5호가목5)가)부터 다)까지의 어느 하나에 해당하는 자와 계약을 체결하는 경우에는 5천만원 이하인 경우로 한다.\n\n3. 제2항 본문에 따라 전자조달시스템을 이용하여 견적서를 제출받았으나 견적서 제출자가 1인뿐인 경우로서 다시 견적서를 제출받더라도 견적서 제출자가 1인밖에 없을 것으로 명백히 예상되는 경우\n\n②각 중앙관서의 장 또는 계약담당공무원은 제26조제1항제5호가목에 따른 수의계약 중 추정가격이 2천만원[같은 조 제1항제5호가목5)가)부터 다)까지의 어느 하나에 해당하는 자와 계약을 체결하는 경우에는 5천만원]을 초과하는 수의계약의 경우에는 전자조달시스템을 이용하여 견적서를 제출하도록 해야 한다. 다만, 계약의 목적이나 특성상 전자조달시스템에 의한 견적서제출이 곤란한 경우로서 재정경제부령으로 정하는 경우에는 그렇지 않다.  \n\n③각 중앙관서의 장 또는 계약담당공무원은 제2항 본문에 따라 전자조달시스템을 이용하여 견적서를 제출하도록 하는 경우 그 견적서의 제출에 관한 사항은 전자조달시스템을 이용하여 안내공고를 하여야 한다.  \n\n④각 중앙관서의 장 또는 계약담당공무원은 제2항에 따른 수의계약을 할 경우 계약이행의 용이성 및 효율성 등을 고려하여 필요하다고 인정되는 경우에는 견적서를 제출할 수 있는 자를 재정경제부령으로 정하는 바에 따라 법인등기부상 본점소재지를 기준으로 하여 제한할 수 있다. 이 경우 제3항에 따른 안내공고에 그 제한사항과 제한기준을 명시하여야 한다.  \n\n⑤재정경제부장관은 제2항에 따른 전자조달시스템을 이용한 견적서의 제출과 관련한 기준 및 세부절차, 제3항에 따른 안내공고의 시기 및 기간 등에 관하여 필요한 사항을 정할 수 있다.  \n\n⑥제1항 또는 제2항에 따라 제출받은 견적서에 기재된 견적가격이 예정가격(제7조의2제2항에 따라 예정가격작성을 생략한 경우에는 추정가격에 부가가치세를 포함한 금액을 말한다)의 범위에 포함되지 아니하는 경우 등 계약상대자를 결정할 수 없는 때에는 다시 견적서를 제출받아 계약금액을 결정하여야 한다.  \n\n⑦제1항ㆍ제2항 및 제6항에도 불구하고 재정경제부령으로 정하는 경우에는 견적서제출을 생략하게 할 수 있다."},{"id":"NAT-ENF-33","org":"nat","law":"국가계약법 시행령","title":"제33조(입찰공고)","effective":"2026.6.3","verified":"2026-11-02","url":"https://www.law.go.kr/법령/국가를당사자로하는계약에관한법률시행령/제33조","keywords":["입찰공고","공고","전자조달시스템","정정","공고기간","나라장터"],"text":"제33조(입찰공고) ①입찰방법에 의하여 경쟁에 부치고자 할 때에는 이 영에 특별한 규정이 있는 경우를 제외하고는 전자조달시스템을 이용하여 공고하여야 한다. 다만, 필요한 경우 일간신문 등에 게재하는 방법을 병행할 수 있다.  \n\n② 각 중앙관서의 장 또는 계약담당공무원은 제1항에 따른 입찰공고 중 내용의 오류나 법령위반사항이 발견되어 공고사항의 정정이 필요한 경우에는 남은 공고기간에 5일 이상을 더하여 공고하여야 한다."},{"id":"NAT-ENF-35","org":"nat","law":"국가계약법 시행령","title":"제35조(입찰공고의 시기)","effective":"2026.6.3","verified":"2026-11-02","url":"https://www.law.go.kr/법령/국가를당사자로하는계약에관한법률시행령/제35조","keywords":["입찰공고","시기","공고기간","7일","5일","긴급","현장설명","15일","40일","마감"],"text":"제35조(입찰공고의 시기) ①입찰공고는 입찰서 제출마감일의 전일부터 기산하여 7일전에 이를 행하여야 한다.  \n\n②공사입찰의 경우로서 제14조의2제1항에 따른 현장설명을 실시하는 경우에는 현장설명일의 전일부터 기산하여 7일전에 공고해야 한다. 다만, 제13조에 따라 입찰참가자격을 사전에 심사하려는 공사입찰의 경우에는 현장설명일 전일부터 기산하여 30일전에 공고해야 한다.  \n\n③공사입찰의 경우로서 현장설명을 실시하지 아니하는 때에는 입찰서 제출마감일의 전일부터 기산하여 다음 각 호에서 정한 기간 전에 공고하여야 한다.  \n\n1. 추정가격이 10억원 미만인 경우 7일\n\n2. 추정가격이 10억원 이상 50억원 미만인 경우 15일\n\n3. 추정가격이 50억원 이상인 경우 40일\n\n④ 제1항부터 제3항까지의 규정에도 불구하고 다음 각 호의 어느 하나에 해당하는 경우에는 입찰서 제출마감일의 전날부터 기산하여 5일 전까지 공고할 수 있다.  \n\n1. 제20조제2항에 따른 재공고입찰의 경우\n\n1의2. 국가의 재정정책상 예산의 조기집행을 위해 필요한 경우\n\n2. 다른 국가사업과 연계되어 일정조정을 위하여 불가피한 경우\n\n3. 긴급한 행사 또는 긴급한 재해예방ㆍ복구 등을 위하여 필요한 경우\n\n4. 그 밖에 제2호 및 제3호에 준하는 경우\n\n⑤제43조에 따른 협상에 의한 계약 또는 제43조의3에 따른 경쟁적 대화에 의한 계약의 경우에는 제1항 및 제4항에도 불구하고 제안서 제출마감일의 전날부터 기산하여 40일 전에 공고하여야 한다. 다만, 다음 각 호의 어느 하나에 해당하는 경우에는 제안서 제출마감일의 전날부터 기산하여 10일 전까지 공고할 수 있다.  \n\n1. 제4항 각 호의 어느 하나에 해당하는 경우\n\n2. 추정가격이 고시금액 미만인 경우\n\n3. 삭제"},{"id":"LOC-LAW-9","org":"loc","law":"지방계약법","title":"제9조(계약의 방법)","effective":"2026.10.20","verified":"2026-11-02","url":"https://www.law.go.kr/법령/지방자치단체를당사자로하는계약에관한법률/제9조","keywords":["일반입찰","지명입찰","수의계약","계약의","방법","원칙","공고","사전심사","입찰","참가자격","제한"],"text":"제9조(계약의 방법) ① 지방자치단체의 장 또는 계약담당자는 계약을 체결하려는 경우에는 이를 공고하여 일반입찰에 부쳐야 한다. 다만, 계약의 목적ㆍ성질ㆍ규모 및 지역특수성 등을 고려하여 필요하다고 인정되면 참가자를 지명(指名)하여 입찰에 부치거나 수의계약을 할 수 있다.  \n\n② 제1항 본문에 따라 일반입찰에 부치는 경우 대통령령으로 정하는 바에 따라 입찰 참가자격을 사전심사하여 적격자만을 입찰에 참가하게 하거나 시공능력, 실적, 기술보유상황, 법인등기부상 본점소재지(개인사업자인 경우에는 사업자등록증 또는 관련 법령에 따른 허가ㆍ인가ㆍ면허ㆍ등록ㆍ신고 등에 관련된 서류에 기재된 사업장의 소재지를 말한다. 이하 같다) 등으로 입찰 참가자격을 제한하여 입찰에 부칠 수 있다.  \n\n③ 제1항 단서에 따른 지명기준 및 지명절차, 수의계약의 대상범위 및 수의계약상대자의 선정절차, 그 밖에 필요한 사항은 대통령령으로 정한다.\n\n④ 지방자치단체의 장 또는 계약담당자는 제1항 단서에 따라 수의계약을 체결한 경우 대통령령으로 정하는 바에 따라 수의계약 내용을 공개하여야 한다.\n\n⑤ 제1항에 따라 계약을 체결하는 과정에서 다른 법률에 따른 우선구매 대상이 경합하는 경우에는 계약의 목적이나 규모, 사회적 약자에 대한 배려 수준 등을 고려하여 계약상대자를 결정하여야 한다."},{"id":"LOC-ENF-14","org":"loc","law":"지방계약법 시행령","title":"제14조(입찰 참가자격 사전심사)","effective":"2026.6.3","verified":"2026-11-02","url":"https://www.law.go.kr/법령/지방자치단체를당사자로하는계약에관한법률시행령/제14조","keywords":["입찰","참가자격","사전심사","적격자","계약이행능력","심사기준"],"text":"제14조(입찰 참가자격 사전심사) ① 지방자치단체의 장 또는 계약담당자는 입찰 참가자격을 미리 심사하여 입찰에 참가할 수 있는 적격자를 선정할 수 있다. 다만, 제42조의3에 따라 낙찰자를 결정하는 공사계약의 경우에는 입찰 참가자격을 미리 심사하여야 한다.  \n\n② 지방자치단체의 장 또는 계약담당자는 제1항에 따라 입찰 참가자격을 심사하는 경우에는 계약이행의 난이도, 이행실적, 기술능력, 재무상태, 계약이행의 성실도 및 사회적 신인도 등 계약수행능력을 평가하는 데에 필요한 요소들을 종합적으로 고려하여 행정안전부장관이 정한 기준으로 심사하거나 그 기준의 범위에서 입찰 참가자격의 심사기준을 정할 수 있다. 다만, 지방자치단체의 장 또는 계약담당자는 행정안전부장관이 정한 기준의 범위를 벗어나 달리 정하려는 경우에는 행정안전부장관과 미리 협의하여 달리 심사기준을 정할 수 있다.  \n\n③ 지방자치단체의 장 또는 계약담당자는 입찰 전에 입찰에 참가하려는 자가 열람할 수 있도록 다음 각 호의 서류를 갖춰 두어야 하며, 입찰에 참가하려는 자가 요구하는 경우에는 이를 내주어야 한다. 이 경우 지정정보처리장치에 이를 게재함으로써 열람 및 교부를 갈음할 수 있다.  \n\n1. 입찰 참가자격 사전심사기준\n\n2. 입찰 참가자격 사전심사에 필요한 증명서류의 작성요령 및 제출방법\n\n3. 그 밖에 입찰 참가자격 사전심사에 필요한 사항\n\n④ 지방자치단체의 장 또는 계약담당자는 제2항에도 불구하고 용역 등에 대하여 관계 법령에서 사업수행능력 평가절차 등을 규정하고 있는 경우에는 그 절차 등에 따라 입찰에 참가할 수 있는 적격자를 선정한다.\n\n⑤ 제1항에 따른 입찰 참가자격 사전심사에 관한 구체적인 절차는 행정안전부장관이 정한다."},{"id":"LOC-ENF-20","org":"loc","law":"지방계약법 시행령","title":"제20조(제한입찰에 의할 계약과 제한사항 등)","effective":"2026.6.3","verified":"2026-11-02","url":"https://www.law.go.kr/법령/지방자치단체를당사자로하는계약에관한법률시행령/제20조","keywords":["제한입찰","제한경쟁","자격","제한","제한사항","실적","시공능력","소재지"],"text":"제20조(제한입찰에 의할 계약과 제한사항 등) ① 법 제9조제2항에 따라 입찰참가자의 자격을 제한할 수 있는 경우와 그 제한사항은 다음 각 호와 같다. 이 경우 제1호부터 제3호까지, 제5호 및 제6호의 제한사항별 제한기준은 행정안전부령으로 정한다.  \n\n1. 「건설산업기본법」에 따른 종합공사로서 추정가격 30억원(「건설산업기본법」에 따른 전문공사와 그 밖에 공사 관련 법령에 따른 공사의 경우에는 3억원) 이상인 공사계약의 경우에는 시공능력 또는 해당 공사와 같은 종류의 공사실적\n\n2. 특수한 기술 또는 공법이 요구되는 공사계약의 경우에는 해당 공사수행에 필요한 기술의 보유상황 또는 그 공사와 같은 종류의 공사실적\n\n3. 특수한 설비 또는 기술이 요구되는 물품제조계약의 경우에는 해당 물품제조에 필요한 설비 및 기술의 보유상황 또는 계약 대상 물품과 같은 종류의 물품제조실적. 이 경우 해당 물품과 같은 종류의 물품제조실적을 기준으로 입찰참가자의 자격을 제한하려면 해당 물품제조계약의 추정가격이 「국가를 당사자로 하는 계약에 관한 법률」 제4조제1항에 따라 재정경제부장관이 정하여 고시한 금액 이상이어야 한다.\n\n4. 삭제  \n\n5. 특수한 기술이 요구되는 용역계약의 경우에는 해당 용역수행에 필요한 기술의 보유상황 또는 계약 대상 용역과 같은 종류의 용역수행실적. 이 경우 해당 용역과 같은 종류의 용역수행실적을 기준으로 입찰참가자의 자격을 제한하려면 해당 용역계약의 추정가격이 「국가를 당사자로 하는 계약에 관한 법률」 제4조제1항에 따라 재정경제부장관이 정하여 고시한 금액 이상이어야 한다.\n\n6. 추정가격이 행정안전부령으로 정하는 금액 미만인 계약의 경우에는 법인등기부상 본점소재지(개인사업자인 경우에는 사업자등록증 또는 관련 법령에 따른 허가ㆍ인가ㆍ면허ㆍ등록ㆍ신고 등에 관련된 서류에 기재된 사업장의 소재지를 말한다)\n\n7. 제21조에 따른 제한방법으로 공사계약을 하는 경우에는 그 제한기준\n\n8. 「중소기업제품 구매촉진 및 판로지원에 관한 법률」 제6조에 따라 중소벤처기업부장관이 지정ㆍ공고한 물품을 제조ㆍ구매하는 경우에는 「중소기업기본법」 제2조에 따른 중소기업자\n\n9. 삭제  \n\n10. 특수한 성능 또는 품질이 요구되어 다음 각 목의 인증 등을 받은 물품을 구매하려는 경우에는 해당 인증 등을 받은 물품인지 여부\n\n가. 「산업표준화법」 제15조에 따른 인증을 받은 제품 또는 같은 법 제25조에 따른 우수한 단체표준제품\n\n나. 「환경기술 및 환경산업 지원법」 제18조제1항에 따른 환경성적표지의 인증을 받은 제품 중 기후에너지환경부장관이 정하여 고시하는 기준에 따라 「기후위기 대응을 위한 탄소중립ㆍ녹색성장 기본법」에 따른 온실가스의 배출량을 줄인 제품\n\n다. 「환경기술 및 환경산업 지원법」 제17조에 따라 환경표지의 인증을 받은 물품\n\n라. 「자원의 절약과 재활용촉진에 관한 법률」 제33조에 따른 기준에 적합하고 「산업기술혁신 촉진법 시행령」 제17조제1항제3호에 따른 품질인증을 받은 재활용제품\n\n마. 「재난안전산업 진흥법」 제14조에 따라 지정된 재난안전신기술을 활용한 물품\n\n11. 「중소기업제품 구매촉진 및 판로지원에 관한 법률」 제7조의2제2항제1호에 따른 제한경쟁입찰 방법에 따라 물품 제조ㆍ구매 계약을 체결하는 경우에는 같은 항에 따른 공동사업에 참여한 소기업 또는 소상공인(해당 물품 등을 납품할 수 있는 소기업 또는 소상공인을 말한다)\n\n12. 다음 각 목의 구분에 따른 자로부터 추정가격이 「국가를 당사자로 하는 계약에 관한 법률」 제4조제1항에 따라 재정경제부장관이 정하여 고시하는 금액 미만인 물품 또는 용역(「엔지니어링산업 진흥법」 제2조제3호에 따른 엔지니어링사업 및 「건설기술 진흥법」 제2조제3호에 따른 건설엔지니어링은 제외한다. 이하 이 호에서 같다)을 제조ㆍ구매하는 경우\n\n가. 추정가격이 1억원 미만인 물품 또는 용역을 제조ㆍ구매하는 경우에는 「벤처기업육성에 관한 특별법」 제2조제1항에 따른 벤처기업, 「소상공인기본법」 제2조에 따른 소상공인, 「중소기업기본법」 제2조제2항에 따른 소기업 또는 「중소기업창업 지원법」에 따른 창업기업\n\n나. 추정가격이 1억원 이상인 물품 또는 용역을 제조ㆍ구매하는 경우에는 「중소기업기본법」 제2조에 따른 중소기업자\n\n② 지방자치단체의 장 또는 계약담당자는 제1항에 따라 입찰 참가자격을 제한하려는 경우에는 입찰공고에 그 제한사항과 제한기준을 명시하여야 한다.\n\n③ 지방자치단체의 장 또는 계약담당자는 공사입찰로서 제1항제6호에 따라 입찰 참가자격을 제한하는 경우에 필요하다고 인정하면 행정안전부령으로 정하는 바에 따라 해당 입찰참가적격자에게 제36조 각 호의 사항을 통지함으로써 제2항에 따른 입찰공고를 갈음할 수 있다. 이 경우 입찰공고일은 통지일로 보며 통지시기에 관하여는 제35조를 준용한다."},{"id":"LOC-ENF-21","org":"loc","law":"지방계약법 시행령","title":"제21조(공사의 성질별ㆍ규모별 제한에 따른 입찰)","effective":"2026.6.3","verified":"2026-11-02","url":"https://www.law.go.kr/법령/지방자치단체를당사자로하는계약에관한법률시행령/제21조","keywords":["공사","성질별","규모별","제한","입찰","지역","제한"],"text":"제21조(공사의 성질별ㆍ규모별 제한에 따른 입찰) ① 특별시장ㆍ광역시장ㆍ특별자치시장ㆍ도지사ㆍ특별자치도사(이하 “시ㆍ도지사”라 한다)는 공사를 성질별ㆍ규모별로 유형화하여 이에 상응하는 입찰 제한기준을 정하고 이를 미리 지정정보처리장치에 공고하여 입찰참가적격자로 하여금 등록을 신청하게 할 수 있다.  \n\n② 시ㆍ도지사는 제1항에 따른 등록신청을 받았을 때에는 이를 심사하여 유형별ㆍ등급별로 입찰참가적격자를 선정하여 등록하고 공사입찰 시마다 해당 입찰참가적격자에게 제36조 각 호의 사항을 통지하여 입찰 참가신청을 하게 할 수 있다.\n\n③ 시ㆍ도지사는 제1항에 따라 입찰 제한기준을 정하려는 경우에는 행정안전부장관과 협의하여야 한다.  \n\n④ 지방자치단체의 장 또는 계약담당자는 제2항에 따라 공사현장을 관할하는 시ㆍ도지사가 등록한 입찰참가적격자를 대상으로 입찰을 실시할 수 있다."},{"id":"LOC-ENF-22","org":"loc","law":"지방계약법 시행령","title":"제22조(지명입찰에 의할 계약)","effective":"2026.6.3","verified":"2026-11-02","url":"https://www.law.go.kr/법령/지방자치단체를당사자로하는계약에관한법률시행령/제22조","keywords":["지명입찰","지명경쟁","지명","계약","사유"],"text":"제22조(지명입찰에 의할 계약) 지방자치단체의 장 또는 계약담당자는 다음 각 호의 어느 하나에 해당하는 경우에는 법 제9조제1항 단서에 따른 지명입찰에 부칠 수 있다.  \n\n1. 계약의 성질 또는 목적에 비추어 특수한 설비ㆍ기술ㆍ자재ㆍ물품 또는 실적이 있는 자가 아니면 계약의 목적을 달성하기 곤란한 경우로서 입찰대상자가 10인 이내인 경우\n\n2. 「건설산업기본법」에 따른 종합공사의 경우 추정가격이 3억원(「건설산업기본법」에 따른 전문공사, 「전기공사업법」에 따른 전기공사, 「정보통신공사업법」에 따른 정보통신공사, 「소방시설공사업법」에 따른 소방시설공사, 그 밖의 공사 관련 법령에 따른 공사의 경우에는 1억원) 이하인 공사를 하거나 추정가격이 1억원 이하인 물품의 제조ㆍ구매 계약 또는 추정가격이 2억원 이하인 용역계약을 체결하려는 경우\n\n3. 추정가격이 5천만원 이하인 재산을 매입하는 경우\n\n4. 예정임차료의 연액(年額)(보증금이 있는 경우 보증금을 연 임대료로 환산한 금액을 포함한다)이 5천만원 이하인 재산이나 물품을 임차하는 경우\n\n5. 제1호부터 제4호까지의 규정 외의 계약으로서 추정가격이 5천만원 이하인 경우\n\n6. 「산업표준화법」 제15조에 따라 인증을 받은 제품, 같은 법 제25조에 따른 우수한 단체표준제품 또는「녹색제품 구매촉진에 관한 법률」 제2조의2제2호의 제품\n\n7. 법 제9조제1항 단서, 이 영 제25조제1항 및 같은 조 제3항에 따라 수의계약에 의할 수 있는 경우\n\n8. 「자원의 절약과 재활용촉진에 관한 법률」 제33조에 따른 기준에 적합하고, 「산업기술혁신 촉진법 시행령」 제17조제1항제3호에 따라 품질인증을 받은 재활용제품 또는 「환경기술 및 환경산업 지원법」 제17조에 따른 환경표지의 인증을 받은 제품을 제조하게 하거나 구매하는 경우\n\n9. 제79조제1항제2호에 따른 단가계약을 체결하려는 경우\n\n10. 「중소기업제품 구매촉진 및 판로지원에 관한 법률」 제6조에 따라 중소벤처기업부장관이 지정ㆍ공고한 물품을 「중소기업기본법」 제2조에 따른 중소기업자로부터 제조ㆍ구매하는 경우\n\n11. 「재난안전산업 진흥법」 제14조에 따라 지정된 재난안전신기술을 활용한 물품을 제조하게 하거나 구매하는 경우\n\n12. 「중소기업제품 구매촉진 및 판로지원에 관한 법률」 제7조의2제2항제2호에 따라 지방자치단체의 장의 요청으로 「중소기업협동조합법」 제3조에 따른 중소기업협동조합이 추천하는 소기업 또는 소상공인(해당 물품 등을 납품할 수 있는 소기업 또는 소상공인을 말한다)으로부터 물품 또는 용역을 제조하게 하거나 구매하는 경우"},{"id":"LOC-ENF-23","org":"loc","law":"지방계약법 시행령","title":"제23조(지명입찰대상자의 지명)","effective":"2026.6.3","verified":"2026-11-02","url":"https://www.law.go.kr/법령/지방자치단체를당사자로하는계약에관한법률시행령/제23조","keywords":["지명입찰대상자","지명","5인","이상","입찰대상자"],"text":"제23조(지명입찰대상자의 지명) ① 지방자치단체의 장 또는 계약담당자는 제22조에 따라 지명입찰에 부치려는 경우에는 5인 이상의 입찰대상자를 지명하여 2인 이상의 입찰 참가신청을 받아야 한다. 다만, 지명대상자가 5인 미만일 때에는 대상자를 모두 지명하여야 한다.\n\n② 제1항의 경우에는 제36조 각 호의 사항을 각 입찰대상자에게 통지함으로써 입찰공고를 갈음한다. 이 경우 입찰공고일은 통지일로 보며, 통지시기에 관하여는 제35조를 준용한다.\n\n③ 지방자치단체의 장 또는 계약담당자는 제1항에 따라 입찰대상자를 지명하려는 경우에는 행정안전부령으로 정하는 바에 따라 이를 통지하고 입찰참가 여부를 확인하여야 한다."},{"id":"LOC-ENF-25","org":"loc","law":"지방계약법 시행령","title":"제25조(수의계약에 의할 수 있는 경우)","effective":"2026.6.3","verified":"2026-11-02","url":"https://www.law.go.kr/법령/지방자치단체를당사자로하는계약에관한법률시행령/제25조","keywords":["수의계약","사유","한도","금액","소기업","소상공인","청년창업기업","여성기업","장애인기업","사회적기업","공사","물품","용역","2천만원","1억원","임대차","긴급","특허"],"text":"제25조(수의계약에 의할 수 있는 경우) ① 지방자치단체의 장 또는 계약담당자는 다음 각 호의 어느 하나에 해당하는 경우에는 법 제9조제1항 단서에 따라 수의계약을 할 수 있다.  \n\n1. 천재지변, 감염병의 발생 및 유행, 작전상의 병력이동, 긴급한 행사, 원자재의 가격급등, 그 밖에 이에 준하는 경우로서 입찰에 부칠 여유가 없는 경우\n\n2. 입찰에 부칠 여유가 없는 긴급복구가 필요한 재난 등 행정안전부령에 따른 재난복구 등의 경우\n\n3. 국가기관, 다른 지방자치단체(「지방자치법 」 제176조에 따른 지방자치단체조합을 포함한다)와 계약을 하는 경우\n\n4. 특정인의 기술ㆍ용역 또는 특정한 위치ㆍ구조ㆍ품질ㆍ성능ㆍ효율 등으로 인하여 경쟁을 할 수 없는 경우로서 다음 각 목의 경우\n\n가. 공사에서 장래 시설물의 하자에 대한 책임구분이 곤란한 경우로서 행정안전부장관이 정하는 기준에 적합한 직전 또는 현재의 시공자와 계약을 하는 경우\n\n나. 작업상의 혼잡 등으로 하나의 현장에서 2인 이상의 시공자가 공사를 할 수 없는 경우로서 행정안전부장관이 정하는 기준에 적합한 현재의 시공자와 계약을 하는 경우\n\n다. 마감공사에 대하여 행정안전부장관이 정하는 기준에 적합한 직전 또는 현재의 시공자와 계약을 하는 경우\n\n라. 접경지역 등 특수지역에서의 공사로서 사실상 경쟁이 불가능한 경우\n\n마. 특허공법, 「건설기술 진흥법」 제14조에 따라 지정ㆍ고시된 신기술, 「환경기술 및 환경산업 지원법」 제7조에 따라 인증받은 신기술 또는 「재난안전산업 진흥법」 제14조에 따라 지정된 재난안전신기술(각 해당 법률에 따라 지정된 보호기간 또는 유효기간 내의 경우로 한정한다)에 의한 공사로서 사실상 경쟁이 불가능한 경우\n\n바. 해당 물품을 제조ㆍ공급한 자가 직접 그 물품을 설치ㆍ조립(시험가동을 포함한다) 또는 정비하는 경우\n\n사. 특허를 받았거나 실용신안등록 또는 디자인등록이 된 물품을 제조하게 하거나 구매하는 경우로서 적절한 대용품이나 대체품이 없는 경우\n\n아. 해당 물품의 생산자나 소지자가 1인뿐인 경우로서 다른 물품을 제조하게 하거나 구매해서는 사업목적을 달성할 수 없는 경우\n\n자. 특정인의 기술ㆍ품질이나 경험ㆍ자격이 필요한 조사ㆍ설계ㆍ감리ㆍ특수측량ㆍ훈련ㆍ시설관리ㆍ교육ㆍ행사ㆍ정보이용ㆍ의상(의류)구매 계약을 체결하거나 관련 법령에 따라 디자인공모에 당선된 자와 설계용역 계약을 체결하는 경우\n\n차. 특정인과의 학술연구를 위한 용역계약을 할 필요가 있는 경우\n\n카. 특정인의 토지ㆍ건물 등 부동산을 매입하거나 특정인의 재산을 임차하는 경우\n\n타. 이미 조달된 물품 등의 부품교환 또는 설비확충 등을 위하여 조달하는 경우로서 해당 물품 등을 제조ㆍ공급한 자 외의 자로부터 제조ㆍ공급을 받게 되면 호환이 되지 아니하는 경우\n\n파. 특정한 장소나 위치에 있는 사업장을 보유한 자와 그 사업장의 이용과 관련한 계약을 체결하지 않으면 계약목적을 달성하기 곤란한 물품의 제조ㆍ구매 또는 용역 계약을 체결하는 경우\n\n하. 「매장유산 보호 및 조사에 관한 법률」 제11조에 따른 매장유산 발굴(조사)용역으로서 시공 중인 건설공사의 지연이 예상되는 등 긴급한 사유가 있거나 시굴(試掘)조사 후 정밀발굴조사로 전환되는 등 매장유산 발굴의 연속성 유지가 필요한 경우\n\n5. 다음 각 목의 어느 하나에 해당하는 계약\n\n가. 「건설산업기본법」에 따른 건설공사(같은 법에 따른 전문공사는 제외한다)로서 추정가격이 4억원 이하인 공사, 같은 법에 따른 전문공사로서 추정가격이 2억원 이하인 공사 및 그 밖의 공사 관련 법령에 따른 공사로서 추정가격이 1억6천만원 이하인 공사에 대한 계약\n\n나. 추정가격이 2천만원 이하인 물품의 제조ㆍ구매계약 또는 용역계약\n\n다. 추정가격이 2천만원 초과 5천만원 이하인 계약으로서 「중소기업창업 지원법」 제2조제11호에 따른 청년창업기업과 체결하는 물품의 제조ㆍ구매계약 또는 용역계약\n\n라. 추정가격이 2천만원 초과 1억원 이하인 계약으로서 「중소기업기본법」 제2조제2항에 따른 소기업 또는 「소상공인기본법」 제2조에 따른 소상공인과 체결하는 물품의 제조ㆍ구매계약 또는 용역계약. 다만, 제30조제1항제3호 및 같은 조 제2항 단서에 해당하는 경우에는 소기업 또는 소상공인 외의 자와 체결하는 물품의 제조ㆍ구매계약 또는 용역계약을 포함한다.\n\n마. 추정가격이 2천만원 초과 1억원 이하인 계약 중 학술연구ㆍ원가계산ㆍ건설기술 등과 관련된 계약으로서 특수한 지식ㆍ기술 또는 자격을 요구하는 물품의 제조ㆍ구매계약 또는 용역계약\n\n바. 추정가격이 2천만원 초과 1억원 이하인 계약으로서 다음의 어느 하나에 해당하는 기업 또는 조합과 체결하는 물품의 제조ㆍ구매계약 또는 용역계약. 다만, 3)부터 6)까지에 해당하는 기업 또는 조합의 경우에는 행정안전부장관이 정하여 고시하는 취약계층 고용비율을 충족하여야 한다.\n\n1) 「여성기업지원에 관한 법률」 제2조제1호에 따른 여성기업\n\n2) 「장애인기업활동 촉진법」 제2조제2호에 따른 장애인기업\n\n3) 「사회적기업 육성법」 제2조제1호에 따른 사회적기업\n\n4) 「협동조합 기본법」 제2조제3호에 따른 사회적협동조합\n\n5) 「국민기초생활 보장법」 제18조에 따른 자활기업\n\n6) 「도시재생 활성화 및 지원에 관한 특별법」 제2조제1항제9호에 따른 마을기업으로서 행정안전부장관이 정하는 기준에 적합한 기업\n\n사. 추정가격이 5천만원 이하인 임대차 계약(연액 또는 총액을 기준으로 추정가격을 산정한다) 등으로서 공사계약 또는 물품의 제조ㆍ구매계약이나 용역계약이 아닌 계약\n\n6. 다른 법률에 따라 특정사업자로 하여금 특수한 물품ㆍ재산 등을 매입하거나 제조하도록 하는 경우로서 다음 각 목의 경우\n\n가. 「방위사업법」에 따른 방산물자를 방위산업체로부터 제조ㆍ구매하는 경우\n\n나. 「농어촌정비법」에 따른 농공단지에 입주한 공장(새마을공장을 포함한다)이 직접 생산하는 물품을 이들로부터 제조ㆍ구매하는 경우\n\n다. 「지역중소기업 육성 및 혁신촉진에 관한 법률」에 따른 중소기업특별지원지역에 입주한 공장이 직접 생산하는 물품을 이들로부터 구매하는 경우\n\n라. 「중소기업진흥에 관한 법률」 제2조제1호에 따른 중소기업자가 직접 생산한 다음의 어느 하나에 해당하는 제품을 그 생산자로부터 제조ㆍ구매하는 경우로서 주무부장관으로부터 인증 또는 지정된 유효기간(주무부장관이 인증 또는 지정된 유효기간을 연장한 경우에는 연장된 기간을 포함한다. 이하 이 목에서 같다) 이내에 해당하는 경우. 다만, 유효기간이 6년을 넘는 경우에는 6년으로 한다.\n\n1) 「중소기업제품 구매촉진 및 판로지원에 관한 법률」 제15조에 따라 성능인증을 받은 제품\n\n2) 「소프트웨어 진흥법」 제20조에 따라 품질인증을 받은 받은 제품\n\n3) 「산업기술혁신 촉진법」 제16조에 따라 신제품으로 지정된 제품\n\n4) 다음 법률의 규정에 따라 인증 또는 지정ㆍ고시된 신기술을 이용하여 제조한 제품으로서 주무부장관이 상용화 단계에서 성능을 확인한 제품\n\n가) 「건설기술 진흥법」 제14조\n\n나) 「국가통합교통체계효율화법」 제102조\n\n다) 「농림식품과학기술 육성법」 제12조의2\n\n라) 「농업기계화 촉진법」 제7조\n\n마) 「목재의 지속가능한 이용에 관한 법률」 제18조\n\n바) 「물류정책기본법」 제57조\n\n사) 「보건의료기술 진흥법」 제8조\n\n아) 「산업기술혁신 촉진법」 제15조의2\n\n자) 「재난안전산업 진흥법」 제14조\n\n차) 「해양수산과학기술 육성법」 제17조\n\n카) 「환경기술 및 환경산업 지원법」 제7조\n\n5) 「조달사업에 관한 법률 시행령」 제30조에 따라 우수조달물품으로 지정ㆍ고시된 제품\n\n6) 「조달사업에 관한 법률 시행령」 제31조에 따라 지정ㆍ고시된 우수조달공동상표의 물품(「국가를 당사자로 하는 계약에 관한 법률 시행령」 제26조제1항제3호바목에 따라 재정경제부장관이 고시한 금액 미만의 물품을 구매하는 경우에 한정한다)\n\n7) 「중소기업 기술혁신 촉진법」 제9조제1항제3호에 따른 지원을 받아 개발이 완료된 제품으로서 당초의 수요와 연계된 자가 구매하기로 협약한 제품\n\n8) 삭제\n\n9) 「재난안전산업 진흥법」 제16조제1항에 따른 적합성 인증을 받은 제품\n\n10) 「기후위기 대응을 위한 탄소중립ㆍ녹색성장 기본법」 제60조제2항에 따라 적합성 인증을 받은 녹색제품\n\n11) 「물관리기술 발전 및 물산업 진흥에 관한 법률」 제10조제1항에 따라 지정된 우수제품\n\n12) 「산업융합 촉진법」 제13조제1항에 따라 적합성 인증을 받은 산업융합 신제품\n\n7. 특정연고자, 지역주민 및 특정물품 생산자 등과 계약할 필요가 있거나 그 밖에 이에 준하는 사유가 있는 경우로서 다음 각 목의 경우\n\n가. 비상재해가 발생한 경우로서 지방자치단체가 소유하는 복구용 자재를 재해를 당한 자에게 매각하는 경우\n\n나. 지역사회의 개발을 위하여 그 지역주민의 다수를 참여시킬 필요가 있는 경우로서 추정가격이 2천만원 미만인 공사 또는 추정가격이 5천만원 미만인 묘목재배를 행정안전부령으로 정하는 그 지역의 주민 또는 대표자와 직접 계약하는 경우\n\n다. 국가보훈부장관이 지정하는 국가유공자 자활용사촌의 복지공장에서 직접 생산하는 물품을 그 생산자로부터 제조ㆍ구매하거나 이들에게 직접 물품을 매각 또는 임대하는 경우\n\n7의2. 국가유공자 또는 장애인 등에게 일자리나 보훈ㆍ복지서비스 등을 제공하기 위한 경우로서 다음 각 목의 경우\n\n가. 「국가유공자 등 단체 설립에 관한 법률」 제1조에 따라 설립된 단체 중 상이(傷痍)를 입은 사람들로 구성된 단체가 직접 생산하는 물품의 제조ㆍ구매 또는 직접 수행하는 용역계약을 하거나 이들에게 직접 물품을 매각 또는 임대하는 경우\n\n나. 「중증장애인생산품 우선구매 특별법」 제9조제1항에 따라 지정받은 중증장애인생산품 생산시설이 직접 생산하는 물품의 제조ㆍ구매 또는 직접 수행하는 용역계약을 하거나 이들에게 직접 물품을 매각 또는 임대하는 경우\n\n다. 「사회복지사업법」에 따라 설립된 법인이 직접 생산하는 물품의 제조ㆍ구매 또는 직접 수행하는 용역계약을 하거나 이들에게 직접 물품을 매각 또는 임대하는 경우\n\n라. 「장애인고용촉진 및 직업재활법」 제22조의4제1항에 따라 인증을 받은 장애인 표준사업장이 직접 생산하는 물품의 제조ㆍ구매 또는 직접 수행하는 용역계약을 하거나 이들에게 직접 물품을 매각 또는 임대하는 경우\n\n8. 그 밖에 계약의 목적ㆍ성질 등에 비추어 경쟁에 따라 계약을 체결하는 것이 비효율적이라고 판단되는 경우로서 다음 각 목의 경우\n\n가. 지방자치단체의 해외사무소에서 사용하는 물품을 현지에서 구매하는 경우\n\n나. 물품의 가공ㆍ하역ㆍ운송 또는 보관을 하게 할 때 입찰에 부치는 것이 불리하다고 인정되는 경우\n\n다. 「조달사업에 관한 법률」 제27조제1항에 따른 혁신제품을 구매하려는 경우\n\n라. 삭제\n\n마. 삭제\n\n바. 삭제\n\n사. 다른 법령에 따라 국가 또는 지방자치단체의 사업을 위탁받거나 대행할 수 있는 자와 해당 사업에 대한 계약을 하는 경우\n\n아. 시험지와 비밀문서의 인쇄 등 지방자치단체가 그 행위를 비밀리에 할 필요가 있는 경우\n\n자. 「과학기술기본법」 등 관련 법령에 따른 연구개발사업을 통해 개발된 제품 중 각 중앙행정기관의 장이 행정안전부장관과 협의하여 정한 기준과 절차에 따라 기술의 혁신성을 인정한 제품을 구매하려는 경우\n\n차. 「클라우드컴퓨팅 발전 및 이용자 보호에 관한 법률」 제20조제3항에 따라 선정된 디지털서비스에 관한 계약을 하는 경우\n\n② 지방자치단체의 장 또는 계약담당자는 제1항제6호나목, 같은 항 제7호다목 및 같은 항 제7호의2에 따라 수의계약을 하는 경우 다음 각 호의 사항을 확인하여야 한다.  \n\n1. 수의계약대상자의 자격요건\n\n2. 수의계약대상 물품의 직접 생산 및 용역의 직접 수행 가능 여부\n\n③ 삭제"},{"id":"LOC-ENF-26","org":"loc","law":"지방계약법 시행령","title":"제26조(재공고입찰과 수의계약)","effective":"2026.6.3","verified":"2026-11-02","url":"https://www.law.go.kr/법령/지방자치단체를당사자로하는계약에관한법률시행령/제26조","keywords":["재공고입찰","수의계약","입찰","성립하지","않는","경우","유찰"],"text":"제26조(재공고입찰과 수의계약) ① 지방자치단체의 장 또는 계약담당자는 제19조제2항에 따라 재공고입찰을 할 때 입찰이 성립하지 아니하거나 낙찰자가 없는 경우에는 수의계약에 의할 수 있다. 이 경우 제95조제1항제4호에 따른 대안입찰, 같은 항 제5호에 따른 일괄입찰 또는 제127조제2호ㆍ제3호에 따른 기술제안입찰로 발주되었으나 재공고입찰 결과 입찰자가 1인뿐인 경우에는 해당 입찰참가자가 제출한 기본ㆍ실시설계서 또는 기술제안서에 대하여 제98조제4항제3호, 제132조제2항제2호 및 제134조제3항제2호에 따라 지방건설기술심의위원회의 심의 및 설계점수 평가를 거친 후 가격이 적정하다고 판단되면 해당 입찰자와 수의계약을 체결할 수 있다.  \n\n② 제1항에도 불구하고 「재난 및 안전관리 기본법」 제3조제1호에 따른 재난이나 경기침체, 대량실업 등으로 인한 국가 또는 해당 지역의 경제위기를 극복하기 위해 행정안전부장관이 기간을 정하여 고시한 경우에는 제15조 및 제16조에 따라 경쟁입찰을 실시했으나 입찰자가 1인뿐인 경우 제19조제2항에 따른 재공고입찰을 실시하지 않고 수의계약을 할 수 있다.  \n\n③ 제1항 및 제2항에 따른 수의계약의 경우 보증금과 기한을 제외하고는 최초 입찰에 부칠 때에 정한 가격과 그 밖의 조건을 변경할 수 없다. 다만, 제95조제1항제4호에 따른 대안입찰, 같은 항 제5호에 따른 일괄입찰 또는 제127조제2호ㆍ제3호에 따른 기술제안입찰로 발주하는 공사에 대해 경쟁입찰을 하고 해당 입찰일부터 90일 이상이 지난 후에 수의계약을 체결하는 경우로서 다음 각 호의 어느 하나에 해당하는 경우에는 최초 입찰에 부칠 때에 정한 가격을 변경할 수 있다.  \n\n1. 입찰일을 기준일로 하여 행정안전부령으로 정하는 바에 따라 산출된 품목조정률이 100분의 3 이상 증감된 경우\n\n2. 입찰일을 기준으로 하여 행정안전부령으로 정하는 바에 따라 산출된 지수조정률이 100분의 3 이상 증감된 경우"},{"id":"LOC-ENF-30","org":"loc","law":"지방계약법 시행령","title":"제30조(수의계약대상자의 선정절차 등)","effective":"2026.6.3","verified":"2026-11-02","url":"https://www.law.go.kr/법령/지방자치단체를당사자로하는계약에관한법률시행령/제30조","keywords":["견적서","견적","1인","2인","지정정보처리장치","수의계약","절차","재견적","수의계약대상자","선정","결정","e-발주"],"text":"제30조(수의계약대상자의 선정절차 등) ① 지방자치단체의 장 또는 계약담당자는 수의계약을 체결하려는 경우에는 2인 이상으로부터 견적서를 받아야 한다. 다만, 다음 각 호의 어느 하나에 해당하는 경우에는 1인으로부터 받은 견적서에 의할 수 있다.  \n\n1. 제25조제1항 각 호(제5호는 제외한다), 제26조제1항ㆍ제2항 및 제27조에 따른 계약의 경우\n\n2. 추정가격이 2천만원 이하인 공사, 물품의 제조ㆍ구매 및 용역의 경우. 다만, 다음 각 목의 어느 하나에 해당하는 기업 또는 조합과 계약을 체결하는 경우에는 추정가격이 5천만원 이하인 경우로 한다.\n\n가. 「중소기업창업 지원법」 제2조제11호에 따른 청년창업기업, 「여성기업지원에 관한 법률」 제2조제1호에 따른 여성기업 또는 「장애인기업활동 촉진법」 제2조제2호에 따른 장애인기업\n\n나. 「사회적기업 육성법」 제2조제1호에 따른 사회적기업, 「협동조합 기본법」 제2조제3호에 따른 사회적협동조합, 「국민기초생활 보장법」 제18조에 따른 자활기업 또는 「도시재생 활성화 및 지원에 관한 특별법」 제2조제1항제9호에 따른 마을기업으로서 행정안전부장관이 정하는 기준에 적합한 기업. 이 경우에는 행정안전부장관이 정하여 고시하는 취약계층 고용비율을 충족하여야 한다.\n\n3. 제2항에 따라 지정정보처리장치를 이용하여 견적서를 제출받았으나 견적서 제출자가 1인뿐인 경우로서 다시 견적서를 제출받더라도 견적서 제출자가 1인뿐일 것으로 명백히 예상되는 경우\n\n② 제1항 본문에 따라 2인 이상으로부터 견적서를 제출받는 경우 및 제26조제2항에 따라 재공고 입찰을 실시하지 않고 수의계약을 체결할 수 있는 경우에는 지정정보처리장치를 이용해야 한다. 다만, 품질확인 및 예산절감의 필요성이 큰 경우 등 행정안전부장관이 정한 경우에는 지정정보처리장치를 이용하지 아니할 수 있다.  \n\n③ 제1항과 제2항에 따라 제출받은 견적서에 적힌 견적가격이 예정가격(제8조제2항에 따라 예정가격 작성을 생략한 경우에는 추정가격에 부가가치세를 포함한 금액을 말한다)의 범위에 들지 아니하는 경우 등 계약상대자를 결정할 수 없을 때에는 다시 견적서를 제출받아 제5항에 따라 수의계약대상자를 결정한다.\n\n④ 제1항부터 제3항까지의 규정에도 불구하고 행정안전부령으로 정하는 경우에는 견적서 제출을 생략하게 할 수 있다.  \n\n⑤ 지방자치단체의 장 또는 계약담당자는 견적제출자의 견적가격과 계약이행능력 등 행정안전부장관이 정하는 기준에 따라 수의계약대상자를 결정한다."},{"id":"LOC-ENF-35","org":"loc","law":"지방계약법 시행령","title":"제35조(입찰공고의 시기)","effective":"2026.6.3","verified":"2026-11-02","url":"https://www.law.go.kr/법령/지방자치단체를당사자로하는계약에관한법률시행령/제35조","keywords":["입찰공고","시기","공고기간","7일","5일","긴급","현장설명","15일","30일","40일","마감"],"text":"제35조(입찰공고의 시기) ① 입찰공고는 그 입찰서 제출 마감일의 전날부터 기산하여 7일 전에 하여야 한다.\n\n② 공사입찰의 경우에는 제1항에도 불구하고 제15조제3항에 따라 현장설명을 하는 경우에는 현장설명일의 전날부터 기산하여 7일 전에 공고하여야 한다. 다만, 제14조에 따른 공사입찰의 경우에는 현장설명일 전날부터 기산하여 30일 전에 공고하여야 한다.\n\n③ 공사입찰의 경우로서 현장설명을 하지 아니할 때에는 제1항 및 제2항에도 불구하고 입찰서 제출 마감일의 전날부터 기산하여 다음 각 호의 어느 하나에 해당하는 기간 전에 공고하여야 한다.\n\n1. 추정가격이 10억원 미만인 경우 7일\n\n2. 추정가격이 10억원 이상 50억원 미만인 경우 15일\n\n3. 추정가격이 50억원 이상 고시금액 미만인 경우 30일\n\n4. 추정가격이 고시금액 이상인 경우 40일\n\n④ 제1항부터 제3항까지의 규정에도 불구하고 다음 각 호의 어느 하나에 해당하는 경우에는 입찰서 제출 마감일의 전날부터 기산하여 5일 전까지 공고할 수 있다.  \n\n1. 제19조제2항에 따른 재공고입찰의 경우\n\n2. 국가 또는 지방자치단체의 재정정책상 예산의 조기집행을 위하여 필요한 경우\n\n3. 국가사업 또는 지방자치단체의 다른 사업과 연계되어 사업의 일정조정을 위하여 불가피한 경우\n\n4. 긴급한 행사 또는 긴급한 재해 예방ㆍ복구 등을 위하여 필요한 경우\n\n5. 그 밖에 제2호 또는 제3호에 준하는 경우로서 입찰을 긴급히 입찰공고를 할 필요가 있는 경우\n\n⑤ 제18조에 따른 규격입찰이나 기술입찰, 제43조와 제44조에 따른 협상에 의한 계약 또는 제44조의2에 따른 경쟁적 대화방식에 의한 계약의 경우에는 제1항에도 불구하고 규격ㆍ기술 입찰서 또는 제안서 제출 마감일의 전날부터 기산하여 다음 각 호의 어느 하나에 해당하는 기간 전에 공고하여야 한다.  \n\n1. 추정가격이 1억원 미만인 경우 10일\n\n2. 추정가격이 1억원 이상 10억원 미만인 경우 20일\n\n3. 추정가격이 10억원 이상인 경우 40일\n\n⑥ 제5항에도 불구하고 제18조에 따른 규격입찰이나 기술입찰, 제43조와 제44조에 따른 협상에 의한 계약 또는 제44조의2에 따른 경쟁적 대화방식에 의한 계약이 제4항 각 호의 어느 하나에 해당하는 경우에는 제안서 제출 마감일의 전날부터 기산하여 10일 전까지 공고할 수 있다.  \n\n1. 삭제  \n\n2. 삭제"}],"procedures":{"_설명":"조문 근거가 없는 일반 안내 단계와 서류 목록. 이 파일의 내용은 화면에서 '일반 안내(조문 확인 필요)'로 표시됩니다. 조문 근거가 확인되는 단계는 lib/engine.js에서 articles.json을 근거로 만듭니다.","common":{"budget":{"title":"사업 계획·예산 확보 확인","detail":"계약 목적과 사업 계획, 예산 확보 여부를 확인합니다."},"estimate":{"title":"추정가격 산정","detail":"계약 방법과 수의계약 가능 여부를 판단하는 기준이 되는 추정가격을 산정합니다. 산정 방식과 부가가치세 포함 여부는 해당 조문과 기관 지침을 확인하세요."},"contract":{"title":"계약서 작성·체결","detail":"계약서를 작성하고 체결합니다. 서식, 계약보증금, 인지세 등 세부 사항은 소속 기관 규정을 확인하세요."},"perform":{"title":"이행 확인·검사·대금 지급","detail":"계약 이행 여부를 확인하고 검사한 뒤 대금을 지급합니다. 기한과 방법은 계약 조건과 기관 규정을 확인하세요."},"award":{"title":"개찰·낙찰자 결정","detail":"입찰서를 개찰하고 낙찰자 결정 방법(최저가, 적격심사 등)에 따라 낙찰자를 결정합니다. 방법은 계약 유형과 금액에 따라 달라지므로 조문 확인이 필요합니다."}},"docs":{"private":["견적서","사업자등록증 사본","(해당 시) 소기업·소상공인 확인서, 여성·장애인기업 등 증빙서류","계약서(안)","수의계약 사유 검토서 등 내부 결재 문서"],"compete":["입찰공고문","입찰서","사업자등록증 사본 등 입찰참가자격 서류","계약서(안)","내부 결재 문서"]}},"notes":{"_설명":"주의사항. when의 조건이 모두 맞을 때 표시(없으면 항상 표시). 값이 '!'로 시작하면 '그 값이 아닐 때'. 키: org, type, partner, method, special","notes":[{"text":"법령 금액·기간 기준은 개정될 수 있습니다. 계약 전에 법제처 원문의 최신 시행일을 확인하세요."},{"text":"'일반 안내'로 표시된 단계와 서류는 조문 근거를 확인하지 않은 일반적인 안내입니다. 소속 기관 규정을 따르세요."},{"when":{"org":"loc","partner":"vulnerable"},"text":"지방자치단체가 사회적기업·사회적협동조합·자활기업·마을기업과 수의계약하는 경우 행정안전부장관 고시 취약계층 고용비율 충족 여부를 확인해야 합니다."},{"when":{"org":"nat","partner":"vulnerable"},"text":"국가기관이 사회적기업 등과 수의계약하는 경우 재정경제부장관이 정한 요건 충족 여부를 확인해야 합니다."},{"when":{"org":"loc","type":"goods"},"text":"지방계약법 시행령 조문은 '물품의 제조·구매'로, 국가계약법 시행령 조문은 '제조·구매·임차'로 표현이 다릅니다. 임차 계약은 원문을 확인하세요."},{"when":{"special":"!none"},"text":"긴급·경쟁 불가 사유는 금액과 별개로 시행령 각 호의 요건에 해당해야 합니다. 각 호·목의 요건과 보고·공개 의무를 원문에서 확인하세요."},{"when":{"org":"loc"},"text":"'실무 매뉴얼' 표시는 『2026년 지방계약 실무 매뉴얼』(서울시)에서 옮긴 실무 안내입니다. 서울시 자체 기준은 별도로 표시했으며, 다른 지방자치단체는 소속 기관 규정을 확인하세요. 유권해석이 아닙니다."}]},"manual":{"_설명":"『2026년 지방계약 실무 매뉴얼』(제2장 제9절 계약 맞춤형 매뉴얼 등)에서 옮긴 실무 요령. 법령 근거가 아니라 실무 안내이므로 화면에 '실무 매뉴얼'로 따로 표시됩니다. step은 lib/engine.js 단계 key, 생략한 조건은 모두 해당. when은 notes.json과 같은 규칙, min(초과)·max(이하)는 추정가격(만원), types는 계약 유형, seoul=true는 서울시 자체 기준(타 지자체는 소속 기관 기준 확인). page는 매뉴얼 인쇄 쪽수. fact는 카드뉴스에 칩으로 보이는 한 줄 핵심 수치입니다. docs의 form=true 항목은 필요 서류 체크리스트에서 서울계약마당 서식자료실 링크가 붙습니다.","source":"2026년 지방계약 실무 매뉴얼","tips":[{"id":"pre-deliberation","step":"budget","page":105,"text":"발주 전 사업 성격에 따라 필요한 사전 심의를 확인합니다: 기술용역타당성 심사, 학술용역심의, 일상감사, 계약심의위원회 심의, 정보화심의, 홍보물·영상물·간행물 심의, 원가심사 등.","title":"발주 전 사전 심의 확인"},{"id":"plan-register","step":"budget","page":105,"seoul":true,"text":"발주계획을 계약정보 시스템(서울시는 서울계약마당)에 등록합니다. 원칙은 분기별 등록이며, 누락된 자료는 수시로 등록합니다.","title":"발주계획 등록"},{"id":"unfair-clause","step":"budget","page":105,"text":"과업지시서·시방서 등 계약문서에 계약상대자에게 불리한 조건이 있는지 부당계약 체크리스트로 검토합니다.","title":"부당계약 문구 검토"},{"id":"pre-spec","step":"budget","page":110,"types":["service","goods"],"text":"용역·물품은 추정가격 5천만원 미만이어도 신규사업이면 나라장터에 사전규격을 공개합니다.","fact":"신규사업은 5천만원 미만 용역·물품도 사전규격 공개","title":"사전규격 공개"},{"id":"petty-cash","step":"budget","page":106,"max":300,"text":"계약이 아닌 소규모 지출건으로 처리할 수 있는지 먼저 확인합니다. 300만원 이하(부가세 포함) 물품·용역 거래는 일반지출이 가능하고, 1건당 1천만원 이하 소모품 매입·제조·운반, 소규모 용역·임차, 인쇄물은 일상경비로 집행할 수 있습니다 (서울시 회계관리 규칙·행안부 훈령 기준, 소속 기관 규칙 확인).","fact":"300만원 이하(부가세 포함)는 일반지출 가능","title":"소액 지출건 처리 방법"},{"id":"private-limit","step":"private","page":106,"types":["goods","service","construction"],"text":"1인견적 수의계약 금액 한도(추정가격): 일반기업은 2천만원 이하, 장애인기업·여성기업·청년창업기업·고용비율 30% 이상 사회적기업·사회적협동조합·자활기업·마을기업 등 희망기업은 5천만원 이하입니다. 중증장애인생산품은 직접 생산하는 용역·물품에 한해 모든 금액이 가능합니다.","fact":"1인견적 한도: 일반 2천만원 · 희망기업 5천만원 이하","title":"1인견적 수의계약 금액 한도"},{"id":"private-other","step":"private","page":106,"text":"금액 한도와 별개로 시행령 제25조(제1항제5호 제외: 천재지변, 특허공법, 생산자·소지자 1인 등), 제26조(재공고 입찰이 성립하지 않거나 낙찰자가 없는 경우), 제27조(계약 해제·해지)에 해당하면 수의계약이 가능합니다. 제26조·제27조는 최초 입찰 때 정한 가격과 그 밖의 조건을 바꿀 수 없습니다.","title":"그 밖의 수의계약 사유 (시행령 제25~27조)"},{"id":"repeat-limit","step":"private","page":107,"seoul":true,"when":{"org":"loc"},"text":"특정업체와의 반복 수의계약을 확인합니다. 서울시 기준: 실·국·본부 및 기관별로 동일업체와 연 4회 초과, 시 전체로 동일업체와 연 9회 초과 수의계약은 금지됩니다(자치구는 횟수제한에 포함하지 않음). 서울시 출자·출연기관과의 계약이나 특허업체 등 이행 가능업체가 1인인 경우, 시행령 제26조 공고유찰에 의한 수의계약은 예외입니다. 계약 전 계약정보 시스템과 업체 확인으로 건수를 확인하고, 9회 초과 시 계약이 안 될 수 있음을 업체에 미리 알립니다.","fact":"서울시: 동일업체 연 4회(기관)·9회(시 전체) 초과 금지","title":"동일업체 반복 수의계약 제한"},{"id":"direct-prod","step":"private","page":106,"min":100,"types":["goods"],"text":"1천만원 이상 중소기업자간 경쟁제품을 구매할 때는 해당 업체의 직접생산확인증명서 보유 여부를 확인합니다.","title":"직접생산확인증명서 확인"},{"id":"e-public-private","step":"private","page":107,"text":"폐기물 처리용역, 재해예방 기술지도 용역은 1인 수의계약 금액 범위 안이라도 전자공개 수의계약 의무발주 대상입니다.","title":"전자공개 수의계약 의무발주 대상"},{"id":"quote-2plus","step":"quote","page":111,"min":2000,"text":"2인 이상 견적 수의계약(전자공개 수의계약)은 지정정보처리장치(나라장터)로 견적서를 받아 하한율 이상 최저가격을 낸 자와 체결하며, 경쟁입찰과 달리 적격심사 없이 체결하고 공고기간이 짧습니다. 추정가격 기준 종합공사 4억원 이하, 전문공사 2억원 이하, 전기 등 그 밖의 공사 1억6천만원 이하, 용역·물품 1억원 이하일 때 가능합니다.","fact":"2인 이상 견적: 용역·물품 1억원 이하","title":"2인 이상 견적 수의계약 대상"},{"id":"quote-announce","step":"quote","page":112,"min":2000,"text":"나라장터 전자공개 수의계약 안내공고 기간은 원칙 3일 이상(공휴일·토요일 제외), 신규사업은 5일 이상입니다. 공고문 게시일과 개찰일은 기간에서 제외합니다. 첨부서류: 견적서 제출 안내공고문, 과업지시서·시방서, 설계물량서, 입찰유의서, 계약 일반조건, 특수조건, 청렴계약이행서약서, 근로자 권리보호 이행서약서.","fact":"안내공고 3일 이상 (신규사업 5일)","title":"전자공개 안내공고 기간·첨부서류"},{"id":"decide-rate","step":"decide","page":112,"min":2000,"text":"2인 이상 견적의 낙찰자는 예정가격 대비 견적가격이 공사는 89.745%, 용역·물품은 88%(추정가격 2천만원 이하 용역·물품은 90%) 이상인 자 중 최저가격을 낸 자입니다. 1순위 업체부터 수의계약 결격사유(지방계약법 제33조 배제사유자, 공직자의 이해충돌 방지법상 수의계약 체결 제한 대상)에 해당하지 않는지 확인한 뒤 결정합니다.","fact":"낙찰 하한: 공사 89.745% · 용역·물품 88%","title":"2인 이상 견적 낙찰자 결정 기준"},{"id":"decide-confirm","step":"decide","page":112,"text":"낙찰(선정) 업체가 계약금액에 맞게 산출내역서를 조정해 발주부서에 제출하면 내역을 확인하고, 계약상대자로부터 수의계약 체결 제한여부 확인서를 받아 계약부서에 제출합니다.","title":"산출내역서·체결 제한여부 확인서"},{"id":"request-docs","step":"contract","page":107,"max":2000,"text":"계약부서에 계약을 의뢰할 때 구비서류: 기안문(e-호조 품의번호 기재), 사업 시행방침, 과업지시서·시방서, 산출기초조사서와 그 증빙(견적서 등), 수의계약 사유서, 수의계약 체결제한 여부 확인서, 각종 사전심의 결과서, 청렴계약이행서약서, 부당계약 특수조건 체크리스트, 사업자등록증·면허등록증, 직접생산확인증명서(중소기업자간 경쟁제품), 수의계약 각서.","title":"계약 의뢰 구비서류 (1인견적)"},{"id":"request-docs-2","step":"contract","page":111,"min":2000,"text":"계약부서에 계약을 의뢰할 때 구비서류: 기안문(e-호조 품의번호 기재, 견적서 제출 자격 기준 명시), 사업 시행방침, 과업지시서·시방서·안내공고문(안), 산출기초조사서와 그 증빙, 각종 사전심의 결과서, 청렴계약이행서약서, 부당계약 특수조건 체크리스트.","title":"계약 의뢰 구비서류 (2인 이상 견적)"},{"id":"fin-agree","step":"contract","page":107,"seoul":true,"text":"재정합의(서울시 기준, 결재경로 하단에 따라 협조): 물품은 건당 2억원 이상이면 담당사무관과 재무과장, 2억원 미만이면 담당사무관(계약팀장)이 합의합니다. 용역·제조는 5억원, 공사는 10억원이 기준입니다. 녹색제품 구매·적용가능검토서를 첨부해 기후환경정책과 협조를 받습니다.","title":"재정합의 기준 (서울시)"},{"id":"price-negotiation","step":"contract","page":108,"when":{"method":"private"},"max":2000,"text":"1인견적 수의계약은 계약담당자가 기초금액을 기준으로 원가심사금액·예산 등을 고려해 업체와 가격협의(수의시담)를 거쳐 최종 계약금액을 정합니다. 가격이 정해지면 업체가 조정된 금액에 맞게 산출내역서를 고쳐 제출하고 발주부서가 확인합니다.","title":"가격협의(수의시담)"},{"id":"guarantee","step":"contract","page":108,"text":"계약보증금: 공사·용역·물품 모두 계약금액의 10% 이상이 원칙입니다. 지방계약 한시적 특례(행안부 고시)로 5% 이상을 적용하던 기간은 2026.6.30.에 종료되었으므로 현재 적용 여부를 확인하세요. 계약금액이 5천만원 이하이면 계약보증금이 면제됩니다.","fact":"계약보증금 10% 이상 (5천만원 이하 면제)","title":"계약보증금"},{"id":"stamp-tax","step":"contract","page":109,"text":"인지세(계약서 1부당 매입금액): 계약금액 1천만원 초과 3천만원 이하 2만원, 3천만원 초과 5천만원 이하 4만원, 5천만원 초과 1억원 이하 7만원, 1억원 초과 10억원 이하 15만원, 10억원 초과 35만원입니다.","title":"인지세"},{"id":"start-report","step":"contract","page":109,"text":"계약 체결 후 계약업체가 착수계를 제출합니다. 발주부서 1부, 계약부서 1부이며 전자제출이 원칙입니다.","title":"착수계 제출"},{"id":"inspect","step":"perform","page":133,"text":"검사: 계약업체의 준공신고서 제출일부터 14일 이내에 결과물을 검사해야 합니다. 먼저 계약부서가 검사원 지정을 요청하고(선금정산 내역이 있으면 e-호조 검사 요청에 정산금액을 기재), 발주부서가 검사 후 준공검수조서를 계약부서로 보냅니다. 기관별 검사공무원 지정 기준은 매뉴얼 133쪽 표를 확인하세요.","fact":"검사: 준공신고서 제출일부터 14일 이내","title":"검사 기한과 절차"},{"id":"pay","step":"perform","page":134,"text":"대가 지급: (부분)준공검수조서를 확인하고 계약업체가 청구한 날부터 5일(공휴일·토요일 제외) 이내에 지급합니다.","fact":"대금 지급: 청구일부터 5일 이내","title":"대가 지급 기한"},{"id":"pay-docs","step":"perform","page":134,"text":"대가 지급 시 확인서류: 대가청구서, 세금계산서, 국세·지방세 완납증명서(G2B 조회, 시행령 제25조제1항 각 호 수의계약은 생략 가능하나 제7호 가목은 제외), 4대보험 완납증명서(G2B 조회), 하자보증이 필요하면 하자보증서, 선금·보증금을 지급하는 경우 보증서와 담보권 확보, 채권 양도 시 양도 입증서류, 공사 하도급대금 지급 입증서류.","title":"대가 지급 확인서류"},{"id":"sanction","step":"perform","page":135,"text":"부정당업자로 판단되면 입찰참가자격 제한 절차를 진행합니다: 제한기간은 1개월 이상 2년 이하(시행규칙 제76조 별표2), 가중 시 최대 2배, 위반 정도가 경미하면 경감할 수 있습니다. 처분 10일 전까지 사전통지하고 청문을 실시합니다 (지방계약법 제31조, 시행령 제92조).","title":"부정당업자 입찰참가자격 제한"},{"id":"compete-docs","step":"award","page":114,"text":"적격심사는 예정가격 이하로서 낙찰하한율 직상의 최저가격 입찰자부터 순서대로 이행능력(이행실적, 재무상태 등)과 입찰가격을 심사해 일정 점수 이상인 자를 낙찰자로 결정하는 제도입니다 (지방계약법 제9조, 시행령 제42조).","title":"적격심사 개요"}],"docs":{"private":[{"text":"기안문 (e-호조 품의번호 기재)","form":false},{"text":"사업 시행방침","form":false},{"text":"과업지시서·시방서","form":false},{"text":"산출기초조사서 및 증빙 (견적서 등)","form":false},{"text":"수의계약 사유서 / 수의계약 체결제한 여부 확인서","form":true},{"text":"각종 사전심의 결과서","form":false},{"text":"청렴계약이행서약서","form":true},{"text":"부당계약 특수조건 체크리스트","form":true},{"text":"사업자등록증·면허등록증 (1천만원 이상 중소기업자간 경쟁제품은 직접생산확인증명서)","form":false},{"text":"수의계약 각서","form":true},{"text":"계약보증서 (5천만원 초과), 인지세, 착수계 (계약 후)","form":true},{"text":"대금 청구 시: 대가청구서, 세금계산서, 국세·지방세·4대보험 완납증명서","form":true}],"compete":[{"text":"입찰공고문, 사전규격 공개 자료 (해당 시)","form":false},{"text":"과업지시서·시방서, 설계물량서","form":false},{"text":"입찰유의서, 계약 일반조건, 특수조건","form":false},{"text":"청렴계약이행서약서, 근로자 권리보호 이행서약서","form":true},{"text":"각종 사전심의 결과서, 부당계약 특수조건 체크리스트","form":true},{"text":"입찰참가자격 서류 (사업자등록증, 면허 등)","form":false},{"text":"계약보증서 (5천만원 초과), 인지세, 착수계 (계약 후)","form":true},{"text":"대금 청구 시: 대가청구서, 세금계산서, 국세·지방세·4대보험 완납증명서","form":true}]}},"audit":{"_설명":"『2026년 지방계약 실무 매뉴얼』 제7장 제2절 감사 지적사례(372~386쪽)를 요약한 것. step은 lib/engine.js 단계 key(여러 개 가능). types, when, min, max는 manual.json과 같은 규칙. 지방자치단체 결과에만 표시됩니다.","source":"2026년 지방계약 실무 매뉴얼 · 감사 지적사례","cases":[{"id":"a1","step":["estimate","private"],"title":"견적가격으로 예정가격을 정하고 특정 모델 규격 지정","source":"감사원 2019","page":372,"issue":"거래실례가격을 조사하지 않고 특정 업체의 견적가격으로 예산과 예정가격을 정했고, 특정 모델 사양으로 규격서를 만들었습니다. 물품공급 협약을 사전에 협의하지 않아 입찰이 왜곡되었습니다.","lesson":"거래실례가격(실제 거래된 세금계산서·납품계산서 기준)을 조사해 예정가격을 정하고, 특정 상표·규격을 지정하지 마세요.","types":["goods"]},{"id":"a2","step":["method"],"title":"제한경쟁 참가자격 과도 제한","source":"감사원 2018","page":372,"issue":"특수한 기술·공법이 필요하지 않은 하수관거·농공단지 공사를 제한경쟁으로 하면서 지역제한에 실적제한까지 중복해 걸고, 2개 이상의 등록을 요구했습니다.","lesson":"특수한 기술이나 공법이 필요한 공사가 아니면 지역제한과 실적제한을 중복하지 말고, 1개 등록으로 이행 가능한 공사에 2개 이상 등록을 요구하지 마세요.","when":{"method":"limited"},"types":["construction"]},{"id":"a3","step":["estimate","private"],"title":"물품 구매를 쪼개 2단계 경쟁 회피","source":"감사원 2020","page":373,"issue":"중소기업자간 경쟁제품을 1억원 이상 구매할 때는 2단계 경쟁을 해야 하는데, 구매 시기를 나눠 1억원 미만으로 쪼개 2단계 경쟁을 하지 않았습니다.","lesson":"2단계 경쟁을 피하려고 구매를 나누지 마세요. 1억원 이상 구매는 2단계 경쟁 대상입니다.","types":["goods"]},{"id":"a4","step":["method","private"],"title":"법령에 없는 계약방법을 임의로 시행","source":"서울시 감사위원회 2013","page":374,"issue":"지방계약법령에 없는 SLA 제도로 수행실적을 평가해 계약기간을 연장하면서 특혜시비 우려를 낳았습니다.","lesson":"계약방법은 지방계약법령에 규정된 것만 사용하세요."},{"id":"a5","step":["estimate","private"],"title":"동일구조물 공사를 나눠 계약","source":"감사원 2015","page":374,"issue":"설계서 등으로 전체 사업내용이 확정된 동일구조물 공사를 시기와 구조별로 나눠 따로 계약했습니다.","lesson":"전체 사업내용이 확정된 공사는 시기적으로나 물량으로 쪼개어 계약하지 마세요.","types":["construction"]},{"id":"a6","step":["budget"],"title":"전기공사 분리발주 미이행","source":"서울시 감사위원회 2014","page":374,"issue":"성질상 분리할 수 없는 예외 사유가 없는데도 전기공사를 건설공사에 포함해 통합발주했고, 전기공사의 품질 저하 우려를 낳았습니다.","lesson":"전기공사 등 다른 업종 공사는 예외 사유가 없으면 분리발주하세요.","types":["construction"]},{"id":"a7","step":["qualification"],"title":"실적 없는 업체와 공사계약 체결","source":"감사원 2015","page":375,"issue":"업체가 낸 시공실적이 사실인지 발급기관에 확인하지 않고 그대로 인정해, 실적이 모자란 업체가 낙찰자가 되었습니다.","lesson":"실적 내용에 모순·오류·불명확한 점이 있으면 증명서 발급기관에 즉시 사실관계를 조회하세요.","types":["construction"]},{"id":"a8","step":["announce"],"title":"지정정보처리장치로 입찰공고하지 않음","source":"행정안전부 2017","page":376,"issue":"조달청 지정정보처리장치(나라장터)에 공고하지 않고 사설 전자입찰 업체에서만 공고해 다른 업체의 참여 기회를 막았고, 예정가격도 기준대로 정하지 않았습니다.","lesson":"입찰공고는 지정정보처리장치로 하고, 예정가격은 기초금액 ±3% 범위의 복수예비가격으로 정하세요."},{"id":"a9","step":["method"],"title":"수입이 생기는 입찰을 협상계약으로 변경","source":"감사원 2012","page":376,"issue":"지방자치단체 수입의 원인이 되는 입찰을 일반경쟁 대신 협상에 의한 계약으로 부당하게 바꿔 낙찰 비율과 수익 기회를 잃었습니다.","lesson":"수입의 원인이 되는 입찰은 최고가격 입찰자를 낙찰자로 하는 것이 원칙이고, 협상에 의한 계약은 전문성 등이 필요한 경우로 한정됩니다.","types":["construction","other"]},{"id":"a10","step":["announce"],"title":"국외 공급 용역의 부가가치세 영세율 미적용","source":"서울시 감사위원회 2014","page":377,"issue":"영세율 적용 대상인 국외 공급 용역을 부가가치세 포함 금액으로 공고하고 지급해 부가가치세 17,322,727원을 과다 지출했습니다.","lesson":"국외에서 공급하는 용역은 부가가치세를 제외한 금액으로 공고하고 지급하세요.","types":["service"]},{"id":"a11","step":["announce"],"title":"보험료 사후정산 내용 누락한 입찰공고","source":"서울시 감사위원회 2012","page":377,"issue":"공사 입찰공고에 국민건강보험료 등을 사후정산한다는 내용을 명시하지 않아 근거 없이 약 5억 2,700만원을 과다 지급했습니다.","lesson":"공사 입찰공고에 국민건강보험료·노인장기요양보험료·국민연금보험료가 사후정산 대상임을 명시하고, 납부내역을 받아 정산하세요.","types":["construction"]},{"id":"a12","step":["award"],"title":"계약하지 않은 낙찰자의 입찰보증금 귀속 미실시","source":"서울시 감사위원회 2013","page":377,"issue":"낙찰자가 정당한 사유 없이 계약하지 않았는데도 입찰보증금을 수입조치하지 않았습니다(5건, 약 390만원).","lesson":"낙찰자가 정당한 이유 없이 계약하지 않으면 입찰보증금을 수입조치하고 입찰참가자격 제한도 검토하세요."},{"id":"a13","step":["award"],"title":"적격심사 서류 미제출자 처리 부적정","source":"감사원 2020","page":379,"issue":"적격심사 서류를 내지 않고 정당한 사유 없이 포기서만 낸 업체에 입찰참가자격 제한 조치를 하지 않아 입찰 질서를 어지럽혔습니다.","lesson":"정당한 사유 없이 심사 서류를 내지 않은 대상자에게는 지방계약법 시행령 제92조에 따른 입찰참가자격 제한 조치를 해야 합니다.","types":["construction"]},{"id":"a14","step":["private"],"title":"특허 업체와 수의계약하며 대체품 검토 누락","source":"감사원 2015","page":380,"issue":"특허제품과 비슷한 기능의 대체품이 있는데도 대용·대체품 유무를 검토하지 않았고, 수의계약 사유서에도 사실과 다르게 적어 특정 업체와 계약했습니다.","lesson":"특허제품이라도 대용·대체품이 있으면 경쟁입찰 대상입니다. 시방서에 특허사항을 그대로 쓰지 말고 필요한 기능만 명시하세요.","types":["goods"]},{"id":"a15","step":["private","decide"],"title":"지방의회의원 관련 사업자와 수의계약","source":"감사원 2019","page":380,"issue":"지방의회의원 본인·배우자·직계 존비속이 사업자이거나 자본금의 50% 이상을 가진 사업자와 32차례 수의계약을 맺었습니다.","lesson":"계약 전에 상대방이 지방의회의원 등과 관련된 사업자인지 확인하세요. 위반하면 입찰참가자격 제한 대상입니다 (지방계약법 제33조)."},{"id":"a16","step":["private","quote"],"title":"통합발주 가능 사업을 쪼개 1인견적 수의계약","source":"감사원 2017","page":381,"issue":"사업내용이 유사해 통합발주가 가능한 공사 16건을 2천만원 이하 37건으로 나눠 임의로 정한 업체들과 1인견적 수의계약을 했습니다.","lesson":"내용이 유사한 사업은 통합발주를 먼저 검토하고, 금액 기준을 맞추려고 쪼개지 마세요."},{"id":"a17","step":["private"],"title":"신기술 지정 3년 경과 업체와 수의계약","source":"감사원 2015","page":382,"issue":"건설신기술 지정 후 3년이 지났고 직접 생산도 하지 않는 업체와 수의계약했으며, 준공검사 때 신기술 설치 여부도 확인하지 않았습니다.","lesson":"수의계약 근거인 신기술 지정 기간과 직접 생산 여부를 확인하고, 준공검사 때 시방서에 정한 신기술 설치 여부도 확인하세요.","types":["goods","construction"]},{"id":"a18","step":["contract"],"title":"보증금 면제 사유가 아닌데 현금지급각서로 대체","source":"서울시 감사위원회 2014","page":383,"issue":"계약보증금 면제 사유에 해당하지 않는 용역업체에게서 현금과 보증서 대신 현금지급각서만 받았습니다.","lesson":"면제 사유가 아니면 계약보증금은 계약 체결 때까지 현금 또는 보증서로 받으세요.","types":["service"]},{"id":"a19","step":["perform"],"title":"용역 정산서 확인 소홀","source":"감사원 2015","page":384,"issue":"업체가 낸 정산서의 물량이 실제와 다른데도 제대로 확인하지 않고 그대로 인정해 과다지급 우려를 낳았습니다.","lesson":"정산서는 실제 이행 물량과 대조해 확인하고, 정해진 기한 안에 정산검사를 하세요.","types":["service"]},{"id":"a20","step":["perform"],"title":"선금 지급한도 초과와 사용내역 미확인","source":"서울시 감사위원회 2014","page":384,"issue":"용역 선금을 계약금액의 70%까지만 줄 수 있는데 전액을 지급했고, 업체가 허위로 낸 선금 사용내역을 회수하지 않았습니다.","lesson":"용역 선금은 계약금액의 70%를 넘겨 지급하지 말고, 사용내역서를 받아 허위 사용분은 회수하세요.","types":["service"]},{"id":"a21","step":["perform"],"title":"설계변경으로 별개 공사를 기존 업체에 맡김","source":"감사원 2017","page":385,"issue":"기존 공사의 일부 변경에 해당하지 않는 별도 건물 추가공사를 설계변경계약으로 기존 업체에 맡겨, 새로 입찰하거나 2인 이상 견적을 받아야 할 공사에 특혜를 주었습니다.","lesson":"기존 공사의 일부 변경이 아닌 별개 공사는 설계변경으로 처리하지 말고 새로 계약하세요.","types":["construction"]},{"id":"a22","step":["perform"],"title":"공무원에 뇌물 준 업체의 제재 누락","source":"행정안전부 2018","page":386,"issue":"공무원에게 금품을 준 업체에 대해 징계 통보 후에도 입찰참가자격 제한 등 제재 조치를 검토하지 않았습니다.","lesson":"공무원에게 금품 등 재산상 이익을 제공한 자는 계약심의위원회 심의를 거쳐 입찰참가자격을 제한해야 합니다 (시행령 제92조)."},{"id":"a23","step":["perform"],"title":"공사 기간 부당 연장과 지연배상금 미징수","source":"감사원 2015","page":386,"issue":"지연 면책 사유가 아닌데도 합리적 이유 없이 계약기간을 2차례 연장해 지연배상금을 받지 않았습니다.","lesson":"공사 지연이 면책 사유가 아니면 지체일수에 따라 계약금액의 1,000분의 1에 해당하는 지연배상금을 부과하세요.","types":["construction"]}]},"faq":{"_설명":"저장된 질문·답변(AI 호출 없음). q는 버튼 문구, kw는 자유 입력에서 이 단어가 포함되면 이 답변을 사용(긴 단어일수록 우선), a는 문자열 또는 {nat, loc} 기관별 답변, src는 근거 조문 ID 목록(articles.json).","faq":[{"id":"quote","q":"수의계약 견적서는 몇 명에게 받아야 하나요?","kw":["견적서","견적"],"a":{"nat":"수의계약은 원칙적으로 2인 이상으로부터 견적서를 받아야 합니다. 다만 다음 경우에는 1인 견적도 가능합니다.\n- 제26조제1항제1호가목·나목, 제2호, 제5호가목7)(청년창업기업), 같은 호 마목·사목·아목, 제27조·제28조에 따른 계약\n- 추정가격 2천만원 이하 (제26조제1항제5호가목5)가)~다) 해당자와 계약하면 5천만원 이하)\n- 전자조달시스템으로 견적서를 받았으나 제출자가 1인뿐이고 다시 받아도 1인뿐일 것이 명백한 경우\n추정가격 2천만원(5천만원)을 초과하는 제26조제1항제5호가목 수의계약은 전자조달시스템으로 견적서를 제출받아야 합니다.","loc":"수의계약은 원칙적으로 2인 이상으로부터 견적서를 받아야 합니다. 다만 다음 경우에는 1인 견적도 가능합니다.\n- 제25조제1항 각 호(제5호 제외), 제26조제1항·제2항, 제27조에 따른 계약\n- 추정가격 2천만원 이하 공사, 물품 제조·구매, 용역 (청년창업기업·여성기업·장애인기업, 사회적기업 등과 계약하면 5천만원 이하)\n- 지정정보처리장치로 견적서를 받았으나 제출자가 1인뿐이고 다시 받아도 1인뿐일 것이 명백한 경우\n2인 이상 견적을 받을 때는 지정정보처리장치를 이용해야 합니다(행정안전부장관이 정한 경우 예외)."},"src":{"nat":["NAT-ENF-30"],"loc":["LOC-ENF-30"]}},{"id":"announce","q":"입찰공고는 며칠 전에 해야 하나요?","kw":["입찰공고","공고기간","공고 기간","며칠","현장설명"],"a":{"nat":"입찰서 제출마감일 전날부터 기산하여 7일 전에 공고합니다(제35조제1항).\n- 공사 + 현장설명 실시: 현장설명일 전날부터 7일 전 (입찰참가자격 사전심사 공사는 30일 전)\n- 공사 + 현장설명 없음: 추정가격 10억원 미만 7일, 10억원 이상 50억원 미만 15일, 50억원 이상 40일\n- 재공고입찰, 예산 조기집행, 다른 국가사업과의 일정조정, 긴급한 행사·재해예방복구 등은 5일 전까지 공고 가능\n입찰공고는 원칙적으로 전자조달시스템을 이용합니다(제33조제1항).","loc":"입찰서 제출 마감일 전날부터 기산하여 7일 전에 공고합니다(제35조제1항).\n- 공사 + 현장설명 실시: 현장설명일 전날부터 7일 전 (사전심사 공사는 30일 전)\n- 공사 + 현장설명 없음: 추정가격 10억원 미만 7일, 10억원 이상 50억원 미만 15일, 50억원 이상 고시금액 미만 30일, 고시금액 이상 40일\n- 재공고입찰, 예산 조기집행, 사업 일정조정, 긴급한 행사·재해 예방복구 등은 5일 전까지 공고 가능\n- 규격입찰·기술입찰, 협상에 의한 계약 등은 별도 기간(추정가격 1억원 미만 10일, 1억원 이상 10억원 미만 20일, 10억원 이상 40일)"},"src":{"nat":["NAT-ENF-35","NAT-ENF-33"],"loc":["LOC-ENF-35"]}},{"id":"limit","q":"2천만원 초과 1억원 이하에서 수의계약이 가능한 경우는?","kw":["2천만","1억원","초과","소기업","소상공인","여성기업","장애인기업","사회적기업","학술연구","청년창업"],"a":{"nat":"추정가격 2천만원 초과 1억원 이하 물품 제조·구매·임차 또는 용역 계약은 다음과 체결할 때 수의계약이 가능합니다(제26조제1항제5호가목).\n- 소기업·소상공인\n- 학술연구·원가계산·건설기술 등과 관련된 계약으로 특수한 지식·기술·자격을 요구하는 계약\n- 여성기업·장애인기업·사회적기업 등\n청년창업기업은 추정가격 5천만원 이하까지 가능합니다.","loc":"추정가격 2천만원 초과 1억원 이하 물품 제조·구매 또는 용역 계약은 다음과 체결할 때 수의계약이 가능합니다(제25조제1항제5호).\n- 소기업·소상공인 (라목)\n- 학술연구·원가계산·건설기술 등과 관련된 계약으로 특수한 지식·기술·자격을 요구하는 계약 (마목)\n- 여성기업·장애인기업·사회적기업 등 (바목, 일부는 취약계층 고용비율 충족 필요)\n청년창업기업은 2천만원 초과 5천만원 이하까지 가능합니다 (다목)."},"src":{"nat":["NAT-ENF-26"],"loc":["LOC-ENF-25"]}},{"id":"construction","q":"공사는 얼마까지 수의계약이 가능한가요?","kw":["공사","4억","2억","1억6천","전문공사"],"a":"추정가격 기준으로 건설산업기본법상 건설공사(전문공사 제외)는 4억원 이하, 전문공사는 2억원 이하, 그 밖의 공사 관련 법령에 따른 공사는 1억6천만원 이하입니다.","src":{"nat":["NAT-ENF-26"],"loc":["LOC-ENF-25"]}},{"id":"methods","q":"일반경쟁, 제한경쟁, 지명경쟁, 수의계약은 어떻게 다른가요?","kw":["일반경쟁","제한경쟁","지명경쟁","지명","제한","차이","원칙","계약방법","계약의 방법"],"a":{"nat":"계약은 원칙적으로 일반경쟁에 부쳐야 합니다. 다만 계약의 목적, 성질, 규모 등을 고려하여 필요하다고 인정되면 대통령령으로 정하는 바에 따라 참가자의 자격을 제한(제한경쟁)하거나 참가자를 지명(지명경쟁)하여 경쟁에 부치거나 수의계약을 할 수 있습니다(국가계약법 제7조제1항). 제한경쟁은 시행령 제21조, 지명경쟁은 제23조, 수의계약은 제26조에서 해당하는 경우를 정합니다.","loc":"계약은 원칙적으로 공고하여 일반입찰에 부쳐야 합니다. 다만 계약의 목적·성질·규모 및 지역특수성 등을 고려하여 필요하다고 인정되면 참가자를 지명하여 입찰에 부치거나 수의계약을 할 수 있습니다(지방계약법 제9조제1항). 입찰 참가자격은 제한할 수 있습니다(같은 조 제2항, 시행령 제20조). 지명입찰은 시행령 제22조, 수의계약은 제25조에서 해당하는 경우를 정합니다."},"src":{"nat":["NAT-LAW-7","NAT-ENF-21","NAT-ENF-23"],"loc":["LOC-LAW-9","LOC-ENF-20","LOC-ENF-22"]}},{"id":"docs","q":"필요 서류는 무엇인가요?","kw":["서류","첨부","제출서류"],"a":"계약 방법별 일반 안내 서류는 결과 화면의 '필요 서류' 체크리스트를 확인하세요. 서식과 추가 증빙은 기관마다 다르므로 소속 기관 계약 담당자에게 확인해야 합니다. (조문 근거 없는 일반 안내)","src":[]},{"id":"effect","q":"이 결과는 법적 효력이 있나요?","kw":["효력","유권해석","책임","공식","믿어도"],"a":"없습니다. 이 서비스는 참고용이며 공적 견해표명이나 유권해석이 아닙니다. 실제 계약은 법령 원문과 소속 기관 계약 담당자의 검토를 거쳐 진행하세요.","src":[]},{"id":"guarantee","q":"계약보증금과 인지세는 얼마인가요?","kw":["계약보증금","인지세","보증금"],"a":{"loc":"계약보증금은 공사·용역·물품 모두 계약금액의 10% 이상이 원칙이며(한시 특례의 5%는 2026.6.30. 종료), 계약금액 5천만원 이하는 면제됩니다 (매뉴얼 108쪽).\n인지세는 계약금액 1천만원 초과 3천만원 이하 2만원, 5천만원 이하 4만원, 1억원 이하 7만원, 10억원 이하 15만원, 10억원 초과 35만원입니다 (109쪽).\n(출처: 2026년 지방계약 실무 매뉴얼, 법령 조문이 아닌 실무 안내입니다)","nat":"이 질문은 지방계약 실무 매뉴얼 기준 답변만 준비되어 있습니다. 국가기관은 소속 중앙관서의 계약 지침과 국가계약법령 원문을 확인하세요."},"src":{"loc":[],"nat":[]}},{"id":"inspect_pay","q":"검사와 대금 지급은 언제까지 해야 하나요?","kw":["검사","대금","대가","지급기한"],"a":{"loc":"검사는 계약업체의 준공신고서 제출일부터 14일 이내에 해야 하고(매뉴얼 133쪽), 대가는 (부분)준공검수조서 확인 후 업체 청구일부터 5일(공휴일·토요일 제외) 이내에 지급합니다 (134쪽).\n대가 지급 때는 대가청구서, 세금계산서, 국세·지방세·4대보험 완납증명서 등을 확인합니다.\n(출처: 2026년 지방계약 실무 매뉴얼, 법령 조문이 아닌 실무 안내입니다)","nat":"이 질문은 지방계약 실무 매뉴얼 기준 답변만 준비되어 있습니다. 국가기관은 소속 중앙관서의 계약 지침과 국가계약법령 원문을 확인하세요."},"src":{"loc":[],"nat":[]}},{"id":"announce_period","q":"전자공개 수의계약 안내공고는 며칠 하나요?","kw":["안내공고","공고기간"],"a":{"loc":"2인 이상 견적 수의계약의 나라장터 안내공고 기간은 원칙 3일 이상(공휴일·토요일 제외), 신규사업은 5일 이상입니다. 공고문 게시일과 개찰일은 기간에서 제외합니다 (매뉴얼 112쪽). 낙찰자는 예정가격 대비 공사 89.745%, 용역·물품 88%(2천만원 이하 용역·물품은 90%) 이상 견적가격 중 최저가를 낸 자입니다.\n(출처: 2026년 지방계약 실무 매뉴얼, 법령 조문이 아닌 실무 안내입니다)","nat":"이 질문은 지방계약 실무 매뉴얼 기준 답변만 준비되어 있습니다. 국가기관은 소속 중앙관서의 계약 지침과 국가계약법령 원문을 확인하세요."},"src":{"loc":[],"nat":[]}},{"id":"repeat","q":"같은 업체와 수의계약을 여러 번 해도 되나요?","kw":["반복","동일업체","같은 업체","횟수"],"a":{"loc":"서울시 기준으로 실·국·본부 및 기관별로 동일업체와 연 4회 초과, 시 전체로 연 9회 초과 수의계약은 금지됩니다(자치구는 횟수제한에 포함하지 않음). 이행 가능업체가 1인인 경우 등은 예외입니다 (매뉴얼 107쪽). 다른 지방자치단체는 소속 기관의 기준을 확인하세요.\n(출처: 2026년 지방계약 실무 매뉴얼, 법령 조문이 아닌 실무 안내입니다)","nat":"이 질문은 지방계약 실무 매뉴얼 기준 답변만 준비되어 있습니다. 국가기관은 소속 중앙관서의 계약 지침과 국가계약법령 원문을 확인하세요."},"src":{"loc":[],"nat":[]}},{"id":"sanction","q":"부정당업자 제재는 어떻게 되나요?","kw":["부정당","입찰참가자격 제한","자격제한"],"a":{"loc":"입찰참가자격 제한기간은 1개월 이상 2년 이하이며(시행규칙 제76조 별표2), 가중 시 최대 2배, 경미한 경우 경감할 수 있습니다. 처분 10일 전까지 사전통지하고 청문을 실시합니다 (지방계약법 제31조, 시행령 제92조, 매뉴얼 135쪽).\n(출처: 2026년 지방계약 실무 매뉴얼, 법령 조문이 아닌 실무 안내입니다)","nat":"이 질문은 지방계약 실무 매뉴얼 기준 답변만 준비되어 있습니다. 국가기관은 소속 중앙관서의 계약 지침과 국가계약법령 원문을 확인하세요."},"src":{"loc":[],"nat":[]}}]}};
+const __defs = {
+  './data': function (module) { module.exports = { get: n => { if (!(n in __DATA)) throw new Error(n + ' 데이터가 없습니다'); return __DATA[n]; } }; },
+  './store': function (module) {
+    const KEY = 'cg_runtime_v1';
+    const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || { stats: {}, questions: [], feedback: [] }; } catch { return { stats: {}, questions: [], feedback: [] }; } };
+    const save = s => { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch {} };
+    const at = () => new Date().toISOString();
+    module.exports = {
+      incr: k => { const s = load(); s.stats[k] = (s.stats[k] || 0) + 1; save(s); },
+      logQuestion: o => { const s = load(); s.questions.push({ at: at(), ...o }); s.questions = s.questions.slice(-200); save(s); },
+      addFeedback: o => { const s = load(); s.feedback.push({ at: at(), ...o }); s.feedback = s.feedback.slice(-200); save(s); },
+    };
+  },
+  './engine': function (module, exports, require) {
+'use strict';
+// 계약가이드 엔진: 입력 조건 -> 규칙(rules.json) + 조문(articles.json) -> 절차·근거·주의사항.
+// AI를 호출하지 않으며 같은 입력에는 항상 같은 결과를 돌려준다.
+const { get } = require('./data');
+
+const fmtMan = m => {
+  if (m >= 10000) {
+    const eok = Math.floor(m / 10000);
+    const rest = m % 10000;
+    return `${eok.toLocaleString('ko-KR')}억원${rest ? ` ${rest.toLocaleString('ko-KR')}만원` : ''}`;
+  }
+  return `${m.toLocaleString('ko-KR')}만원`;
+};
+
+function httpError(message) {
+  const e = new Error(message);
+  e.status = 400;
+  return e;
+}
+
+function normalize(input, options) {
+  const pick = (key, def) => (options[key].some(o => o.value === input?.[key]) ? input[key] : def);
+  const amount = Number(input?.amount);
+  if (!Number.isFinite(amount) || amount < 0) throw httpError('추정가격을 0 이상의 숫자(만원 단위)로 입력하세요.');
+  return {
+    org: pick('org', 'loc'),
+    type: pick('type', 'goods'),
+    sub: pick('sub', 'general'),
+    amount: Math.round(amount),
+    partner: pick('partner', 'none'),
+    method: pick('method', 'unknown'),
+    special: pick('special', 'none'),
+  };
+}
+
+const labelOf = (options, key, value) => options[key].find(o => o.value === value)?.label ?? value;
+
+function whenOk(when, i) {
+  return !when || Object.entries(when).every(([k, v]) => (String(v).startsWith('!') ? i[k] !== v.slice(1) : i[k] === v));
+}
+
+function matchRules(i, rules) {
+  return rules.rules.filter(r =>
+    r.org === i.org && r.types.includes(i.type) &&
+    (!r.sub || r.sub === i.sub) && (!r.partner || r.partner === i.partner) &&
+    (r.minAmount === undefined || i.amount > r.minAmount) && i.amount <= r.maxAmount);
+}
+
+// 수의계약 근거가 없을 때 '어떤 조건이면 가능한지'를 안내한다 (상대방 변경, 금액 기준, 금액과 무관한 사유).
+function conditionsFor(i, rules, options) {
+  const sameKind = r => r.org === i.org && r.types.includes(i.type) && (!r.sub || r.sub === i.sub);
+  const out = [];
+  rules.rules.filter(r => sameKind(r) && r.partner && r.partner !== i.partner &&
+    (r.minAmount === undefined || i.amount > r.minAmount) && i.amount <= r.maxAmount)
+    .forEach(r => out.push(`상대방이 [${labelOf(options, 'partner', r.partner)}]이면 가능할 수 있습니다 (${r.ref}: ${r.text})`));
+  const lower = rules.rules.filter(r => sameKind(r) && !r.partner && r.maxAmount < i.amount).sort((a, b) => b.maxAmount - a.maxAmount)[0];
+  if (lower) out.push(`추정가격이 ${fmtMan(lower.maxAmount)} 이하인 사업이면 상대방과 관계없이 가능합니다 (${lower.ref}). 금액을 맞추려고 계약을 나누는 분할계약은 금지되므로, 실제 사업 규모가 그 이하일 때만 해당합니다.`);
+  rules.reasons.filter(r => r.org === i.org && r.special !== i.special)
+    .forEach(r => out.push(`금액과 관계없이 다음에 해당하면 가능할 수 있습니다 (${r.ref}): ${r.text}`));
+  return out;
+}
+
+// ---------- 수의계약: 견적서 ----------
+function quoteStep(i, matched, reasons) {
+  const nat = i.org === 'nat';
+  const vulnerable = matched.some(r => r.id.endsWith('VULN'));
+  const youth = matched.some(r => r.id.endsWith('YOUTH'));
+  const one = reasons.length > 0 || i.amount <= 2000 || youth || (vulnerable && i.amount <= 5000);
+  const lines = [];
+  if (one) lines.push('입력하신 조건에서는 1인으로부터 받은 견적서로 할 수 있는 경우에 해당할 수 있습니다 (제30조제1항 각 호 요건 확인).');
+  else lines.push('2인 이상으로부터 견적서를 받아야 합니다 (제30조제1항).');
+  if (nat) {
+    const needElectronic = matched.length > 0 && i.amount > (vulnerable ? 5000 : 2000);
+    if (needElectronic) lines.push('추정가격 2천만원(여성·장애인·사회적기업 등과 체결하면 5천만원)을 초과하는 제26조제1항제5호가목 수의계약은 전자조달시스템으로 견적서를 제출받고 안내공고를 해야 합니다 (제30조제2항·제3항).');
+  } else if (!one) {
+    lines.push('2인 이상 견적서를 받을 때는 지정정보처리장치를 이용해야 합니다 (행정안전부장관이 정한 경우 예외, 제30조제2항).');
+  }
+  return {
+    key: 'quote',
+    title: '견적서 제출 받기',
+    detail: lines.join('\n'),
+    refs: [nat ? 'NAT-ENF-30' : 'LOC-ENF-30'],
+    verified: true,
+  };
+}
+
+function decideStep(i) {
+  const nat = i.org === 'nat';
+  return {
+    key: 'decide',
+    title: '계약상대자 결정',
+    detail: nat
+      ? '제출받은 견적가격이 예정가격의 범위에 포함되지 않는 등 계약상대자를 결정할 수 없으면 다시 견적서를 제출받아 계약금액을 결정합니다 (제30조제6항).'
+      : '견적가격과 계약이행능력 등 행정안전부장관이 정하는 기준에 따라 수의계약대상자를 결정합니다. 견적가격이 예정가격 범위에 들지 않아 결정할 수 없으면 다시 견적서를 제출받습니다 (제30조제3항·제5항).',
+    refs: [nat ? 'NAT-ENF-30' : 'LOC-ENF-30'],
+    verified: true,
+  };
+}
+
+// ---------- 경쟁입찰: 입찰공고 ----------
+function announceStep(i) {
+  const nat = i.org === 'nat';
+  const lines = ['입찰서 제출 마감일의 전날부터 기산하여 7일 전에 공고합니다 (제35조제1항).'];
+  if (i.type === 'construction') {
+    lines.push('공사 + 현장설명 실시: 현장설명일 전날부터 7일 전 (입찰참가자격 사전심사 대상 공사는 30일 전).');
+    let days;
+    if (i.amount < 100000) days = '7일';
+    else if (i.amount < 500000) days = '15일';
+    else days = nat ? '40일' : '30일 (고시금액 이상이면 40일)';
+    lines.push(`공사 + 현장설명 없음: 입력하신 추정가격 ${fmtMan(i.amount)} 기준 ${days} 전 (제35조제3항).`);
+  }
+  lines.push('재공고입찰, 예산 조기집행, 일정조정, 긴급한 행사·재해 예방·복구 등에는 5일 전까지 공고할 수 있습니다 (제35조제4항).');
+  if (nat) lines.push('입찰공고는 원칙적으로 전자조달시스템을 이용합니다 (제33조제1항).');
+  return {
+    key: 'announce',
+    title: '입찰공고',
+    detail: lines.join('\n'),
+    refs: nat ? ['NAT-ENF-35', 'NAT-ENF-33'] : ['LOC-ENF-35'],
+    verified: true,
+  };
+}
+
+function methodStep(i, method) {
+  const nat = i.org === 'nat';
+  const base = nat ? 'NAT-LAW-7' : 'LOC-LAW-9';
+  if (method === 'limited') {
+    return {
+      key: 'method',
+      title: '제한경쟁 사유 확인',
+      detail: '계약의 목적·성질·규모 등을 고려해 필요하면 참가자의 자격을 제한해 경쟁에 부칠 수 있습니다. 제한할 수 있는 경우와 제한사항은 시행령 조문에서 정하므로 해당 여부와 제한기준을 확인하세요.',
+      refs: [base, nat ? 'NAT-ENF-21' : 'LOC-ENF-20', ...(nat ? [] : ['LOC-ENF-21'])],
+      verified: true,
+    };
+  }
+  if (method === 'designated') {
+    return {
+      key: 'method',
+      title: '지명경쟁 사유 확인',
+      detail: nat
+        ? '지명경쟁입찰에 부칠 수 있는 경우는 시행령 제23조에서 정합니다. 해당 사유(예: 특수한 설비·기술·실적이 필요하고 입찰대상자가 10인 이내인 경우 등)를 원문에서 확인하세요.'
+        : '지명입찰에 부칠 수 있는 경우는 시행령 제22조에서 정하고, 지명할 때는 5인 이상의 입찰대상자를 지명하는 것이 원칙입니다(제23조). 해당 사유와 예외를 원문에서 확인하세요.',
+      refs: [base, nat ? 'NAT-ENF-23' : 'LOC-ENF-22', ...(nat ? [] : ['LOC-ENF-23'])],
+      verified: true,
+    };
+  }
+  return {
+    key: 'method',
+    title: '일반경쟁 방식으로 진행',
+    detail: nat
+      ? '계약을 체결하려면 일반경쟁에 부쳐야 하는 것이 원칙입니다. 제한경쟁·지명경쟁·수의계약은 예외입니다 (국가계약법 제7조제1항).'
+      : '계약을 체결하려면 공고하여 일반입찰에 부쳐야 하는 것이 원칙입니다. 지명입찰·수의계약은 예외입니다 (지방계약법 제9조제1항).',
+    refs: [base],
+    verified: true,
+  };
+}
+
+function qualificationStep(i) {
+  const nat = i.org === 'nat';
+  return {
+    key: 'qualification',
+    title: '입찰 참가자격 확인',
+    detail: nat
+      ? '필요한 경우 계약이행의 난이도, 이행실적, 기술능력, 재무상태 등을 심사해 적격자만 입찰에 참가하게 할 수 있습니다 (제7조제2항).'
+      : '필요한 경우 입찰 참가자격을 미리 심사해 적격자만 입찰에 참가하게 할 수 있습니다. 낙찰자 결정 방식에 따라 사전심사가 필수인 공사계약도 있습니다 (제14조).',
+    refs: nat ? ['NAT-LAW-7'] : ['LOC-ENF-14'],
+    verified: true,
+  };
+}
+
+// 실무 매뉴얼(data/manual.json) 중 이 조건·단계에 맞는 항목. 지방계약 매뉴얼이므로 지방자치단체만 해당.
+function tipsFor(i, step, tips) {
+  if (i.org !== 'loc') return [];
+  return tips.filter(t => [].concat(t.step).includes(step) &&
+    (!t.types || t.types.includes(i.type)) &&
+    (t.min === undefined || i.amount > t.min) && (t.max === undefined || i.amount <= t.max) &&
+    whenOk(t.when, i));
+}
+
+// 카드뉴스용 단계 한 줄 요약
+const BRIEF = {
+  budget: '사업 목적과 예산을 확인하고, 필요한 사전 심의와 발주계획 등록을 마칩니다.',
+  estimate: '추정가격을 산정해 계약 방법을 정하는 기준 금액을 확정합니다.',
+  private: '입력 조건에 해당하는 수의계약 근거를 확인하고 상대방 증빙을 준비합니다.',
+  quote: '견적서를 몇 명에게, 어떤 방식으로 받을지 정해 제출받습니다.',
+  decide: '견적가격과 이행능력 기준으로 계약상대자를 정합니다.',
+  method: '선택한 경쟁 방식의 사유와 요건을 원문으로 확인합니다.',
+  announce: '정해진 기간 전에 입찰공고를 냅니다.',
+  qualification: '입찰 참가자격을 확인하고 필요하면 사전심사를 합니다.',
+  award: '개찰 후 낙찰자 결정 방법에 따라 낙찰자를 정합니다.',
+  contract: '계약서를 작성하고 보증금·인지세를 받은 뒤 체결합니다.',
+  perform: '이행 결과를 검사하고 대금을 지급합니다.',
+};
+
+const general = (proc, key) => ({ key, ...proc.common[key], refs: [], verified: false });
+
+function buildGuide(rawInput) {
+  const options = get('options');
+  const rules = get('rules');
+  const articles = get('articles');
+  const proc = get('procedures');
+  const notesDef = get('notes');
+  const manual = get('manual');
+  const audit = get('audit');
+  const byId = Object.fromEntries(articles.map(a => [a.id, a]));
+
+  const i = normalize(rawInput, options);
+  const summary = [
+    labelOf(options, 'org', i.org).replace(/ \(.*$/, ''),
+    labelOf(options, 'type', i.type).replace(/ \(.*$/, '') + (i.type === 'construction' ? ` · ${labelOf(options, 'sub', i.sub).replace(/ \(.*$/, '')}` : ''),
+    `추정가격 ${fmtMan(i.amount)}`,
+    labelOf(options, 'partner', i.partner),
+    labelOf(options, 'method', i.method).replace(/ \(.*$/, ''),
+    `긴급·특수 사유: ${labelOf(options, 'special', i.special)}`,
+  ];
+
+  const base = { input: i, summary, baseDate: rules.baseDate };
+
+  if (i.org === 'pub') {
+    return {
+      ...base,
+      verdict: { level: 'warn', title: '공공기관은 아직 지원하지 않습니다', lines: ['공공기관은 기관별 계약 규정이 적용될 수 있어 소속 기관 규정을 확인해야 합니다. 국가기관 또는 지방자치단체를 선택해 주세요.'] },
+      paths: [], laws: [], notes: ['공공기관 기준은 후속 단계에서 추가할 예정입니다.'], ruleIds: [],
+    };
+  }
+
+  const matched = matchRules(i, rules);
+  const reasons = rules.reasons.filter(r => r.org === i.org && r.special === i.special);
+  const basis = [...matched, ...reasons];
+  const hasBasis = basis.length > 0;
+  const nat = i.org === 'nat';
+  const principle = nat
+    ? '국가계약법 제7조제1항: 계약을 체결하려면 일반경쟁에 부쳐야 하며, 필요하다고 인정되면 제한·지명경쟁 또는 수의계약을 할 수 있습니다.'
+    : '지방계약법 제9조제1항: 계약을 체결하려면 공고하여 일반입찰에 부쳐야 하며, 필요하다고 인정되면 지명입찰 또는 수의계약을 할 수 있습니다.';
+
+  const conditions = !hasBasis && i.special !== 'single' && ['private', 'unknown'].includes(i.method) ? conditionsFor(i, rules, options) : [];
+
+  // ---- 판정 ----
+  const basisLines = basis.map(r => `${r.ref}: ${r.text}`);
+  let verdict;
+  if (i.method === 'private') {
+    if (hasBasis) verdict = { level: 'ok', title: '입력하신 조건으로 수의계약 근거에 해당할 수 있습니다', lines: [...basisLines, principle] };
+    else if (i.special === 'etc') verdict = { level: 'warn', title: '금액·상대방 조건으로는 근거를 찾지 못했습니다. 시행령 각 호의 다른 사유를 확인해야 합니다', lines: ['선택하신 "기타 사유"는 이 서비스가 판정하지 못합니다. 시행령 수의계약 조문의 각 호를 원문에서 확인하세요.', principle] };
+    else verdict = { level: 'bad', title: '입력하신 조건으로는 수의계약 근거를 찾지 못했습니다', conditions, lines: ['경쟁입찰(일반·제한·지명경쟁) 절차를 안내합니다. 긴급·경쟁 불가 등 다른 사유가 있다면 "긴급·특수 사유"를 선택해 다시 확인하세요.', principle] };
+  } else if (i.method === 'unknown') {
+    if (hasBasis) verdict = { level: 'ok', title: '수의계약이 가능할 수 있지만, 경쟁이 원칙입니다', lines: [...basisLines, principle] };
+    else verdict = { level: 'info', title: '수의계약 근거를 찾지 못해 경쟁입찰 절차를 안내합니다', conditions, lines: [principle] };
+  } else {
+    const name = labelOf(options, 'method', i.method);
+    verdict = { level: 'info', title: `${name} 절차를 안내합니다`, lines: [...(hasBasis ? [`참고: 입력 조건으로 수의계약 근거에도 해당할 수 있습니다 (${basis.map(r => r.ref).join(', ')}).`] : []), principle] };
+  }
+
+  // ---- 절차 ----
+  const paths = [];
+  const privateSteps = () => [
+    general(proc, 'budget'),
+    { key: 'private', title: '추정가격 산정과 수의계약 근거 확인', detail: `${basisLines.map(l => `- ${l}`).join('\n')}\n근거 요건(상대방 확인서류 등)을 충족하는지 확인합니다.`, refs: [...new Set(basis.map(r => r.law))], verified: true },
+    quoteStep(i, matched, reasons),
+    decideStep(i),
+    general(proc, 'contract'),
+    general(proc, 'perform'),
+  ];
+  const competeSteps = method => [
+    general(proc, 'budget'),
+    general(proc, 'estimate'),
+    methodStep(i, method),
+    announceStep(i),
+    qualificationStep(i),
+    general(proc, 'award'),
+    general(proc, 'contract'),
+    general(proc, 'perform'),
+  ];
+  const competeMethod = ['limited', 'designated'].includes(i.method) ? i.method : 'open';
+  const competeTitle = { open: '일반경쟁 절차', limited: '제한경쟁 절차', designated: '지명경쟁 절차' }[competeMethod];
+
+  if (i.method === 'private' && hasBasis) paths.push({ key: 'private', title: '수의계약 절차', steps: privateSteps(), docs: proc.docs.private });
+  else if (i.method === 'unknown' && hasBasis) {
+    paths.push({ key: 'private', title: '수의계약 절차', steps: privateSteps(), docs: proc.docs.private });
+    paths.push({ key: 'compete', title: '경쟁입찰 절차', steps: competeSteps('open'), docs: proc.docs.compete });
+  } else {
+    paths.push({ key: 'compete', title: competeTitle, steps: competeSteps(competeMethod), docs: proc.docs.compete });
+  }
+  paths.forEach(p => {
+    if (i.org === 'loc') p.docs = manual.docs[p.key];
+    p.steps.forEach((s, n) => {
+      s.no = n + 1;
+      const tips = tipsFor(i, s.key, manual.tips);
+      s.tips = tips.map(t => ({ id: t.id, title: t.title, text: t.text, page: t.page, seoul: !!t.seoul }));
+      s.audits = tipsFor(i, s.key, audit.cases).map(c => ({ id: c.id, title: c.title, source: c.source, page: c.page, issue: c.issue, lesson: c.lesson }));
+      s.brief = BRIEF[s.key] || '';
+      s.facts = tips.filter(t => t.fact).map(t => ({ id: t.id, text: t.fact }));
+    });
+  });
+
+  // ---- 근거 조문 ----
+  const lawMap = new Map();
+  const touch = id => {
+    if (!byId[id]) return null;
+    if (!lawMap.has(id)) lawMap.set(id, { ...byId[id], applied: [] });
+    return lawMap.get(id);
+  };
+  basis.forEach(r => touch(r.law)?.applied.push(`${r.ref}: ${r.text}`));
+  paths.forEach(p => p.steps.forEach(s => s.refs.forEach(touch)));
+  const laws = [...lawMap.values()].map(a => ({
+    id: a.id, law: a.law, title: a.title, effective: a.effective, verified: a.verified, url: a.url, applied: a.applied, text: a.text,
+  }));
+
+  // ---- 주의사항 ----
+  const notes = notesDef.notes.filter(n => whenOk(n.when, i)).map(n => n.text);
+  reasons.forEach(r => r.note && notes.push(r.note));
+
+  return { ...base, verdict, paths, laws, notes, ruleIds: basis.map(r => r.id), manual: i.org === 'loc' ? manual.source : null };
+}
+
+module.exports = { buildGuide, normalize };
+
+  },
+  './chat': function (module, exports, require) {
+'use strict';
+// 추가 질문 처리. AI를 호출하지 않고 아래 순서로 답한다.
+//  1) 질문 버튼/FAQ(저장 답변) -> 2) 캐시 -> 3) 저장된 조문 검색 -> 4) 근거 없음 안내
+// 4)의 payload는 나중에 AI를 연결할 때 모델에 전달할 압축 맥락이다.
+const { get } = require('./data');
+const store = require('./store');
+
+const norm = s => String(s).toLowerCase().replace(/[^0-9a-z가-힣]/g, '');
+// 한국어 조사·질문 어미를 떼고, 의미 없는 단어를 빼고, 단어 안에서만 두 글자씩 끊어 비교한다.
+const STOP = new Set(['어떻게', '무엇', '뭐예요', '뭔가요', '얼마', '얼마인가요', '있으면', '있나요', '되나요', '하나요', '인가요', '가능한가', '가능한가요', '가능해요', '알려줘', '알려주세요', '궁금해요', '궁금합니다', '대해', '관련', '경우', '이상', '이하', '해도', '해야', '하나', '어떤']);
+const ENDINGS = /(에서|으로|이란|란|은|는|이|가|을|를|에|의|도|로|과|와|요)$/;
+function tokens(s) {
+  return String(s).toLowerCase().split(/[^0-9a-z가-힣]+/).filter(Boolean)
+    .map(t => (STOP.has(t) ? '' : t.length > 2 ? t.replace(ENDINGS, '') : t))
+    .filter(t => t.length >= 2 && !STOP.has(t));
+}
+function bigrams(s) {
+  const set = new Set();
+  for (const t of tokens(s)) for (let k = 0; k < t.length - 1; k++) set.add(t.slice(k, k + 2));
+  return set;
+}
+
+// 조문 검색 색인 (articles.json이 바뀌면 다시 만든다)
+let indexFor = null;
+let index = null;
+function getIndex() {
+  const articles = get('articles');
+  if (indexFor === articles) return index;
+  const docs = articles.map(a => ({ a, head: bigrams(`${a.title} ${a.keywords.join(' ')}`), body: bigrams(a.text) }));
+  const df = new Map();
+  docs.forEach(d => new Set([...d.head, ...d.body]).forEach(b => df.set(b, (df.get(b) || 0) + 1)));
+  indexFor = articles;
+  index = { docs, df, n: docs.length };
+  return index;
+}
+const idf = (ix, b) => Math.log(1 + ix.n / (ix.df.get(b) || 0.5));
+
+function search(question, org) {
+  const ix = getIndex();
+  const q = [...bigrams(question)];
+  if (q.length === 0) return [];
+  const total = q.reduce((s, b) => s + idf(ix, b), 0);
+  return ix.docs
+    .filter(d => !org || org === 'pub' || d.a.org === org)
+    .map(d => {
+      let hit = 0;
+      for (const b of q) {
+        if (d.head.has(b)) hit += 3 * idf(ix, b);
+        else if (d.body.has(b)) hit += idf(ix, b);
+      }
+      return { a: d.a, score: Math.min(1, hit / total) };
+    })
+    .sort((x, y) => y.score - x.score);
+}
+
+// 조문 안에서 질문과 가장 관련 있는 문단 1~2개를 고른다
+function excerpt(article, question) {
+  const q = bigrams(question);
+  const ix = getIndex();
+  const paras = article.text.split(/\n+/).map(t => t.trim()).filter(Boolean);
+  const scored = paras.map((t, k) => {
+    let s = 0;
+    bigrams(t).forEach(b => { if (q.has(b)) s += idf(ix, b); });
+    return { t, k, s };
+  });
+  const top = scored.filter(p => p.s > 0).sort((a, b) => b.s - a.s).slice(0, 2).sort((a, b) => a.k - b.k);
+  const picked = top.length ? top : scored.slice(0, 1);
+  return picked.map(p => (p.t.length > 600 ? p.t.slice(0, 600) + ' ...' : p.t));
+}
+
+const cache = new Map();
+const THRESHOLD = 0.3;
+
+function srcCard(a, q) {
+  return { id: a.id, title: `${a.law} ${a.title}`, url: a.url, effective: a.effective, verified: a.verified, excerpt: q ? excerpt(a, q) : [] };
+}
+
+function answerQuestion({ question, faqId, context }) {
+  const org = ['nat', 'loc'].includes(context?.org) ? context.org : null;
+  const text = String(question || '').trim().slice(0, 300);
+  if (!text) { const e = new Error('질문을 입력하세요.'); e.status = 400; throw e; }
+  const articles = get('articles');
+  const byId = Object.fromEntries(articles.map(a => [a.id, a]));
+  const faq = get('faq').faq;
+  const pickAnswer = (f) => (typeof f.a === 'string' ? f.a : f.a[org || 'loc']);
+  const pickSrc = (f) => (Array.isArray(f.src) ? f.src : (f.src?.[org || 'loc'] || []));
+  const fromFaq = f => ({
+    type: 'faq',
+    answer: org || typeof f.a === 'string' ? pickAnswer(f) : `[지방자치단체 기준] ${pickAnswer(f)}\n\n※ 국가기관 기준은 조건에서 기관 구분을 선택하면 해당 답변이 표시됩니다.`,
+    sources: pickSrc(f).map(id => byId[id]).filter(Boolean).map(a => srcCard(a)),
+  });
+  const done = (res, kind) => { store.incr(`chat_${kind}`); store.logQuestion({ q: text, type: kind, org }); return { ...res, type: kind }; };
+
+  // 1) 질문 버튼
+  if (faqId) {
+    const f = faq.find(x => x.id === faqId);
+    if (f) return done(fromFaq(f), 'button');
+  }
+  // 2) 캐시
+  const key = `${org}|${norm(text)}`;
+  if (cache.has(key)) return done(cache.get(key), 'cache');
+  // 3) FAQ 키워드 (긴 단어일수록 우선)
+  let best = null;
+  for (const f of faq) {
+    const s = f.kw.filter(k => text.includes(k)).reduce((sum, k) => sum + k.length, 0);
+    if (s > 0 && (!best || s > best.s)) best = { f, s };
+  }
+  if (best && best.s >= 2) {
+    const res = fromFaq(best.f);
+    cache.set(key, res);
+    return done(res, 'faq');
+  }
+  // 4) 조문 검색
+  const ranked = search(text, org);
+  const top = ranked.filter(r => r.score >= THRESHOLD).slice(0, 2);
+  if (top.length) {
+    const res = {
+      answer: '질문과 관련된 조문을 찾았습니다. 아래 원문을 확인하세요. 이 서비스는 조문을 그대로 보여 주며 해석을 덧붙이지 않습니다.',
+      sources: top.map(r => srcCard(r.a, text)),
+    };
+    cache.set(key, res);
+    return done(res, 'article');
+  }
+  // 5) 근거 없음
+  const payload = {
+    ctx: context ? [context.org, context.type, context.amount && `${context.amount}만원`, context.partner, context.method].filter(Boolean).join('|') : null,
+    ruleIds: context?.ruleIds || [],
+    candidates: ranked.slice(0, 3).map(r => r.a.id),
+    q: text,
+  };
+  return done({
+    answer: '저장된 조문에서 이 질문의 근거를 찾지 못했습니다. 근거 없이 단정하지 않겠습니다. 소속 기관 계약 담당자에게 문의하거나 국가법령정보센터(law.go.kr)에서 원문을 확인해 주세요.',
+    sources: [],
+    ai: { connected: false, note: 'AI 연계 시 모델에 전달할 압축 맥락 (결과 전문 대신 코드와 조문 ID만 전달)', payload },
+  }, 'none');
+}
+
+module.exports = { answerQuestion, search };
+
+  },
+};
+const __mods = {};
+function __require(name) {
+  if (__mods[name]) return __mods[name].exports;
+  const m = { exports: {} };
+  __mods[name] = m;
+  __defs[name](m, m.exports, __require);
+  return m.exports;
+}
+(function () {
+  const dataApi = __require('./data'), store = __require('./store'), engine = __require('./engine'), chat = __require('./chat');
+  const realFetch = window.fetch ? window.fetch.bind(window) : null;
+  window.fetch = async function (url, opts = {}) {
+    if (typeof url === 'string' && url.startsWith('/api/')) {
+      const respond = (status, obj) => new Response(JSON.stringify(obj), { status, headers: { 'Content-Type': 'application/json' } });
+      try {
+        const body = opts.body ? JSON.parse(opts.body) : {};
+        if (url === '/api/meta') return respond(200, { options: dataApi.get('options'), baseDate: dataApi.get('rules').baseDate, faq: dataApi.get('faq').faq.map(f => ({ id: f.id, q: f.q })), lawCount: dataApi.get('articles').length });
+        if (url === '/api/guide') { const g = engine.buildGuide(body); store.incr('guide'); return respond(200, g); }
+        if (url === '/api/chat') return respond(200, chat.answerQuestion(body));
+        if (url === '/api/feedback') {
+          const rating = ['up', 'down'].includes(body.rating) ? body.rating : null;
+          store.addFeedback({ kind: body.kind === 'answer' ? 'answer' : 'general', rating, comment: String(body.comment || '').slice(0, 1000), question: String(body.question || '').slice(0, 300) });
+          store.incr('feedback_' + (rating || 'comment'));
+          return respond(200, { ok: true });
+        }
+        return respond(404, { error: '없는 API입니다.' });
+      } catch (e) { return respond(e.status || 500, { error: e.message }); }
+    }
+    return realFetch ? realFetch(url, opts) : Promise.reject(new Error('fetch 불가'));
+  };
+})();
+
+</script>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+let meta = null;
+let guide = null;
+const QUICK = ['quote', 'announce', 'docs']; // 팝업에 보여 줄 대표 질문 3개 (data/faq.json의 id)
+let activePath = 0;
+
+async function api(path, body) {
+  const res = await fetch(path, body ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) } : undefined);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || `요청 실패 (${res.status})`);
+  return data;
+}
+
+function fillSelect(id, items) {
+  $(id).innerHTML = items.map(o => `<option value="${esc(o.value)}">${esc(o.label)}</option>`).join('');
+}
+
+function formValues() {
+  const f = new FormData($('form'));
+  return Object.fromEntries(f.entries());
+}
+
+function setForm(values) {
+  for (const [k, v] of Object.entries(values)) { if ($(k)) $(k).value = v; }
+  syncForm();
+}
+
+function syncForm() {
+  $('subWrap').hidden = $('type').value !== 'construction';
+  const v = Number($('amount').value) || 0;
+  $('amountHint').textContent = v >= 10000 ? `= ${(v / 10000).toLocaleString('ko-KR')}억원` : '';
+}
+
+// ---------- 결과 렌더링 ----------
+function badge(verified) {
+  return verified ? '<span class="badge ok">조문 확인</span>' : '<span class="badge gen">일반 안내</span>';
+}
+
+function renderGuide(g) {
+  guide = g;
+  $('empty').hidden = true;
+  $('result').hidden = false;
+  $('chips').innerHTML = g.summary.map(s => `<span class="chip">${esc(s)}</span>`).join('');
+  $('verdict').innerHTML = `<div class="verdict ${esc(g.verdict.level)}"><b>${esc(g.verdict.title)}</b><ul>${g.verdict.lines.map(l => `<li>${esc(l)}</li>`).join('')}</ul>${(g.verdict.conditions || []).length ? `<div class="cond"><b>이런 조건이면 수의계약이 가능할 수 있습니다</b><ul>${g.verdict.conditions.map(l => `<li>${esc(l)}</li>`).join('')}</ul><small>조건을 바꿔 다시 확인하거나, 각 호의 세부 요건은 법령 원문에서 확인하세요.</small></div>` : ''}</div>`;
+  activePath = 0;
+  renderPath();
+  renderManual(g);
+  $('laws').innerHTML = g.laws.length ? g.laws.map(lawHtml).join('') : '<p class="muted">표시할 조문이 없습니다.</p>';
+  $('notes').innerHTML = g.notes.map(n => `<li>${esc(n)}</li>`).join('');
+  $('chatCtx').textContent = `현재 조건 기준: ${g.summary.slice(0, 3).join(' · ')}`;
+  if ($('chatPop').hidden) $('chatFab').classList.add('dot');
+  try { history.replaceState(null, '', '#' + new URLSearchParams(g.input).toString()); } catch { /* 미리보기 창에서는 주소 변경이 막힐 수 있음 */ }
+}
+
+function renderPath() {
+  const g = guide;
+  $('tabs').innerHTML = g.paths.length > 1
+    ? g.paths.map((p, n) => `<button type="button" class="tab" role="tab" aria-selected="${n === activePath}" data-tab="${n}">${esc(p.title)}</button>`).join('')
+    : '';
+  const p = g.paths[activePath];
+  if (!p) { $('steps').innerHTML = '<li><div class="d">안내할 절차가 없습니다.</div></li>'; $('docs').innerHTML = ''; return; }
+  $('steps').innerHTML = p.steps.map(s => `
+    <li id="step-${s.no}">
+      <div class="t">${esc(s.title)}${badge(s.verified)}</div>
+      <div class="d">${esc(s.detail)}</div>
+      ${(s.tips || []).length ? `<div class="tips"><div class="tipt">실무 매뉴얼</div><ul>${s.tips.map(t => `<li>${esc(t.text)}<button type="button" class="pg" data-tip="${esc(t.id)}">${t.seoul ? '서울시 기준 · ' : ''}매뉴얼 ${t.page}쪽 · 원문 보기</button></li>`).join('')}</ul></div>` : ''}
+      ${(s.audits || []).length ? `<details class="audit"><summary>감사 지적사례 ${s.audits.length}건 · 이 단계에서 주의하세요</summary>${s.audits.map(a => `
+        <div class="acase">
+          <b>${esc(a.title)}</b>
+          <span class="small muted">${esc(a.source)} · 매뉴얼 ${a.page}쪽</span>
+          <p><em>지적 내용</em> ${esc(a.issue)}</p>
+          <p class="alesson"><em>주의할 점</em> ${esc(a.lesson)}</p>
+          ${pdfLink(a.page, `원문 보기 (${a.page}쪽)`)}
+        </div>`).join('')}</details>` : ''}
+      <button type="button" class="back" data-card="${s.no}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="9" width="12" height="11" rx="2"/><path d="M7 5h12a2 2 0 0 1 2 2v9"/><path d="M6.5 16l2.5-2.5 2.5 2.5"/></svg>요약 카드로 돌아가기</button>
+      ${s.refs.length ? `<div class="refs">근거: ${s.refs.map(id => { const l = g.laws.find(x => x.id === id); return l ? `<a href="#law-${esc(id)}" data-law="${esc(id)}">${esc(l.law)} ${esc(l.title.replace(/\(.*$/, ''))}</a>` : ''; }).join('')}</div>` : ''}
+    </li>`).join('');
+  renderDeck(p);
+  $('docs').innerHTML = p.docs.map((d, n) => {
+    const text = typeof d === 'string' ? d : d.text;
+    const form = typeof d === 'object' && d.form ? `<a class="formlink" href="${SEOUL_FORMS}" target="_blank" rel="noopener" title="서울계약마당 서식자료실에서 내려받습니다">서식 받기 &#8599;</a>` : '';
+    return `<li><label><input type="checkbox" id="doc-${n}"><span>${esc(text)}</span></label>${form}</li>`;
+  }).join('') + (p.docs.some(d => d.form) ? `<li class="formnote small muted">'서식 받기'는 서울계약마당 공지사항 › 서식자료실로 이동합니다. 목록에서 해당 서식을 찾아 내려받고, 최신본인지 확인하세요.</li>` : '');
+}
+
+function renderDeck(p) {
+  const n = p.steps.length;
+  $('deck').innerHTML = p.steps.map(s => `
+    <article class="card">
+      <div class="cno">${s.no}<small> / ${n}</small></div>
+      <h4>${esc(s.title)}</h4>
+      <p class="brief">${esc(s.brief || s.detail)}</p>
+      ${(s.facts || []).length ? `<ul class="facts">${s.facts.map(f => `<li><button type="button" class="fact" data-tip="${esc(f.id)}">${esc(f.text)}</button></li>`).join('')}</ul>` : ''}
+      <div class="cfoot">${badge(s.verified)}${(s.audits || []).length ? `<a href="#step-${s.no}" class="achip" data-step="${s.no}">감사 지적 ${s.audits.length}건</a>` : ''}<a href="#step-${s.no}" class="go" data-step="${s.no}">상세 가이드 보기 &rarr;</a></div>
+    </article>`).join('');
+  $('deck').scrollLeft = 0;
+  updatePos();
+}
+function updatePos() {
+  const d = $('deck'), cards = d.children;
+  if (!cards.length) return;
+  const w = cards[0].offsetWidth + 12;
+  $('bPos').textContent = `${Math.min(cards.length, Math.round(d.scrollLeft / w) + 1)} / ${cards.length}`;
+}
+$('deck').addEventListener('scroll', updatePos);
+const nudge = dir => { const d = $('deck'); d.scrollBy({ left: dir * (d.children[0].offsetWidth + 12), behavior: 'smooth' }); };
+$('deck').addEventListener('click', e => {
+  const t = e.target.closest('[data-tip]');
+  if (t) { openTip(t.dataset.tip, t); return; }
+  const a = e.target.closest('[data-step]');
+  if (!a) return;
+  e.preventDefault();
+  const li = $('step-' + a.dataset.step);
+  if (!li) return;
+  li.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  li.classList.remove('flash');
+  void li.offsetWidth; // 애니메이션 재시작
+  li.classList.add('flash');
+});
+$('bPrev').addEventListener('click', () => nudge(-1));
+$('bNext').addEventListener('click', () => nudge(1));
+
+// 관련 법령 패널의 '실무 매뉴얼' 뷰어: 이 결과에 적용되는 매뉴얼 항목을 단계별로 모아 보여 준다.
+function renderManual(g) {
+  const seen = new Map();
+  g.paths.forEach(p => p.steps.forEach(s => (s.tips || []).forEach(t => {
+    if (!seen.has(t.id)) seen.set(t.id, { t, step: s.title });
+  })));
+  const groups = new Map();
+  seen.forEach(({ t, step }) => { if (!groups.has(step)) groups.set(step, []); groups.get(step).push(t); });
+  $('vcLaw').textContent = `(${g.laws.length})`;
+  $('vcMan').textContent = `(${seen.size})`;
+  $('manual').innerHTML = seen.size
+    ? `<p class="small muted">${esc(g.manual)}에서 이 조건에 해당하는 실무 안내입니다. 법령 조문이 아니며, 서울시 기준 항목은 다른 지방자치단체에서 다를 수 있습니다.</p><p class="mlinks">${seoulLink()} ${pdfLink(105, '인용 쪽 미리보기')}</p><p class="small muted">실무 매뉴얼 전문은 서울계약마당 공지사항 › 문서자료실에서 내려받을 수 있습니다.</p>` +
+      [...groups].map(([step, tips]) => `<h4 class="mg">${esc(step)}</h4>` + tips.map(t => `
+        <details class="law">
+          <summary>${esc(t.title)}<span class="meta">${t.seoul ? '서울시 기준 · ' : ''}매뉴얼 ${t.page}쪽</span></summary>
+          <div class="body"><p class="tipbody">${esc(t.text)}</p>${pdfLink(t.page)}</div>
+        </details>`).join('')).join('')
+    : '<p class="muted">이 조건에 표시할 실무 매뉴얼이 없습니다. 실무 매뉴얼은 지방자치단체 결과에만 제공됩니다.</p>';
+  showViewer('law');
+}
+function showViewer(which) {
+  const man = which === 'man';
+  $('laws').hidden = man;
+  $('manual').hidden = !man;
+  $('vtLaw').classList.toggle('on', !man);
+  $('vtMan').classList.toggle('on', man);
+  $('vtLaw').setAttribute('aria-selected', String(!man));
+  $('vtMan').setAttribute('aria-selected', String(man));
+}
+$('vtLaw').addEventListener('click', () => showViewer('law'));
+$('vtMan').addEventListener('click', () => showViewer('man'));
+
+function lawHtml(l) {
+  return `
+    <details class="law" id="law-${esc(l.id)}">
+      <summary>${esc(l.law)} ${esc(l.title)}
+        <span class="meta">시행 ${esc(l.effective || '-')} · 원문 확인 ${esc(l.verified)} · <a href="${esc(l.url)}" target="_blank" rel="noopener">법제처 원문 열기</a></span>
+      </summary>
+      <div class="body">
+        ${l.applied.length ? `<div class="applied"><b>입력 조건에 적용된 부분</b><ul>${l.applied.map(a => `<li>${esc(a)}</li>`).join('')}</ul></div>` : ''}
+        <pre>${esc(l.text)}</pre>
+      </div>
+    </details>`;
+}
+
+// ---------- 챗봇 ----------
+const VIA = { button: '저장된 답변', faq: '저장된 답변', cache: '캐시(이전 답변 재사용)', article: '조문 검색 결과', none: '근거 없음', intro: '' };
+
+function addUser(text) {
+  const d = document.createElement('div');
+  d.className = 'msg user';
+  d.textContent = text;
+  $('log').appendChild(d);
+  $('log').scrollTop = $('log').scrollHeight;
+}
+
+function addBot(res, question) {
+  const d = document.createElement('div');
+  d.className = 'msg bot';
+  const src = (res.sources || []).map(s => `
+    <div class="src">
+      <div class="h">${esc(s.title)} <a href="${esc(s.url)}" target="_blank" rel="noopener">원문</a></div>
+      <div class="meta">시행 ${esc(s.effective || '-')} · 원문 확인 ${esc(s.verified)}</div>
+      ${(s.excerpt || []).map(x => `<div class="x">${esc(x)}</div>`).join('')}
+    </div>`).join('');
+  const dev = res.ai ? `<details class="dev"><summary>AI 연계 시 전달될 맥락 (개발자용)</summary><pre>${esc(JSON.stringify(res.ai.payload, null, 1))}</pre></details>` : '';
+  const rate = res.type && res.type !== 'intro'
+    ? `<div class="rate">도움이 되었나요? <button type="button" data-rate="up">예</button><button type="button" data-rate="down">아니오</button></div>` : '';
+  d.innerHTML = `<div class="a">${esc(res.answer)}</div>${src}${VIA[res.type] ? `<div class="via">${esc(VIA[res.type])}</div>` : ''}${dev}${rate}`;
+  if (question !== undefined) d.dataset.q = question;
+  $('log').appendChild(d);
+  $('log').scrollTop = $('log').scrollHeight;
+}
+
+async function ask(question, faqId) {
+  addUser(question);
+  try {
+    const res = await api('/api/chat', { question, faqId, context: guide ? { ...guide.input, ruleIds: guide.ruleIds } : {} });
+    addBot(res, question);
+  } catch (e) {
+    const d = document.createElement('div');
+    d.className = 'msg bot';
+    d.textContent = e.message;
+    $('log').appendChild(d);
+  }
+}
+
+// 실무 매뉴얼 원문 쪽 이미지(manual/m<인쇄 쪽수>.jpg). 아티팩트 화면에서는 PDF 파일을 링크로 여는 것이 막혀, 인용한 쪽(105~135쪽)을 이미지로 담아 팝업에서 보여 준다.
+const SEOUL_FORMS = 'https://contract.seoul.go.kr/new1/bbs/searchNoticeList.do?ID=1'; // 서식자료실
+// 매뉴얼 전문은 서울계약마당 공지사항 > 문서자료실에 게시되어 있다.
+const SEOUL_DOCS = 'https://contract.seoul.go.kr/new1/bbs/searchNoticeList.do?ID=2';
+const seoulLink = () => `<a class="btn small pdf" href="${SEOUL_DOCS}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>서울계약마당 문서자료실에서 원문 보기</a>`;
+// 인용한 쪽: 발주·계약 매뉴얼 105~135쪽, 감사 지적사례 372~386쪽
+const MAN_PAGES = [...Array(31).keys()].map(k => 105 + k).concat([...Array(15).keys()].map(k => 372 + k));
+let manPage = 105;
+const pdfLink = (page, label) => `<button type="button" class="btn small pdf" data-pdf="${Number(page)}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>${esc(label || `매뉴얼 원문 보기 (${page}쪽)`)}</button>`;
+
+function showManPage(n) {
+  manPage = MAN_PAGES.includes(n) ? n : MAN_PAGES.reduce((best, x) => (Math.abs(x - n) < Math.abs(best - n) ? x : best), MAN_PAGES[0]);
+  const at = MAN_PAGES.indexOf(manPage);
+  $('manImg').src = `manual/m${manPage}.jpg`;
+  $('manImg').alt = `2026년 지방계약 실무 매뉴얼 ${manPage}쪽`;
+  $('manPos').textContent = `매뉴얼 ${manPage}쪽 (인용 쪽 ${at + 1}/${MAN_PAGES.length})`;
+  document.querySelector('[data-mannav="-1"]').disabled = at <= 0;
+  document.querySelector('[data-mannav="1"]').disabled = at >= MAN_PAGES.length - 1;
+  $('manStage').scrollTop = 0;
+}
+function openPdf(printed, from) {
+  openModal('2026년 지방계약 실무 매뉴얼', `
+    <div class="pdfbar">
+      <button type="button" class="btn small" data-mannav="-1" aria-label="이전 쪽">&lsaquo; 이전</button>
+      <span class="small muted" id="manPos"></span>
+      <button type="button" class="btn small" data-mannav="1" aria-label="다음 쪽">다음 &rsaquo;</button>
+    </div>
+    <div class="pdfstage" id="manStage"><img id="manImg" alt=""></div>
+    <p class="small muted">인용한 쪽을 발췌한 이미지입니다. 전체 내용은 서울계약마당 공지사항 › 문서자료실의 매뉴얼 원본에서 확인하세요.</p>
+    ${seoulLink()}`, from);
+  $('modal').classList.add('wide');
+  showManPage(Number(printed));
+}
+
+// ---------- 출처 팝업 (조문 원문 / 실무 매뉴얼) ----------
+let lastFocus = null;
+function openModal(title, html, from) {
+  lastFocus = from || null;
+  $('mTitle').textContent = title;
+  $('mBody').innerHTML = html;
+  $('modal').hidden = false;
+  $('mBody').scrollTop = 0;
+  $('mClose').focus();
+}
+function closeModal() { $('modal').hidden = true; $('modal').classList.remove('wide'); if (lastFocus) lastFocus.focus(); }
+function openLaw(id, from) {
+  const l = guide?.laws.find(x => x.id === id);
+  if (!l) return;
+  openModal(`${l.law} ${l.title}`, `
+    <p class="small muted">시행 ${esc(l.effective || '-')} · 원문 확인 ${esc(l.verified)} · <a href="${esc(l.url)}" target="_blank" rel="noopener">법제처 원문 열기</a></p>
+    ${l.applied.length ? `<div class="applied"><b>입력 조건에 적용된 부분</b><ul>${l.applied.map(a => `<li>${esc(a)}</li>`).join('')}</ul></div>` : ''}
+    <pre>${esc(l.text)}</pre>`, from);
+}
+function openTip(id, from) {
+  const t = guide?.paths.flatMap(p => p.steps).flatMap(s => s.tips || []).find(x => x.id === id);
+  if (!t) return;
+  openModal(`실무 매뉴얼 · ${t.title}`, `
+    <p class="small muted">${esc(guide.manual || '지방계약 실무 매뉴얼')} · ${t.seoul ? '서울시 기준' : '일반'} · 매뉴얼 ${t.page}쪽</p>
+    <p class="tipbody">${esc(t.text)}</p>
+    <p class="small muted">법령 조문이 아닌 실무 안내입니다. 정확한 내용은 매뉴얼 ${t.page}쪽 원문과 소속 기관 규정을 확인하세요.</p>
+    ${pdfLink(t.page)}`, from);
+}
+$('mClose').addEventListener('click', closeModal);
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-pdf]');
+  if (b) openPdf(b.dataset.pdf, b);
+  const n = e.target.closest('[data-mannav]');
+  if (n) showManPage(MAN_PAGES[MAN_PAGES.indexOf(manPage) + Number(n.dataset.mannav)]);
+});
+$('modal').addEventListener('click', e => { if (e.target === $('modal')) closeModal(); });
+
+// ---------- 메신저 팝업 ----------
+function toggleChat(open) {
+  $('chatPop').hidden = !open;
+  $('chatFab').setAttribute('aria-expanded', String(open));
+  $('chatFab').classList.toggle('on', open);
+  if (open) { $('chatFab').classList.remove('dot'); $('q').focus(); $('log').scrollTop = $('log').scrollHeight; }
+}
+$('chatFab').addEventListener('click', () => toggleChat($('chatPop').hidden));
+$('chatClose').addEventListener('click', () => { toggleChat(false); $('chatFab').focus(); });
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  if (!$('modal').hidden) closeModal();
+  else if (!$('chatPop').hidden) toggleChat(false);
+});
+
+// ---------- 이벤트 ----------
+async function runGuide(values) {
+  try {
+    renderGuide(await api('/api/guide', values));
+  } catch (e) {
+    $('empty').hidden = false;
+    $('result').hidden = true;
+    $('empty').innerHTML = `<div class="error">${esc(e.message)}</div>`;
+  }
+}
+
+$('form').addEventListener('submit', e => { e.preventDefault(); runGuide(formValues()); });
+$('form').addEventListener('input', syncForm);
+$('example').addEventListener('click', () => {
+  const v = { org: 'loc', type: 'goods', amount: 3000, partner: 'smallbiz', method: 'private', special: 'none' };
+  setForm(v);
+  runGuide(formValues());
+});
+$('share').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(location.href); $('share').textContent = '복사됨'; }
+  catch { prompt('이 주소를 복사하세요', location.href); }
+  setTimeout(() => { $('share').textContent = '링크 복사'; }, 1500);
+});
+$('tabs').addEventListener('click', e => {
+  const b = e.target.closest('[data-tab]');
+  if (b) { activePath = Number(b.dataset.tab); renderPath(); }
+});
+$('steps').addEventListener('click', e => {
+  const a = e.target.closest('[data-law]');
+  if (a) { e.preventDefault(); openLaw(a.dataset.law, a); }
+  const t = e.target.closest('[data-tip]');
+  if (t) openTip(t.dataset.tip, t);
+  const b = e.target.closest('[data-card]');
+  if (b) {
+    $('boardPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const c = $('deck').children[Number(b.dataset.card) - 1];
+    if (c) $('deck').scrollTo({ left: c.offsetLeft - $('deck').offsetLeft, behavior: 'smooth' });
+  }
+});
+$('quick').addEventListener('click', e => {
+  const b = e.target.closest('[data-faq]');
+  if (b) ask(b.textContent, b.dataset.faq);
+});
+$('chatForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const q = $('q').value.trim();
+  if (q) { $('q').value = ''; ask(q); }
+});
+$('log').addEventListener('click', async e => {
+  const b = e.target.closest('[data-rate]');
+  if (!b) return;
+  const msg = b.closest('.msg');
+  msg.querySelectorAll('[data-rate]').forEach(x => { x.disabled = true; });
+  await api('/api/feedback', { kind: 'answer', rating: b.dataset.rate, question: msg.dataset.q || '', context: guide?.input }).catch(() => {});
+  b.closest('.rate').textContent = '의견이 전달되었습니다.';
+});
+$('fbForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const comment = $('fbText').value.trim();
+  if (!comment) return;
+  await api('/api/feedback', { kind: 'general', comment, context: guide?.input }).catch(() => {});
+  $('fbText').value = '';
+  $('fbMsg').textContent = '의견이 전달되었습니다. 감사합니다.';
+});
+
+// ---------- 시작 ----------
+(async function init() {
+  try {
+    meta = await api('/api/meta');
+  } catch (e) {
+    $('empty').innerHTML = `<div class="error">서버에 연결하지 못했습니다. (${esc(e.message)})</div>`;
+    return;
+  }
+  for (const k of ['org', 'type', 'sub', 'partner', 'method', 'special']) fillSelect(k, meta.options[k]);
+  $('org').value = 'loc';
+  $('method').value = 'private';
+  $('baseInfo').textContent = `저장된 조문 ${meta.lawCount}개 · 법령 확인 기준일 ${meta.baseDate}`;
+  $('quick').innerHTML = QUICK.map(id => meta.faq.find(f => f.id === id)).filter(Boolean).map(f => `<button type="button" data-faq="${esc(f.id)}">${esc(f.q)}</button>`).join('');
+  addBot({ answer: '안녕하세요. 계약 절차와 법령에 대해 궁금한 점을 물어보세요. 아래 질문 버튼은 저장된 답변이라 바로 답합니다. 직접 입력한 질문은 저장된 조문에서 근거를 찾아 보여 드립니다.', sources: [], type: 'intro' });
+  syncForm();
+  if (location.hash.length > 1) {
+    const v = Object.fromEntries(new URLSearchParams(location.hash.slice(1)));
+    setForm(v);
+    runGuide(formValues());
+  }
+})();
+
+</script>

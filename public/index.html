@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>계약가이드 - 공공기관 계약 절차·법령 안내</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <h1>계약가이드 <span class="tag">MVP</span></h1>
+      <p>조건을 선택하면 계약 절차와 관련 법령을 바로 안내하고, 추가 질문에도 근거 조문으로 답합니다.</p>
+    </div>
+  </header>
+
+  <div class="notice">
+    <div class="wrap">참고용 안내입니다. 공적 견해표명이나 유권해석이 아니며, 실제 계약은 법령 원문과 소속 기관 계약 담당자의 검토가 필요합니다. 질문에 개인정보를 입력하지 마세요.</div>
+  </div>
+
+  <main class="wrap layout">
+    <aside class="panel conditions" id="conditions">
+      <h2>1. 계약 조건</h2>
+      <form id="form" autocomplete="off">
+        <label>기관 구분<select name="org" id="org"></select></label>
+        <label>계약 유형<select name="type" id="type"></select></label>
+        <label id="subWrap" hidden>공사 종류<select name="sub" id="sub"></select></label>
+        <label>추정가격 (만원)
+          <input type="number" name="amount" id="amount" min="0" step="1" value="3000" required>
+          <small id="amountHint" class="hint"></small>
+        </label>
+        <label>계약 상대방 / 성격<select name="partner" id="partner"></select></label>
+        <label>희망 계약 방법<select name="method" id="method"></select></label>
+        <label>긴급·특수 사유<select name="special" id="special"></select></label>
+        <button type="submit" class="btn primary">계약가이드 보기</button>
+      </form>
+      <p class="small muted" id="baseInfo"></p>
+    </aside>
+
+    <section class="main">
+      <div id="empty" class="panel empty">
+        <h2>시작하기</h2>
+        <p>왼쪽에서 조건을 선택하고 <b>계약가이드 보기</b>를 누르세요.</p>
+        <p class="muted">예: 지방자치단체가 3천만원 물품을 소기업과 수의계약하려는 경우</p>
+        <button type="button" class="btn" id="example">예시로 해보기</button>
+      </div>
+
+      <div id="result" hidden>
+        <div class="panel board" id="boardPanel">
+          <div class="row between">
+            <h2>계약가이드 요약</h2>
+            <div class="bnav"><button type="button" class="btn small" id="bPrev" aria-label="이전 카드">&lsaquo;</button><span class="small muted" id="bPos"></span><button type="button" class="btn small" id="bNext" aria-label="다음 카드">&rsaquo;</button></div>
+          </div>
+          <p class="small muted">단계별 핵심만 모았습니다. 옆으로 넘겨 보세요. 자세한 근거는 아래 계약가이드 결과를 확인하세요.</p>
+          <div class="deck" id="deck" tabindex="0" aria-label="계약 절차 카드"></div>
+        </div>
+        <div class="panel">
+          <div class="row between">
+            <h2>2. 계약가이드 결과</h2>
+            <button type="button" class="btn small" id="share">링크 복사</button>
+          </div>
+          <div class="chips" id="chips"></div>
+          <div id="verdict"></div>
+          <div class="tabs" id="tabs"></div>
+          <h3>계약 절차</h3>
+          <ol class="steps" id="steps"></ol>
+          <h3>필요 서류 체크리스트 <span class="muted small">(일반 안내)</span></h3>
+          <ul class="checklist" id="docs"></ul>
+        </div>
+        <div class="panel">
+          <div class="row between">
+            <h3>관련 법령 (원문)</h3>
+            <div class="vtabs" role="tablist">
+              <button type="button" role="tab" id="vtLaw" class="on" aria-selected="true">법령 원문 <span id="vcLaw"></span></button>
+              <button type="button" role="tab" id="vtMan" aria-selected="false">실무 매뉴얼 <span id="vcMan"></span></button>
+            </div>
+          </div>
+          <div id="laws"></div>
+          <div id="manual" hidden></div>
+          <h3>주의사항</h3>
+          <ul id="notes"></ul>
+        </div>
+        <div class="panel">
+          <h3>이 서비스에 대한 의견</h3>
+          <form id="fbForm" class="row">
+            <input type="text" id="fbText" placeholder="불편한 점, 틀린 내용, 추가했으면 하는 기능을 알려 주세요" maxlength="500">
+            <button class="btn" type="submit">보내기</button>
+          </form>
+          <p class="small muted" id="fbMsg"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap small muted foot">계약가이드 MVP · 법령 확인 기준일은 결과 화면과 조문별 표시를 참고하세요. 관리자 화면: <a href="admin.html">admin.html</a></footer>
+  <div class="modal" id="modal" hidden>
+    <div class="mbox" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+      <header class="pop-h"><b id="mTitle"></b><button type="button" id="mClose" aria-label="닫기">&times;</button></header>
+      <div class="mbody" id="mBody"></div>
+    </div>
+  </div>
+  <button type="button" class="fab" id="chatFab" aria-label="추가 질문 열기" aria-expanded="false" aria-controls="chatPop">
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9 11h6M9 14h4"/></svg>
+  </button>
+  <section class="pop" id="chatPop" role="dialog" aria-label="계약 질문 메신저" hidden>
+    <header class="pop-h"><b>계약 질문</b><span class="small" id="chatCtx">조건을 선택하지 않아도 질문할 수 있습니다</span><button type="button" id="chatClose" aria-label="닫기">&times;</button></header>
+    <div class="log" id="log" aria-live="polite"></div>
+    <div class="quick" id="quick"></div>
+    <form id="chatForm" class="row">
+      <input type="text" id="q" placeholder="궁금한 내용을 입력하세요 (예: 입찰공고 기간은?)" maxlength="300" autocomplete="off">
+      <button class="btn primary" type="submit">전송</button>
+    </form>
+  </section>
+  <script src="app.js"></script>
+</body>
+</html>
