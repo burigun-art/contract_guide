@@ -1,0 +1,12 @@
+{
+  "name": "contract-guide-mvp",
+  "version": "0.2.0",
+  "description": "공공기관 계약가이드 + Q&A 챗봇 MVP (외부 패키지 없음)",
+  "private": true,
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  }
+}
+
