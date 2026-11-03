@@ -10,7 +10,7 @@ const read = (...p) => fs.readFileSync(path.join(ROOT, ...p), 'utf8');
 const safe = s => s.replace(/<\/script/gi, '<\\/script');
 
 const DATA = {};
-for (const n of ['options', 'rules', 'articles', 'procedures', 'notes', 'manual', 'audit', 'faq']) DATA[n] = JSON.parse(read('data', n + '.json'));
+for (const n of ['options', 'rules', 'articles', 'procedures', 'notes', 'manual', 'audit', 'faq', 'interpretations']) DATA[n] = JSON.parse(read('data', n + '.json'));
 
 const bundle = `
 const __DATA = ${safe(JSON.stringify(DATA))};
@@ -50,7 +50,7 @@ function __require(name) {
       const respond = (status, obj) => new Response(JSON.stringify(obj), { status, headers: { 'Content-Type': 'application/json' } });
       try {
         const body = opts.body ? JSON.parse(opts.body) : {};
-        if (url === '/api/meta') return respond(200, { options: dataApi.get('options'), baseDate: dataApi.get('rules').baseDate, faq: dataApi.get('faq').faq.map(f => ({ id: f.id, q: f.q })), lawCount: dataApi.get('articles').length });
+        if (url === '/api/meta') return respond(200, { options: dataApi.get('options'), baseDate: dataApi.get('rules').baseDate, faq: dataApi.get('faq').faq.map(f => ({ id: f.id, q: f.q })), lawCount: dataApi.get('articles').length, interpCount: dataApi.get('interpretations').items.length, interpCategories: [...new Set(dataApi.get('interpretations').items.map(i => i.category))] });
         if (url === '/api/guide') { const g = engine.buildGuide(body); store.incr('guide'); return respond(200, g); }
         if (url === '/api/chat') return respond(200, chat.answerQuestion(body));
         if (url === '/api/feedback') {

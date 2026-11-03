@@ -22,12 +22,12 @@
   </main>
   <script>
     const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-    const NAMES = { guide: '계약가이드 조회', chat_button: '질문 버튼(저장 답변)', chat_faq: 'FAQ 키워드 답변', chat_cache: '캐시 답변', chat_article: '조문 검색 답변', chat_none: '근거 없음(답변 못함)', feedback_up: '도움이 됨', feedback_down: '도움이 안 됨', feedback_comment: '의견 접수' };
+    const NAMES = { guide: '계약가이드 조회', chat_button: '질문 버튼(저장 답변)', chat_faq: 'FAQ 키워드 답변', chat_cache: '캐시 답변', chat_article: '조문 검색 답변', chat_interp: '유권해석 답변',  chat_none: '근거 없음(답변 못함)', feedback_up: '도움이 됨', feedback_down: '도움이 안 됨', feedback_comment: '의견 접수' };
     const key = new URLSearchParams(location.search).get('key') || '';
     fetch('/api/admin?key=' + encodeURIComponent(key)).then(r => r.json()).then(d => {
       if (d.error) { document.getElementById('stats').textContent = d.error; return; }
       const s = d.stats;
-      const chat = (s.chat_button || 0) + (s.chat_faq || 0) + (s.chat_cache || 0) + (s.chat_article || 0) + (s.chat_none || 0);
+      const chat = (s.chat_button || 0) + (s.chat_faq || 0) + (s.chat_cache || 0) + (s.chat_article || 0) + (s.chat_interp || 0) + (s.chat_none || 0);
       document.getElementById('stats').innerHTML = `<p>전체 질문 ${chat}건 (AI 호출 0건 - 아직 연계 전)</p><table><tr><th>항목</th><th>횟수</th></tr>${Object.entries(s).map(([k, v]) => `<tr><td>${esc(NAMES[k] || k)}</td><td>${v}</td></tr>`).join('')}</table>`;
       document.getElementById('questions').innerHTML = d.questions.length ? `<table><tr><th>시각</th><th>질문</th><th>처리</th><th>기관</th></tr>${d.questions.map(q => `<tr class="${q.type === 'none' ? 'none' : ''}"><td>${esc(q.at.replace('T', ' ').slice(0, 19))}</td><td>${esc(q.q)}</td><td>${esc(NAMES['chat_' + q.type] || q.type)}</td><td>${esc(q.org || '-')}</td></tr>`).join('')}</table>` : '<p class="muted">아직 질문이 없습니다.</p>';
       document.getElementById('feedback').innerHTML = d.feedback.length ? `<table><tr><th>시각</th><th>종류</th><th>평가</th><th>내용/질문</th></tr>${d.feedback.map(f => `<tr><td>${esc(f.at.replace('T', ' ').slice(0, 19))}</td><td>${f.kind === 'answer' ? '답변 평가' : '의견'}</td><td>${f.rating === 'up' ? '도움됨' : f.rating === 'down' ? '도움 안 됨' : '-'}</td><td>${esc(f.comment || f.question || '')}</td></tr>`).join('')}</table>` : '<p class="muted">아직 피드백이 없습니다.</p>';

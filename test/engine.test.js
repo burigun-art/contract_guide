@@ -93,6 +93,15 @@ test('챗봇: 관련 없는 질문은 근거 없음으로 답하고 단정하지
   assert.ok(r.ai.payload.q);
 });
 
+test('챗봇: 유권해석 검색·목록·상세, 국가기관 질문에는 붙이지 않는다', () => {
+  const r = answerQuestion({ question: '공동수급체 구성원이 탈퇴하면 계약보증금은 어떻게 되나요', context: { org: 'loc' } });
+  assert.ok(r.interps?.length >= 1 && r.interps[0].q.length && r.interps[0].a.length && r.interps[0].page >= 313);
+  const nat = answerQuestion({ question: '공동수급체 구성원이 탈퇴하면 계약보증금은 어떻게 되나요', context: { org: 'nat' } });
+  assert.ok(!nat.interps);
+  assert.ok(answerQuestion({ question: '목록', category: '수의계약' }).list.length >= 5);
+  assert.strictEqual(answerQuestion({ question: '상세', interpId: 'i5' }).interps[0].id, 'i5');
+});
+
 test('지방 수의계약 결과에 실무 매뉴얼 팁이 붙고 국가는 붙지 않는다', () => {
   const loc = g({});
   const all = loc.paths[0].steps.flatMap(s => s.tips);
